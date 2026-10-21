@@ -1,0 +1,63 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Model binaries, checkpoints & weights (ignore large files)
+models/*.gguf
+models/.cache/
+models/intent_classifier/*
+!models/intent_classifier/.gitkeep
+models/code_repair/*
+!models/code_repair/.gitkeep
+models/embedder/*
+!models/embedder/.gitkeep
+outputs_intent/
+*.pt
+*.pth
+*.safetensors
+*.bin
+*.dylib
+*.zip
+deployment/kaggle/*.zip
+
+# IDE & OS files
+.DS_Store
+**/.DS_Store
+.vscode/
+.idea/
+.env
+.env.*
+!.env.example
+deployment/*/.env
+deployment/*/.env.*
+!deployment/*/.env.example
+

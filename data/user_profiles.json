@@ -1,0 +1,1765 @@
+{
+  "ad846852-4b17-4449-9af4-c2b006d1e492": {
+    "name": null,
+    "preferred_language": null,
+    "tone": "casual",
+    "past_interactions": [
+      {
+        "query": "Scaffold full-stack project architecture",
+        "response": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE Fullstack \u2014 the default generalist architect. You design end-to-...\n// Query: Scaffold full-stack project architecture...\n",
+        "guild": "fullstack",
+        "sentiment": "confused",
+        "timestamp": "2026-08-14T22:47:07.066155"
+      }
+    ],
+    "favorite_topics": {
+      "fullstack": 1
+    },
+    "common_errors": [],
+    "sentiment_history": [
+      "confused"
+    ],
+    "created_at": "2026-08-14T22:47:07.065997",
+    "last_active": "2026-08-14T22:47:07.066151",
+    "total_queries": 1
+  },
+  "c12c5ec3-a8e4-4e11-9836-da866f6adc15": {
+    "name": null,
+    "preferred_language": null,
+    "tone": "casual",
+    "past_interactions": [
+      {
+        "query": "Design normalized PostgreSQL database schema",
+        "response": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE Database \u2014 a database architect and query optimization expert. Y...\n// Query: Design normalized PostgreSQL database schema...\n",
+        "guild": "database",
+        "sentiment": "negative",
+        "timestamp": "2026-08-14T22:47:18.217511"
+      }
+    ],
+    "favorite_topics": {
+      "database": 1
+    },
+    "common_errors": [],
+    "sentiment_history": [
+      "negative"
+    ],
+    "created_at": "2026-08-14T22:47:18.217460",
+    "last_active": "2026-08-14T22:47:18.217510",
+    "total_queries": 1
+  },
+  "cb3889ae-1222-4e7e-86ac-b6a5d70df029": {
+    "name": null,
+    "preferred_language": null,
+    "tone": "casual",
+    "past_interactions": [
+      {
+        "query": "Create 3D particle sphere using Three.js shader",
+        "response": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE WebGL \u2014 a 3D graphics and shader programming specialist. You wri...\n// Query: Create 3D particle sphere using Three.js shader...\n",
+        "guild": "webgl",
+        "sentiment": "positive",
+        "timestamp": "2026-08-14T22:47:34.223126"
+      }
+    ],
+    "favorite_topics": {
+      "webgl": 1
+    },
+    "common_errors": [],
+    "sentiment_history": [
+      "positive"
+    ],
+    "created_at": "2026-08-14T22:47:34.223010",
+    "last_active": "2026-08-14T22:47:34.223123",
+    "total_queries": 1
+  },
+  "880f4f9a-0bc9-438d-a79e-a22424a1a348": {
+    "name": null,
+    "preferred_language": null,
+    "tone": "casual",
+    "past_interactions": [
+      {
+        "query": "Create a 3D animated particle galaxy in Three.js",
+        "response": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE WebGL \u2014 a 3D graphics and shader programming specialist. You wri...\n// Query: Create a 3D animated particle galaxy in Three.js...\n",
+        "guild": "webgl",
+        "sentiment": "positive",
+        "timestamp": "2026-08-14T22:47:37.034827"
+      }
+    ],
+    "favorite_topics": {
+      "webgl": 1
+    },
+    "common_errors": [],
+    "sentiment_history": [
+      "positive"
+    ],
+    "created_at": "2026-08-14T22:47:37.034716",
+    "last_active": "2026-08-14T22:47:37.034824",
+    "total_queries": 1
+  },
+  "test_demo_session": {
+    "name": null,
+    "preferred_language": null,
+    "tone": "casual",
+    "past_interactions": [
+      {
+        "query": "I am having a frustrating issue with my database connection leaking pool slots",
+        "response": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE Database \u2014 a database architect and query optimization expert. Y...\n// Query: I am having a frustrating issue with my database connection leaking pool slots...\n",
+        "guild": "database",
+        "sentiment": "negative",
+        "timestamp": "2026-08-14T22:49:24.040142"
+      }
+    ],
+    "favorite_topics": {
+      "database": 1
+    },
+    "common_errors": [],
+    "sentiment_history": [
+      "negative"
+    ],
+    "created_at": "2026-08-14T22:49:24.040027",
+    "last_active": "2026-08-14T22:49:24.040133",
+    "total_queries": 1
+  },
+  "4c3815ae-35e6-40a0-b470-c7a6a0c48321": {
+    "name": null,
+    "preferred_language": null,
+    "tone": "casual",
+    "past_interactions": [
+      {
+        "query": "Create a 3D animated particle galaxy in Three.js",
+        "response": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE WebGL \u2014 a 3D graphics and shader programming specialist. You wri...\n// Query: Create a 3D animated particle galaxy in Three.js...\n",
+        "guild": "webgl",
+        "sentiment": "positive",
+        "timestamp": "2026-08-14T22:49:47.004348"
+      }
+    ],
+    "favorite_topics": {
+      "webgl": 1
+    },
+    "common_errors": [],
+    "sentiment_history": [
+      "positive"
+    ],
+    "created_at": "2026-08-14T22:49:47.004277",
+    "last_active": "2026-08-14T22:49:47.004346",
+    "total_queries": 1
+  },
+  "085ee8c7-8aba-49b9-b1e0-c06e14c625a0": {
+    "name": null,
+    "preferred_language": null,
+    "tone": "casual",
+    "past_interactions": [
+      {
+        "query": "Optimize SQL query with index for user search",
+        "response": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE Database \u2014 a database architect and query optimization expert. Y...\n// Query: Optimize SQL query with index for user search...\n",
+        "guild": "database",
+        "sentiment": "positive",
+        "timestamp": "2026-08-14T22:54:19.101915"
+      }
+    ],
+    "favorite_topics": {
+      "database": 1
+    },
+    "common_errors": [],
+    "sentiment_history": [
+      "positive"
+    ],
+    "created_at": "2026-08-14T22:54:19.101861",
+    "last_active": "2026-08-14T22:54:19.101914",
+    "total_queries": 1
+  },
+  "string": {
+    "name": null,
+    "preferred_language": null,
+    "tone": "casual",
+    "past_interactions": [
+      {
+        "query": "string",
+        "response": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE Fullstack \u2014 the default generalist architect. You design end-to-...\n// Query: string...\n",
+        "guild": "fullstack",
+        "sentiment": "positive",
+        "timestamp": "2026-08-14T22:54:52.005574"
+      }
+    ],
+    "favorite_topics": {
+      "fullstack": 1
+    },
+    "common_errors": [],
+    "sentiment_history": [
+      "positive"
+    ],
+    "created_at": "2026-08-14T22:54:52.005528",
+    "last_active": "2026-08-14T22:54:52.005573",
+    "total_queries": 1
+  },
+  "94e0627f-58c0-487a-83d1-9f7eacb029b7": {
+    "session_id": "94e0627f-58c0-487a-83d1-9f7eacb029b7",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "How do I fix a null pointer exception in JavaScript?"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE Debugger \u2014 an elite debugging specialist with deep expertise in ...\n// Query: How do I fix a null pointer exception in JavaScript?...\n"
+      }
+    ]
+  },
+  "test-session-001": {
+    "session_id": "test-session-001",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1,
+      "performance": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral",
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer in login handler"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE Debugger \u2014 an elite debugging specialist with deep expertise in ...\n// Query: Fix null pointer in login handler...\n"
+      },
+      {
+        "role": "user",
+        "content": "Add frame rate cap to prevent GPU overheating"
+      },
+      {
+        "role": "assistant",
+        "content": "-- CONCODE Database Specialist -- Optimized DDL Schema\nCREATE TABLE IF NOT EXISTS cognitive_sessions (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    user_id VARCHAR(64) NOT NULL,\n    guild_name VARCHAR(32) NOT NULL,\n    prompt_text TEXT NOT NULL,\n    latency_ms NUMERIC(8, 2) NOT NULL,\n    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE INDEX IF NOT EXISTS idx_sessions_user_guild ON cognitive_sessions(user_id, guild_name);\n"
+      }
+    ]
+  },
+  "58502cd8-3912-4b37-85cb-1bb63c7844c8": {
+    "session_id": "58502cd8-3912-4b37-85cb-1bb63c7844c8",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "webgl": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Create a 3D animated particle galaxy in Three.js"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE Neural Brain \u2014 Model Not Loaded\n// The 7B parameter GGUF model is not available.\n// To enable neural code generation:\n//   1. Train the model using train_colab.ipynb on Google Colab\n//   2. Convert to GGUF using src/convert_to_gguf.sh\n//   3. Place the .gguf file in models/\n//\n// Guild: You are CONCODE WebGL \u2014 a 3D graphics and shader programming specialist. You wri...\n// Query: Create a 3D animated particle galaxy in Three.js...\n"
+      }
+    ]
+  },
+  "a02b4936-e407-4dae-b182-7eb6d56f335d": {
+    "session_id": "a02b4936-e407-4dae-b182-7eb6d56f335d",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "webgl": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Create a 3D animated particle galaxy in Three.js..."
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE WebGL Specialist -- 3D Animated Particle Galaxy Implementation\nimport * as THREE from 'three';\n\nexport function createParticleGalaxy(containerId = 'canvas-container') {\n    const scene = new THREE.Scene();\n    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);\n    camera.position.set(0, 3, 5);\n\n    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });\n    renderer.setSize(window.innerWidth, window.innerHeight);\n    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));\n\n    const container = document.getElementById(containerId) || document.body;\n    container.appendChild(renderer.domElement);\n\n    // Galaxy parameters\n    const parameters = {\n        count: 40000,\n        size: 0.015,\n        radius: 5,\n        branches: 4,\n        spin: 1,\n        randomness: 0.5,\n        power: 3,\n        insideColor: '#ff6030',\n        outsideColor: '#1b3984'\n    };\n\n    const geometry = new THREE.BufferGeometry();\n    const positions = new Float32Array(parameters.count * 3);\n    const colors = new Float32Array(parameters.count * 3);\n\n    const colorInside = new THREE.Color(parameters.insideColor);\n    const colorOutside = new THREE.Color(parameters.outsideColor);\n\n    for (let i = 0; i < parameters.count; i++) {\n        const i3 = i * 3;\n        const radius = Math.random() * parameters.radius;\n        const spinAngle = radius * parameters.spin;\n        const branchAngle = ((i % parameters.branches) / parameters.branches) * Math.PI * 2;\n\n        const randomX = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n        const randomY = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n        const randomZ = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n\n        positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;\n        positions[i3 + 1] = randomY;\n        positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;\n\n        const mixedColor = colorInside.clone();\n        mixedColor.lerp(colorOutside, radius / parameters.radius);\n\n        colors[i3] = mixedColor.r;\n        colors[i3 + 1] = mixedColor.g;\n        colors[i3 + 2] = mixedColor.b;\n    }\n\n    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\n    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));\n\n    const material = new THREE.PointsMaterial({\n        size: parameters.size,\n        sizeAttenuation: true,\n        depthWrite: false,\n        blending: THREE.AdditiveBlending,\n        vertexColors: true\n    });\n\n    const points = new THREE.Points(geometry, material);\n    scene.add(points);\n\n    const clock = new THREE.Clock();\n    function animate() {\n        const elapsedTime = clock.getElapsedTime();\n        points.rotation.y = elapsedTime * 0.15;\n        renderer.render(scene, camera);\n        requestAnimationFrame(animate);\n    }\n    animate();\n\n    window.addEventListener('resize', () => {\n        camera.aspect = window.innerWidth / window.innerHeight;\n        camera.updateProjectionMatrix();\n        renderer.setSize(window.innerWidth, window.innerHeight);\n    });\n\n    return { scene, camera, renderer, points };\n}\n"
+      }
+    ]
+  },
+  "889aee33-8feb-40db-8a05-81cee0ed3e30": {
+    "session_id": "889aee33-8feb-40db-8a05-81cee0ed3e30",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "webgl": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Create a 3D animated particle galaxy in Three.js"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE WebGL Specialist -- 3D Animated Particle Galaxy Implementation\nimport * as THREE from 'three';\n\nexport function createParticleGalaxy(containerId = 'canvas-container') {\n    const scene = new THREE.Scene();\n    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);\n    camera.position.set(0, 3, 5);\n\n    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });\n    renderer.setSize(window.innerWidth, window.innerHeight);\n    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));\n\n    const container = document.getElementById(containerId) || document.body;\n    container.appendChild(renderer.domElement);\n\n    // Galaxy parameters\n    const parameters = {\n        count: 40000,\n        size: 0.015,\n        radius: 5,\n        branches: 4,\n        spin: 1,\n        randomness: 0.5,\n        power: 3,\n        insideColor: '#ff6030',\n        outsideColor: '#1b3984'\n    };\n\n    const geometry = new THREE.BufferGeometry();\n    const positions = new Float32Array(parameters.count * 3);\n    const colors = new Float32Array(parameters.count * 3);\n\n    const colorInside = new THREE.Color(parameters.insideColor);\n    const colorOutside = new THREE.Color(parameters.outsideColor);\n\n    for (let i = 0; i < parameters.count; i++) {\n        const i3 = i * 3;\n        const radius = Math.random() * parameters.radius;\n        const spinAngle = radius * parameters.spin;\n        const branchAngle = ((i % parameters.branches) / parameters.branches) * Math.PI * 2;\n\n        const randomX = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n        const randomY = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n        const randomZ = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n\n        positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;\n        positions[i3 + 1] = randomY;\n        positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;\n\n        const mixedColor = colorInside.clone();\n        mixedColor.lerp(colorOutside, radius / parameters.radius);\n\n        colors[i3] = mixedColor.r;\n        colors[i3 + 1] = mixedColor.g;\n        colors[i3 + 2] = mixedColor.b;\n    }\n\n    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\n    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));\n\n    const material = new THREE.PointsMaterial({\n        size: parameters.size,\n        sizeAttenuation: true,\n        depthWrite: false,\n        blending: THREE.AdditiveBlending,\n        vertexColors: true\n    });\n\n    const points = new THREE.Points(geometry, material);\n    scene.add(points);\n\n    const clock = new THREE.Clock();\n    function animate() {\n        const elapsedTime = clock.getElapsedTime();\n        points.rotation.y = elapsedTime * 0.15;\n        renderer.render(scene, camera);\n        requestAnimationFrame(animate);\n    }\n    animate();\n\n    window.addEventListener('resize', () => {\n        camera.aspect = window.innerWidth / window.innerHeight;\n        camera.updateProjectionMatrix();\n        renderer.setSize(window.innerWidth, window.innerHeight);\n    });\n\n    return { scene, camera, renderer, points };\n}\n"
+      }
+    ]
+  },
+  "cc57f638-5e67-447e-b4d4-af307fe1beaf": {
+    "session_id": "cc57f638-5e67-447e-b4d4-af307fe1beaf",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ai_ml": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a PyTorch transformer classifier model"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "61948fb2-99f6-4db0-84b0-57ef795e162f": {
+    "session_id": "61948fb2-99f6-4db0-84b0-57ef795e162f",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ai_ml": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a PyTorch transformer classifier model"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "9df9c80a-3d55-4996-b53e-ed550672a022": {
+    "session_id": "9df9c80a-3d55-4996-b53e-ed550672a022",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ai_ml": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a PyTorch transformer classifier model"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "7dcbd542-f642-451d-8833-95e539c81199": {
+    "session_id": "7dcbd542-f642-451d-8833-95e539c81199",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ai_ml": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a PyTorch transformer classifier model"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "9d528995-bf73-4abc-9e7e-8c5371f453db": {
+    "session_id": "9d528995-bf73-4abc-9e7e-8c5371f453db",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ai_ml": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a PyTorch transformer classifier model"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "24aa71f5-4905-4584-8c3c-fa595342bcef": {
+    "session_id": "24aa71f5-4905-4584-8c3c-fa595342bcef",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ai_ml": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a PyTorch transformer classifier model"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "85a9404c-c7c8-46e6-b3ea-7fdcf3622f92": {
+    "session_id": "85a9404c-c7c8-46e6-b3ea-7fdcf3622f92",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ai_ml": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a PyTorch transformer classifier model"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "9b2ddf28-7f6f-47cd-97b2-a4a5f7621f57": {
+    "session_id": "9b2ddf28-7f6f-47cd-97b2-a4a5f7621f57",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix the null reference error in user profile service"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "ca6c3b95-8d65-44b0-8ce0-135cb56a4b73": {
+    "session_id": "ca6c3b95-8d65-44b0-8ce0-135cb56a4b73",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "fullstack": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Scaffold full-stack project architecture"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "3b50d208-61bd-4762-a47a-84e1e9a8c9a3": {
+    "session_id": "3b50d208-61bd-4762-a47a-84e1e9a8c9a3",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ui_ux": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a responsive dashboard layout"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "8480e6e2-e635-4258-980a-aa19236d6eff": {
+    "session_id": "8480e6e2-e635-4258-980a-aa19236d6eff",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ui_ux": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a responsive dashboard layout"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "0a8fceab-775f-4931-b481-1ab192a8f1b0": {
+    "session_id": "0a8fceab-775f-4931-b481-1ab192a8f1b0",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ui_ux": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a responsive dashboard layout"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "1114799a-c709-4c06-983d-76ef96794bf7": {
+    "session_id": "1114799a-c709-4c06-983d-76ef96794bf7",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ui_ux": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a responsive dashboard layout"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "3bb857b0-4312-4ad4-ae72-7c6f1ac8a1e5": {
+    "session_id": "3bb857b0-4312-4ad4-ae72-7c6f1ac8a1e5",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ui_ux": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build a responsive dashboard layout"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "61c0e74a-ec55-4d3c-888c-51df0c490e47": {
+    "session_id": "61c0e74a-ec55-4d3c-888c-51df0c490e47",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "performance": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Write a python function to calculate Fibonacci series"
+      },
+      {
+        "role": "assistant",
+        "content": "-- CONCODE Database Specialist -- Optimized DDL Schema\nCREATE TABLE IF NOT EXISTS cognitive_sessions (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    user_id VARCHAR(64) NOT NULL,\n    guild_name VARCHAR(32) NOT NULL,\n    prompt_text TEXT NOT NULL,\n    latency_ms NUMERIC(8, 2) NOT NULL,\n    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE INDEX IF NOT EXISTS idx_sessions_user_guild ON cognitive_sessions(user_id, guild_name);\n"
+      }
+    ]
+  },
+  "9a9c40c1-0e5a-4af6-8f51-f8158502ed2f": {
+    "session_id": "9a9c40c1-0e5a-4af6-8f51-f8158502ed2f",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "database": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Please analyze performance bottlenecks in our database query"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "77e47ae4-cc8d-45fe-8ac6-02c83686b6ab": {
+    "session_id": "77e47ae4-cc8d-45fe-8ac6-02c83686b6ab",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "performance": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "How do I optimize SQL queries for large datasets?"
+      },
+      {
+        "role": "assistant",
+        "content": "-- CONCODE Database Specialist -- Optimized DDL Schema\nCREATE TABLE IF NOT EXISTS cognitive_sessions (\n    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n    user_id VARCHAR(64) NOT NULL,\n    guild_name VARCHAR(32) NOT NULL,\n    prompt_text TEXT NOT NULL,\n    latency_ms NUMERIC(8, 2) NOT NULL,\n    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE INDEX IF NOT EXISTS idx_sessions_user_guild ON cognitive_sessions(user_id, guild_name);\n"
+      }
+    ]
+  },
+  "9ad90526-0c01-4281-a663-b57918a31792": {
+    "session_id": "9ad90526-0c01-4281-a663-b57918a31792",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "cf0a87f6-4874-4e02-81be-d6dc7f670e94": {
+    "session_id": "cf0a87f6-4874-4e02-81be-d6dc7f670e94",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "720b7a83-a47b-4682-8a6b-a24109bd4b5c": {
+    "session_id": "720b7a83-a47b-4682-8a6b-a24109bd4b5c",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "2cb914fc-e818-4cfb-9069-24e940b3c873": {
+    "session_id": "2cb914fc-e818-4cfb-9069-24e940b3c873",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception and stack trace in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "d72cf779-b95e-4fb9-90b3-078af4f01a24": {
+    "session_id": "d72cf779-b95e-4fb9-90b3-078af4f01a24",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "webgl": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Render 3D particle sphere using Three.js GLSL shader"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE WebGL Specialist -- 3D Animated Particle Galaxy Implementation\nimport * as THREE from 'three';\n\nexport function createParticleGalaxy(containerId = 'canvas-container') {\n    const scene = new THREE.Scene();\n    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);\n    camera.position.set(0, 3, 5);\n\n    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });\n    renderer.setSize(window.innerWidth, window.innerHeight);\n    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));\n\n    const container = document.getElementById(containerId) || document.body;\n    container.appendChild(renderer.domElement);\n\n    // Galaxy parameters\n    const parameters = {\n        count: 40000,\n        size: 0.015,\n        radius: 5,\n        branches: 4,\n        spin: 1,\n        randomness: 0.5,\n        power: 3,\n        insideColor: '#ff6030',\n        outsideColor: '#1b3984'\n    };\n\n    const geometry = new THREE.BufferGeometry();\n    const positions = new Float32Array(parameters.count * 3);\n    const colors = new Float32Array(parameters.count * 3);\n\n    const colorInside = new THREE.Color(parameters.insideColor);\n    const colorOutside = new THREE.Color(parameters.outsideColor);\n\n    for (let i = 0; i < parameters.count; i++) {\n        const i3 = i * 3;\n        const radius = Math.random() * parameters.radius;\n        const spinAngle = radius * parameters.spin;\n        const branchAngle = ((i % parameters.branches) / parameters.branches) * Math.PI * 2;\n\n        const randomX = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n        const randomY = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n        const randomZ = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n\n        positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;\n        positions[i3 + 1] = randomY;\n        positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;\n\n        const mixedColor = colorInside.clone();\n        mixedColor.lerp(colorOutside, radius / parameters.radius);\n\n        colors[i3] = mixedColor.r;\n        colors[i3 + 1] = mixedColor.g;\n        colors[i3 + 2] = mixedColor.b;\n    }\n\n    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\n    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));\n\n    const material = new THREE.PointsMaterial({\n        size: parameters.size,\n        sizeAttenuation: true,\n        depthWrite: false,\n        blending: THREE.AdditiveBlending,\n        vertexColors: true\n    });\n\n    const points = new THREE.Points(geometry, material);\n    scene.add(points);\n\n    const clock = new THREE.Clock();\n    function animate() {\n        const elapsedTime = clock.getElapsedTime();\n        points.rotation.y = elapsedTime * 0.15;\n        renderer.render(scene, camera);\n        requestAnimationFrame(animate);\n    }\n    animate();\n\n    window.addEventListener('resize', () => {\n        camera.aspect = window.innerWidth / window.innerHeight;\n        camera.updateProjectionMatrix();\n        renderer.setSize(window.innerWidth, window.innerHeight);\n    });\n\n    return { scene, camera, renderer, points };\n}\n"
+      }
+    ]
+  },
+  "7938e113-50cd-453c-a576-2fd9b78fa402": {
+    "session_id": "7938e113-50cd-453c-a576-2fd9b78fa402",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ai_ml": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Train PyTorch Transformer model with RAG and QLoRA quantization"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "786619f2-6a7b-404a-a01d-52ba1a2cde0e": {
+    "session_id": "786619f2-6a7b-404a-a01d-52ba1a2cde0e",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "qa": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Write unit tests and assertion checks using Jest and pytest"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE QA Specialist -- Jest Integration Test Suite\nimport { createParticleGalaxy } from './galaxy';\n\ndescribe('WebGL Galaxy Component Suite', () => {\n    beforeEach(() => {\n        document.body.innerHTML = '<div id=\"canvas-container\"></div>';\n    });\n\n    test('initializes WebGL canvas element cleanly', () => {\n        const instance = createParticleGalaxy('canvas-container');\n        expect(instance).toBeDefined();\n        expect(instance.scene).toBeDefined();\n        expect(instance.points.geometry.attributes.position.count).toBeGreaterThan(0);\n    });\n});\n"
+      }
+    ]
+  },
+  "7a221095-64ec-41a5-aff3-7ebd7b0b299d": {
+    "session_id": "7a221095-64ec-41a5-aff3-7ebd7b0b299d",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "security": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Implement JWT authentication and OAuth2 token authorization"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "37e02789-6652-401a-b850-c44e4e88375d": {
+    "session_id": "37e02789-6652-401a-b850-c44e4e88375d",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "database": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Design normalized PostgreSQL SQL DDL table schema and indexes"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "45060794-55ba-4db7-978f-c1e541c113e3": {
+    "session_id": "45060794-55ba-4db7-978f-c1e541c113e3",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ui_ux": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "positive"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Create responsive CSS flexbox layout with dark mode toggle"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "e7249865-02b2-4901-ac62-4577ae1a0e34": {
+    "session_id": "e7249865-02b2-4901-ac62-4577ae1a0e34",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "devops": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Configure Docker container and GitHub Actions CI CD pipeline"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "e0e6b0cd-85c4-4cc1-be78-9b76bea58114": {
+    "session_id": "e0e6b0cd-85c4-4cc1-be78-9b76bea58114",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "api": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build RESTful API endpoints with FastAPI and OpenAPI spec"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "f6480848-64db-4125-ba4c-1ce5864c7485": {
+    "session_id": "f6480848-64db-4125-ba4c-1ce5864c7485",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "fullstack": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Architect monorepo fullstack application integration"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "1d06c650-9026-41ad-ae21-8029b78d5603": {
+    "session_id": "1d06c650-9026-41ad-ae21-8029b78d5603",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "fullstack": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build cross platform iOS Swift and Android Flutter application"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "c81edcf5-a4b8-4cc8-9227-6ebf51acd8e3": {
+    "session_id": "c81edcf5-a4b8-4cc8-9227-6ebf51acd8e3",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "database": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "positive"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Write Solidity smart contract and Web3 transaction handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "8513ad4c-93b2-4342-8052-b57f7be1921e": {
+    "session_id": "8513ad4c-93b2-4342-8052-b57f7be1921e",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception and stack trace in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "487e4306-7f5c-4f78-8513-d1ed2d1e9de9": {
+    "session_id": "487e4306-7f5c-4f78-8513-d1ed2d1e9de9",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "webgl": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Render 3D particle sphere using Three.js GLSL shader"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE WebGL Specialist -- 3D Animated Particle Galaxy Implementation\nimport * as THREE from 'three';\n\nexport function createParticleGalaxy(containerId = 'canvas-container') {\n    const scene = new THREE.Scene();\n    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);\n    camera.position.set(0, 3, 5);\n\n    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });\n    renderer.setSize(window.innerWidth, window.innerHeight);\n    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));\n\n    const container = document.getElementById(containerId) || document.body;\n    container.appendChild(renderer.domElement);\n\n    // Galaxy parameters\n    const parameters = {\n        count: 40000,\n        size: 0.015,\n        radius: 5,\n        branches: 4,\n        spin: 1,\n        randomness: 0.5,\n        power: 3,\n        insideColor: '#ff6030',\n        outsideColor: '#1b3984'\n    };\n\n    const geometry = new THREE.BufferGeometry();\n    const positions = new Float32Array(parameters.count * 3);\n    const colors = new Float32Array(parameters.count * 3);\n\n    const colorInside = new THREE.Color(parameters.insideColor);\n    const colorOutside = new THREE.Color(parameters.outsideColor);\n\n    for (let i = 0; i < parameters.count; i++) {\n        const i3 = i * 3;\n        const radius = Math.random() * parameters.radius;\n        const spinAngle = radius * parameters.spin;\n        const branchAngle = ((i % parameters.branches) / parameters.branches) * Math.PI * 2;\n\n        const randomX = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n        const randomY = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n        const randomZ = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n\n        positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;\n        positions[i3 + 1] = randomY;\n        positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;\n\n        const mixedColor = colorInside.clone();\n        mixedColor.lerp(colorOutside, radius / parameters.radius);\n\n        colors[i3] = mixedColor.r;\n        colors[i3 + 1] = mixedColor.g;\n        colors[i3 + 2] = mixedColor.b;\n    }\n\n    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\n    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));\n\n    const material = new THREE.PointsMaterial({\n        size: parameters.size,\n        sizeAttenuation: true,\n        depthWrite: false,\n        blending: THREE.AdditiveBlending,\n        vertexColors: true\n    });\n\n    const points = new THREE.Points(geometry, material);\n    scene.add(points);\n\n    const clock = new THREE.Clock();\n    function animate() {\n        const elapsedTime = clock.getElapsedTime();\n        points.rotation.y = elapsedTime * 0.15;\n        renderer.render(scene, camera);\n        requestAnimationFrame(animate);\n    }\n    animate();\n\n    window.addEventListener('resize', () => {\n        camera.aspect = window.innerWidth / window.innerHeight;\n        camera.updateProjectionMatrix();\n        renderer.setSize(window.innerWidth, window.innerHeight);\n    });\n\n    return { scene, camera, renderer, points };\n}\n"
+      }
+    ]
+  },
+  "00d48810-4a01-4b3f-8add-6dc321eb5126": {
+    "session_id": "00d48810-4a01-4b3f-8add-6dc321eb5126",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ai_ml": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Train PyTorch Transformer model with RAG and QLoRA quantization"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "462defd8-9385-4354-9ca2-2f7417c11e63": {
+    "session_id": "462defd8-9385-4354-9ca2-2f7417c11e63",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "qa": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Write unit tests and assertion checks using Jest and pytest"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE QA Specialist -- Jest Integration Test Suite\nimport { createParticleGalaxy } from './galaxy';\n\ndescribe('WebGL Galaxy Component Suite', () => {\n    beforeEach(() => {\n        document.body.innerHTML = '<div id=\"canvas-container\"></div>';\n    });\n\n    test('initializes WebGL canvas element cleanly', () => {\n        const instance = createParticleGalaxy('canvas-container');\n        expect(instance).toBeDefined();\n        expect(instance.scene).toBeDefined();\n        expect(instance.points.geometry.attributes.position.count).toBeGreaterThan(0);\n    });\n});\n"
+      }
+    ]
+  },
+  "9612b432-d960-4159-8c08-914a2adac259": {
+    "session_id": "9612b432-d960-4159-8c08-914a2adac259",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "security": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Implement JWT authentication and OAuth2 token authorization"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "32a4019d-40a1-41d1-9c96-c73445a2a85f": {
+    "session_id": "32a4019d-40a1-41d1-9c96-c73445a2a85f",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "database": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Design normalized PostgreSQL SQL DDL table schema and indexes"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "74590eb8-485e-4dc5-b1be-502658927c76": {
+    "session_id": "74590eb8-485e-4dc5-b1be-502658927c76",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ui_ux": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "positive"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Create responsive CSS flexbox layout with dark mode toggle"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "e8147b26-8242-4c1e-aa6f-554d7bce9e70": {
+    "session_id": "e8147b26-8242-4c1e-aa6f-554d7bce9e70",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "devops": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Configure Docker container and GitHub Actions CI CD pipeline"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "13d089fb-95e3-4d4f-b829-7ba78b8d7460": {
+    "session_id": "13d089fb-95e3-4d4f-b829-7ba78b8d7460",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "api": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build RESTful API endpoints with FastAPI and OpenAPI spec"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "6b488cf1-b219-47f5-9808-b2b287f070a8": {
+    "session_id": "6b488cf1-b219-47f5-9808-b2b287f070a8",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "fullstack": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Architect monorepo fullstack application integration"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "19b16d44-9037-443d-80cf-f99e09929380": {
+    "session_id": "19b16d44-9037-443d-80cf-f99e09929380",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "mobile": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build cross platform iOS Swift and Android Flutter application"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE Fullstack Generalist -- Production Module Implementation\nexport class CognitiveEngine {\n    constructor(config = {}) {\n        this.endpoint = config.endpoint || 'http://localhost:8000/api/v1/cognitive';\n        this.headers = { 'Content-Type': 'application/json', ...config.headers };\n    }\n\n    async query(prompt, userId = 'default_user') {\n        const response = await fetch(this.endpoint, {\n            method: 'POST',\n            headers: this.headers,\n            body: JSON.stringify({ prompt, user_id: userId })\n        });\n        if (!response.ok) {\n            throw new Error(`Engine request failed with status: ${response.status}`);\n        }\n        return await response.json();\n    }\n}\n"
+      }
+    ]
+  },
+  "70637d12-c4b9-49e3-bd46-14f5440bba81": {
+    "session_id": "70637d12-c4b9-49e3-bd46-14f5440bba81",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "database": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "positive"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Write Solidity smart contract and Web3 transaction handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "9fe22d95-7322-40db-b57e-c82937842004": {
+    "session_id": "9fe22d95-7322-40db-b57e-c82937842004",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception and stack trace in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "cd077df2-8ed2-4416-8951-7f3020a04446": {
+    "session_id": "cd077df2-8ed2-4416-8951-7f3020a04446",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "webgl": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Render 3D particle sphere using Three.js GLSL shader"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE WebGL Specialist -- 3D Animated Particle Galaxy Implementation\nimport * as THREE from 'three';\n\nexport function createParticleGalaxy(containerId = 'canvas-container') {\n    const scene = new THREE.Scene();\n    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);\n    camera.position.set(0, 3, 5);\n\n    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });\n    renderer.setSize(window.innerWidth, window.innerHeight);\n    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));\n\n    const container = document.getElementById(containerId) || document.body;\n    container.appendChild(renderer.domElement);\n\n    // Galaxy parameters\n    const parameters = {\n        count: 40000,\n        size: 0.015,\n        radius: 5,\n        branches: 4,\n        spin: 1,\n        randomness: 0.5,\n        power: 3,\n        insideColor: '#ff6030',\n        outsideColor: '#1b3984'\n    };\n\n    const geometry = new THREE.BufferGeometry();\n    const positions = new Float32Array(parameters.count * 3);\n    const colors = new Float32Array(parameters.count * 3);\n\n    const colorInside = new THREE.Color(parameters.insideColor);\n    const colorOutside = new THREE.Color(parameters.outsideColor);\n\n    for (let i = 0; i < parameters.count; i++) {\n        const i3 = i * 3;\n        const radius = Math.random() * parameters.radius;\n        const spinAngle = radius * parameters.spin;\n        const branchAngle = ((i % parameters.branches) / parameters.branches) * Math.PI * 2;\n\n        const randomX = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n        const randomY = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n        const randomZ = Math.pow(Math.random(), parameters.power) * (Math.random() < 0.5 ? 1 : -1) * parameters.randomness * radius;\n\n        positions[i3] = Math.cos(branchAngle + spinAngle) * radius + randomX;\n        positions[i3 + 1] = randomY;\n        positions[i3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;\n\n        const mixedColor = colorInside.clone();\n        mixedColor.lerp(colorOutside, radius / parameters.radius);\n\n        colors[i3] = mixedColor.r;\n        colors[i3 + 1] = mixedColor.g;\n        colors[i3 + 2] = mixedColor.b;\n    }\n\n    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));\n    geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));\n\n    const material = new THREE.PointsMaterial({\n        size: parameters.size,\n        sizeAttenuation: true,\n        depthWrite: false,\n        blending: THREE.AdditiveBlending,\n        vertexColors: true\n    });\n\n    const points = new THREE.Points(geometry, material);\n    scene.add(points);\n\n    const clock = new THREE.Clock();\n    function animate() {\n        const elapsedTime = clock.getElapsedTime();\n        points.rotation.y = elapsedTime * 0.15;\n        renderer.render(scene, camera);\n        requestAnimationFrame(animate);\n    }\n    animate();\n\n    window.addEventListener('resize', () => {\n        camera.aspect = window.innerWidth / window.innerHeight;\n        camera.updateProjectionMatrix();\n        renderer.setSize(window.innerWidth, window.innerHeight);\n    });\n\n    return { scene, camera, renderer, points };\n}\n"
+      }
+    ]
+  },
+  "a8b8820a-7ba5-4c22-bd11-d0a82b4ee4ee": {
+    "session_id": "a8b8820a-7ba5-4c22-bd11-d0a82b4ee4ee",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ai_ml": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Train PyTorch Transformer model with RAG and QLoRA quantization"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "fe2b3e20-e8c9-44bd-9420-91478a7b2b7e": {
+    "session_id": "fe2b3e20-e8c9-44bd-9420-91478a7b2b7e",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "qa": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Write unit tests and assertion checks using Jest and pytest"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE QA Specialist -- Jest Integration Test Suite\nimport { createParticleGalaxy } from './galaxy';\n\ndescribe('WebGL Galaxy Component Suite', () => {\n    beforeEach(() => {\n        document.body.innerHTML = '<div id=\"canvas-container\"></div>';\n    });\n\n    test('initializes WebGL canvas element cleanly', () => {\n        const instance = createParticleGalaxy('canvas-container');\n        expect(instance).toBeDefined();\n        expect(instance.scene).toBeDefined();\n        expect(instance.points.geometry.attributes.position.count).toBeGreaterThan(0);\n    });\n});\n"
+      }
+    ]
+  },
+  "fe5596d1-5c2e-45b7-9f1f-fa3ef3aa831a": {
+    "session_id": "fe5596d1-5c2e-45b7-9f1f-fa3ef3aa831a",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "security": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Implement JWT authentication and OAuth2 token authorization"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "9495638f-f2cb-465b-92bd-98cc54de9d02": {
+    "session_id": "9495638f-f2cb-465b-92bd-98cc54de9d02",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "database": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Design normalized PostgreSQL SQL DDL table schema and indexes"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "3eddc9f5-e7b8-4582-8132-0cfcbb58fafb": {
+    "session_id": "3eddc9f5-e7b8-4582-8132-0cfcbb58fafb",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "ui_ux": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "positive"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Create responsive CSS flexbox layout with dark mode toggle"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "7b454a4e-7ed1-423b-9c27-7aa10f915db7": {
+    "session_id": "7b454a4e-7ed1-423b-9c27-7aa10f915db7",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "devops": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Configure Docker container and GitHub Actions CI CD pipeline"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "8f189265-bd16-4d79-b911-e8cb87c00da5": {
+    "session_id": "8f189265-bd16-4d79-b911-e8cb87c00da5",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "api": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build RESTful API endpoints with FastAPI and OpenAPI spec"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "5be93f85-409d-49a1-9afd-1132c449f13b": {
+    "session_id": "5be93f85-409d-49a1-9afd-1132c449f13b",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "fullstack": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Architect monorepo fullstack application integration"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "b8ff7c5e-78f2-4492-bce6-ddc9a1b1f810": {
+    "session_id": "b8ff7c5e-78f2-4492-bce6-ddc9a1b1f810",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "mobile": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Build cross platform iOS Swift and Android Flutter application"
+      },
+      {
+        "role": "assistant",
+        "content": "// CONCODE Fullstack Generalist -- Production Module Implementation\nexport class CognitiveEngine {\n    constructor(config = {}) {\n        this.endpoint = config.endpoint || 'http://localhost:8000/api/v1/cognitive';\n        this.headers = { 'Content-Type': 'application/json', ...config.headers };\n    }\n\n    async query(prompt, userId = 'default_user') {\n        const response = await fetch(this.endpoint, {\n            method: 'POST',\n            headers: this.headers,\n            body: JSON.stringify({ prompt, user_id: userId })\n        });\n        if (!response.ok) {\n            throw new Error(`Engine request failed with status: ${response.status}`);\n        }\n        return await response.json();\n    }\n}\n"
+      }
+    ]
+  },
+  "d0ca5911-71c3-46fe-878b-599ec28e5c8f": {
+    "session_id": "d0ca5911-71c3-46fe-878b-599ec28e5c8f",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "blockchain": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "positive"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Write Solidity smart contract and Web3 transaction handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "f7833536-f67b-41d2-a094-bb361e5e46db": {
+    "session_id": "f7833536-f67b-41d2-a094-bb361e5e46db",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "4c32d6e3-0d36-4ea1-b1f6-5e36ca2f6810": {
+    "session_id": "4c32d6e3-0d36-4ea1-b1f6-5e36ca2f6810",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "95162985-0ee8-41d4-99f9-c99d19b15b13": {
+    "session_id": "95162985-0ee8-41d4-99f9-c99d19b15b13",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "ebdff4b2-72b7-4a09-bc40-348d0ca79652": {
+    "session_id": "ebdff4b2-72b7-4a09-bc40-348d0ca79652",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "392dbf5c-4870-47b6-b402-1f84814512d0": {
+    "session_id": "392dbf5c-4870-47b6-b402-1f84814512d0",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 0,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "# CONCODE AI/ML Specialist -- PyTorch Neural Architecture\nimport torch\nimport torch.nn as nn\nimport torch.nn.functional as F\n\nclass CognitiveLayer(nn.Module):\n    def __init__(self, d_model: int = 512, n_heads: int = 8, d_ff: int = 2048, dropout: float = 0.1):\n        super().__init__()\n        self.attn = nn.MultiheadAttention(d_model, n_heads, dropout=dropout, batch_first=True)\n        self.norm1 = nn.LayerNorm(d_model)\n        self.norm2 = nn.LayerNorm(d_model)\n        self.ffn = nn.Sequential(\n            nn.Linear(d_model, d_ff),\n            nn.GELU(),\n            nn.Dropout(dropout),\n            nn.Linear(d_ff, d_model),\n        )\n        self.dropout = nn.Dropout(dropout)\n\n    def forward(self, x: torch.Tensor, mask: torch.Tensor = None) -> torch.Tensor:\n        attn_out, _ = self.attn(x, x, x, attn_mask=mask)\n        x = self.norm1(x + self.dropout(attn_out))\n        ffn_out = self.ffn(x)\n        x = self.norm2(x + self.dropout(ffn_out))\n        return x\n"
+      }
+    ]
+  },
+  "f167fccf-b0a5-4378-b4e2-231972276fd5": {
+    "session_id": "f167fccf-b0a5-4378-b4e2-231972276fd5",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 1,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "*/"
+      }
+    ]
+  },
+  "0bc1d51f-f519-458b-9576-3999883af7e6": {
+    "session_id": "0bc1d51f-f519-458b-9576-3999883af7e6",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 1,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer exception in user session handler"
+      },
+      {
+        "role": "assistant",
+        "content": "createUserSession() {\n  the current user session\n if (!userSession.isLoggedIn) {\n if (!userSession.isLoggedIn) {if (!userSession.isLoggedIn) {\n   if (!userSession.isLoggedIn) {\n   if (!userSession.isLoggedIn) {if (!userSession.isLoggedIn) {\n   if (!userSession.is"
+      }
+    ]
+  },
+  "test-3d-1": {
+    "session_id": "test-3d-1",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 1
+    },
+    "repair_count": 1,
+    "sentiment_history": [
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Fix null pointer error in auth module"
+      },
+      {
+        "role": "assistant",
+        "content": "the code:\n// auth.js\n\nconst user ={\n  // user == null; // Remove this// Remove this line\n};\n\nmodule.exports{\n  // user= null;\n\nmodule.exports ={\n  // user= null;\n\nmodule.exports ={\n  // user= null;\n\nmodule.exports ={\n  // user= null;"
+      }
+    ]
+  },
+  "28fbe0dc-3465-43e9-bc38-b06c116d4ce9": {
+    "session_id": "28fbe0dc-3465-43e9-bc38-b06c116d4ce9",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "webgl": 1
+    },
+    "repair_count": 1,
+    "sentiment_history": [
+      "neutral"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Create a smooth 3D spinning cube using Three.js"
+      },
+      {
+        "role": "assistant",
+        "content": "** as THREE from 'three';* as THREE from 'three';* as THREE from 'three';* as THREE from 'three';* as THREE from 'three';* as THREE from 'three';* as THREE from 'three';* as THREE from 'three';* as THREE from 'three';* as THREE from 'three';** as THREE"
+      }
+    ],
+    "last_active": 1787391496.9586911
+  },
+  "voice_session_vk81oxgmt47rqrc": {
+    "session_id": "voice_session_vk81oxgmt47rqrc",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "debugger": 5,
+      "database": 1
+    },
+    "repair_count": 6,
+    "sentiment_history": [
+      "positive",
+      "confused",
+      "negative",
+      "positive",
+      "positive",
+      "negative"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Akon code"
+      },
+      {
+        "role": "assistant",
+        "content": "```\nconsole.log(a);```\nconsole.log(a);`````````\nconsole.log(a);``````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````"
+      },
+      {
+        "role": "user",
+        "content": "how are you"
+      },
+      {
+        "role": "assistant",
+        "content": "youryou canyouyouyourexpertiseexpertiseexpertise,expertise,expertise,expertise,expertise,expertise,expertise,expertise,expertise,expertise,expertise,expertise,expertise,expertise,expertise,ex"
+      },
+      {
+        "role": "user",
+        "content": "I can't call"
+      },
+      {
+        "role": "assistant",
+        "content": "this"
+      },
+      {
+        "role": "user",
+        "content": "what's"
+      },
+      {
+        "role": "assistant",
+        "content": "@"
+      },
+      {
+        "role": "user",
+        "content": "account"
+      },
+      {
+        "role": "assistant",
+        "content": "you canyou canyou canyou canyou canyou canyou canyou canyou canyou canyou canyou canyou canyou canyou canyou canyou canyou canyou canthe account table:\n```sql\n```sql\n```sql\n```sql\n```sql\n```sql\n```sql\n```sql\n```sql"
+      },
+      {
+        "role": "user",
+        "content": "what's going on"
+      },
+      {
+        "role": "assistant",
+        "content": "this)}"
+      }
+    ],
+    "last_active": 1787394112.499191
+  },
+  "voice_session_3sz8vpjmt48h71n": {
+    "session_id": "voice_session_3sz8vpjmt48h71n",
+    "tone_preference": "balanced",
+    "favorite_guilds": {
+      "fullstack": 1
+    },
+    "repair_count": 1,
+    "sentiment_history": [
+      "positive"
+    ],
+    "history": [
+      {
+        "role": "user",
+        "content": "Akon"
+      },
+      {
+        "role": "assistant",
+        "content": ".\n\nIntroduction\n------------\n\nIntroduction\n------------\n\nIntroduction\n------------\n\nIntroduction\n------------\n\nIntroduction\n------------\n\nIntroduction\n------------\n\nIntroduction\n------------\n\nIntroduction\n------------\n\nIntroduction\n------------\n\nIntroduction\n------------\n\nIntroductionDjango ORM models\n\u2502"
+      }
+    ],
+    "last_active": 1787394519.378638
+  }
+}

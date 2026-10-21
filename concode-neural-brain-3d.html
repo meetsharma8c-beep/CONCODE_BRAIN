@@ -1,0 +1,2643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONCODE Neural Brain -- 3D Simulation</title>
+<meta name="description" content="Real-time 3D visualization and simulation of the CONCODE Neural Brain -- 7B parameter transformer architecture with 13 expert guilds, self-healing, and memory systems.">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   CONCODE Neural Brain 3D -- Monochromatic Design System
+   All styling follows workspace rule: pure black-and-white palette
+   ═══════════════════════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-panel: rgba(10, 10, 10, 0.92);
+  --bg-card: rgba(18, 18, 18, 0.95);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-active: rgba(255, 255, 255, 0.25);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-dim: rgba(255, 255, 255, 0.35);
+  --accent: #ffffff;
+  --accent-dim: rgba(255, 255, 255, 0.15);
+  --glow-white: rgba(255, 255, 255, 0.4);
+  /* Subsystem signal colors -- functional, not decorative */
+  --signal-input: #4fc3f7;
+  --signal-intent: #ab47bc;
+  --signal-retriever: #66bb6a;
+  --signal-core: #ffffff;
+  --signal-repair: #ef5350;
+  --signal-memory: #ffa726;
+  --signal-guild: #7c4dff;
+  --signal-output: #26c6da;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --panel-width: 340px;
+  --radius: 6px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+}
+
+#canvas-container {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+}
+
+/* ── Left Panel: Controls & Prompt ── */
+#left-panel {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--panel-width);
+  height: 100vh;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+
+#left-panel::-webkit-scrollbar { width: 4px; }
+#left-panel::-webkit-scrollbar-track { background: transparent; }
+#left-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+.panel-header {
+  padding: 20px 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-header h1 {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.panel-header .subtitle {
+  font-size: 10px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  letter-spacing: 0.5px;
+}
+
+.panel-section {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-section h3 {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+
+/* Prompt Input */
+#prompt-input {
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 10px 12px;
+  resize: vertical;
+  min-height: 60px;
+  max-height: 120px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#prompt-input:focus {
+  border-color: var(--border-active);
+}
+
+#prompt-input::placeholder {
+  color: var(--text-dim);
+}
+
+#run-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#run-btn:hover { opacity: 0.85; }
+#run-btn:active { transform: scale(0.98); }
+#run-btn.running {
+  background: rgba(255,255,255,0.15);
+  color: var(--text-primary);
+  cursor: not-allowed;
+}
+
+/* Mode & Control Toggles */
+.toggle-row {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 6px 8px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.toggle-btn.active {
+  background: rgba(255,255,255,0.1);
+  border-color: var(--border-active);
+  color: var(--text-primary);
+}
+
+.toggle-btn:hover { border-color: var(--border-active); }
+
+/* Sliders */
+.slider-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.slider-row label {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  min-width: 80px;
+}
+
+.slider-row input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  outline: none;
+  margin: 0 8px;
+}
+
+.slider-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px; height: 12px;
+  background: var(--text-primary);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider-row .slider-val {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  min-width: 30px;
+  text-align: right;
+}
+
+/* Guild Grid */
+.guild-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
+
+.guild-chip {
+  padding: 5px 6px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.guild-chip.active {
+  background: rgba(255,255,255,0.12);
+  border-color: var(--border-active);
+  color: var(--text-primary);
+}
+
+.guild-chip:hover { border-color: var(--border-active); }
+
+/* Layer Toggles */
+.layer-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.layer-toggle input[type="checkbox"] {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  border: 1px solid var(--border-active);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.layer-toggle input[type="checkbox"]:checked {
+  background: var(--text-primary);
+}
+
+.layer-toggle input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  top: 1px; left: 4px;
+  width: 4px; height: 8px;
+  border: solid var(--bg-primary);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.layer-toggle label {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+/* ── Right Panel: Stats & Output ── */
+#right-panel {
+  position: fixed;
+  top: 0; right: 0;
+  width: var(--panel-width);
+  height: 100vh;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+
+#right-panel::-webkit-scrollbar { width: 4px; }
+#right-panel::-webkit-scrollbar-track { background: transparent; }
+#right-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+/* Stats Cards */
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.stat-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px;
+}
+
+.stat-card .stat-label {
+  font-size: 8px;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.stat-card .stat-value {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.stat-card.wide { grid-column: 1 / -1; }
+
+/* Pipeline Stage Progress */
+.pipeline-stage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.stage-indicator {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: all 0.3s;
+  flex-shrink: 0;
+}
+
+.stage-indicator.active {
+  background: var(--text-primary);
+  box-shadow: 0 0 8px var(--glow-white);
+}
+
+.stage-indicator.done {
+  background: rgba(255,255,255,0.5);
+}
+
+.stage-name {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.stage-time {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+}
+
+/* Attention Heatmap */
+#attention-canvas {
+  width: 100%;
+  height: 120px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  image-rendering: pixelated;
+}
+
+/* Guild Frequency Bars */
+.freq-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.freq-bar-label {
+  font-size: 8px;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  width: 70px;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.freq-bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.freq-bar-fill {
+  height: 100%;
+  background: var(--text-primary);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+/* Output Code Block */
+#output-code {
+  width: 100%;
+  min-height: 100px;
+  max-height: 200px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  line-height: 1.5;
+}
+
+/* Memory Ring Display */
+.memory-ring {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+}
+
+.memory-slot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  transition: all 0.3s;
+}
+
+.memory-slot.filled {
+  background: rgba(255,255,255,0.3);
+  border-color: var(--border-active);
+}
+
+.memory-slot.current {
+  background: var(--text-primary);
+  border-color: var(--text-primary);
+  box-shadow: 0 0 6px var(--glow-white);
+}
+
+/* Tooltip */
+#tooltip {
+  position: fixed;
+  z-index: 100;
+  background: var(--bg-card);
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  max-width: 250px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+#tooltip.visible { opacity: 1; }
+
+#tooltip .tt-title {
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  margin-bottom: 4px;
+}
+
+#tooltip .tt-detail {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Center HUD */
+#center-hud {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 8px 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.hud-item {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.hud-item .hud-val {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Bottom Stage Bar */
+#stage-bar {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 14px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.stage-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  transition: all 0.3s;
+  margin: 0 2px;
+}
+
+.stage-dot.active {
+  background: var(--text-primary);
+  box-shadow: 0 0 6px var(--glow-white);
+  width: 20px;
+  border-radius: 3px;
+}
+
+.stage-dot.done { background: rgba(255,255,255,0.4); }
+
+.stage-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-secondary);
+  margin-left: 8px;
+  min-width: 140px;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { animation: fadeIn 0.3s ease forwards; }
+
+/* Responsive: collapse panels on narrow screens */
+@media (max-width: 1100px) {
+  #left-panel, #right-panel { width: 280px; }
+  :root { --panel-width: 280px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ 3D Canvas ═══════════════ -->
+<div id="canvas-container"></div>
+
+<!-- ═══════════════ Tooltip ═══════════════ -->
+<div id="tooltip">
+  <div class="tt-title" id="tt-title"></div>
+  <div class="tt-detail" id="tt-detail"></div>
+</div>
+
+<!-- ═══════════════ Center HUD ═══════════════ -->
+<div id="center-hud">
+  <div class="hud-item">FPS <span class="hud-val" id="hud-fps">60</span></div>
+  <div class="hud-item">Neurons <span class="hud-val" id="hud-neurons">0</span></div>
+  <div class="hud-item">Synapses <span class="hud-val" id="hud-synapses">0</span></div>
+  <div class="hud-item">Layer <span class="hud-val" id="hud-layer">--</span></div>
+  <div class="hud-item">Params <span class="hud-val">6.74B</span></div>
+</div>
+
+<!-- ═══════════════ Bottom Stage Bar ═══════════════ -->
+<div id="stage-bar">
+  <div class="stage-dot" data-stage="0"></div>
+  <div class="stage-dot" data-stage="1"></div>
+  <div class="stage-dot" data-stage="2"></div>
+  <div class="stage-dot" data-stage="3"></div>
+  <div class="stage-dot" data-stage="4"></div>
+  <div class="stage-dot" data-stage="5"></div>
+  <div class="stage-dot" data-stage="6"></div>
+  <div class="stage-dot" data-stage="7"></div>
+  <div class="stage-dot" data-stage="8"></div>
+  <div class="stage-dot" data-stage="9"></div>
+  <div class="stage-dot" data-stage="10"></div>
+  <span class="stage-label" id="stage-label">Ready</span>
+</div>
+
+<!-- ═══════════════ Left Panel ═══════════════ -->
+<div id="left-panel">
+  <div class="panel-header">
+    <h1>CONCODE BRAIN</h1>
+    <div class="subtitle">7B Parameter Neural Simulation</div>
+  </div>
+
+  <!-- Prompt -->
+  <div class="panel-section">
+    <h3>Query Input</h3>
+    <textarea id="prompt-input" placeholder="Enter your query...">Fix null pointer exception in user session handler</textarea>
+    <button id="run-btn" onclick="runSimulation()">INITIATE COGNITION</button>
+  </div>
+
+  <!-- Mode -->
+  <div class="panel-section">
+    <h3>Input Mode</h3>
+    <div class="toggle-row">
+      <button class="toggle-btn active" id="mode-text" onclick="setMode('text')">Text</button>
+      <button class="toggle-btn" id="mode-ast" onclick="setMode('ast')">AST</button>
+      <button class="toggle-btn" id="mode-raw" onclick="setMode('raw')">Raw Code</button>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="panel-section">
+    <h3>Simulation Controls</h3>
+    <div class="slider-row">
+      <label>Speed</label>
+      <input type="range" id="speed-slider" min="0.1" max="3" step="0.1" value="1" oninput="updateSliderVal(this)">
+      <span class="slider-val" id="speed-val">1.0x</span>
+    </div>
+    <div class="slider-row">
+      <label>Connections</label>
+      <input type="range" id="density-slider" min="10" max="100" step="5" value="50" oninput="updateSliderVal(this)">
+      <span class="slider-val" id="density-val">50%</span>
+    </div>
+    <div class="slider-row">
+      <label>Glow</label>
+      <input type="range" id="glow-slider" min="0" max="2" step="0.1" value="1" oninput="updateSliderVal(this)">
+      <span class="slider-val" id="glow-val">1.0</span>
+    </div>
+    <div class="toggle-row" style="margin-top: 8px;">
+      <button class="toggle-btn active" id="rotate-btn" onclick="toggleRotate(this)">AUTO-ROTATE</button>
+      <button class="toggle-btn" id="step-btn" onclick="toggleStep(this)">STEP MODE</button>
+    </div>
+  </div>
+
+  <!-- Guild Selector -->
+  <div class="panel-section">
+    <h3>Expert Guilds (13 MoE)</h3>
+    <div class="guild-grid" id="guild-grid"></div>
+  </div>
+
+  <!-- Layer Visibility -->
+  <div class="panel-section">
+    <h3>Subsystem Visibility</h3>
+    <div id="layer-toggles"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ Right Panel ═══════════════ -->
+<div id="right-panel">
+  <div class="panel-header">
+    <h1>DIAGNOSTICS</h1>
+    <div class="subtitle">Real-Time Neural Telemetry</div>
+  </div>
+
+  <!-- Live Stats -->
+  <div class="panel-section">
+    <h3>Engine Stats</h3>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Active Guild</div>
+        <div class="stat-value" id="stat-guild">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Confidence</div>
+        <div class="stat-value" id="stat-confidence">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Sentiment</div>
+        <div class="stat-value" id="stat-sentiment">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Latency</div>
+        <div class="stat-value" id="stat-latency">--</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Tokens</div>
+        <div class="stat-value" id="stat-tokens">--</div>
+      </div>
+      <div class="stat-card wide">
+        <div class="stat-label">Repair Status</div>
+        <div class="stat-value" id="stat-repair">--</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pipeline Progress -->
+  <div class="panel-section">
+    <h3>Pipeline Progress</h3>
+    <div id="pipeline-stages"></div>
+  </div>
+
+  <!-- Attention Heatmap -->
+  <div class="panel-section">
+    <h3>Attention Weights (Layer Active)</h3>
+    <canvas id="attention-canvas" width="308" height="120"></canvas>
+  </div>
+
+  <!-- Guild Frequency -->
+  <div class="panel-section">
+    <h3>Guild Activation History</h3>
+    <div id="guild-freq"></div>
+  </div>
+
+  <!-- Memory Ring -->
+  <div class="panel-section">
+    <h3>Short-Term Memory (Ring Buffer)</h3>
+    <div class="memory-ring" id="memory-ring"></div>
+  </div>
+
+  <!-- Output -->
+  <div class="panel-section">
+    <h3>Generated Output</h3>
+    <div id="output-code">Awaiting cognition...</div>
+  </div>
+</div>
+
+<!-- ═══════════════ Three.js & Libraries ═══════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════
+   CONCODE Neural Brain -- 3D ANN Simulation Engine
+   ═══════════════════════════════════════════════════════════════════════
+   Architecture mapped from Obsidian vault: concode-neural-brain
+   Canvas source: CONCODE-Neural-Brain-Map.canvas
+   
+   Subsystem mapping:
+     1. Input Module       -> Token embedding visualization
+     2. Intent Classifier  -> DistilBERT 6-layer mini-network
+     3. Workspace Retriever -> FAISS vector search visualization
+     4. Core LLM Generator -> 32 transformer layer stack (CodeLlama-7B)
+     5. Expert Guilds (13) -> MoE parallel branch sub-networks
+     6. Code Repairer      -> CodeT5 self-healing ANN
+     7. Session Memory     -> Ring buffer + frequency tracker
+     8. Output Module      -> Final decode layer
+   ═══════════════════════════════════════════════════════════════════════ */
+
+// ═══════════════════════════════════════════
+// CONFIGURATION BLOCK
+// ═══════════════════════════════════════════
+const CONFIG = {
+  // Core transformer architecture (from 08-Neural-Thinking-Process.md)
+  transformerLayers: 32,      // CodeLlama-7B: 32 transformer layers
+  attentionHeads: 32,         // 32 heads per layer -> 1024 total
+  embeddingDim: 4096,         // Hidden dimension
+  vocabSize: 32016,           // Token vocabulary size
+  ffnDim: 11008,              // SwiGLU intermediate dimension
+  totalParams: 6738415616,    // ~6.74B parameters
+  
+  // Intent Classifier (from 01-Intent-Classifier.md)
+  intentLayers: 6,            // DistilBERT: 6 transformer layers
+  intentParams: 66000000,     // 66M parameters
+  
+  // Retriever (from 02-Workspace-Retriever.md)
+  retrieverDim: 384,          // MiniLM-L6-v2 embedding dimension
+  retrieverLayers: 6,         // 6 transformer layers
+  
+  // Code Repairer (from 04-Code-Repairer.md)
+  repairLayers: 12,           // CodeT5-small: 6 enc + 6 dec
+  repairParams: 60000000,     // 60M parameters
+  
+  // Visual settings
+  neuronsPerLayer: 24,        // Visible neurons per transformer layer
+  neuronsInputLayer: 16,      // Input embedding layer neurons
+  neuronsOutputLayer: 16,     // Output layer neurons
+  neuronsIntentLayer: 10,     // Intent classifier neurons per layer
+  neuronsRetrieverLayer: 8,   // Retriever neurons per layer
+  neuronsRepairLayer: 8,      // Repair sub-network neurons
+  neuronsGuildBranch: 6,      // Neurons per guild branch
+  
+  // 13 Expert Guilds (from 02-Guilds/Guild-Overview.md)
+  guilds: [
+    { id: 'debugger',   name: 'Debugger',   keywords: ['fix','bug','TypeError','crash','undefined'] },
+    { id: 'webgl',      name: 'WebGL',      keywords: ['3d','three.js','shader','webgl','glsl'] },
+    { id: 'ai_ml',      name: 'AI/ML',      keywords: ['pytorch','model','llm','rag','embedding'] },
+    { id: 'qa',         name: 'QA',         keywords: ['test','unit test','jest','cypress','assert'] },
+    { id: 'security',   name: 'Security',   keywords: ['jwt','security','auth','xss','cors','token'] },
+    { id: 'performance',name: 'Performance', keywords: ['optimize','latency','memory','cache','throttle'] },
+    { id: 'database',   name: 'Database',   keywords: ['schema','sql','postgres','migration','index'] },
+    { id: 'ui_ux',      name: 'UI/UX',      keywords: ['ui','css','dark mode','responsive','tailwind'] },
+    { id: 'devops',     name: 'DevOps',     keywords: ['docker','cicd','nginx','kubernetes','deploy'] },
+    { id: 'api',        name: 'API',        keywords: ['api','rest','graphql','endpoint','fastapi'] },
+    { id: 'fullstack',  name: 'Fullstack',  keywords: ['fullstack','architecture','monorepo','websocket'] },
+    { id: 'blockchain', name: 'Blockchain', keywords: ['solana','ethereum','web3','smart-contract'] },
+    { id: 'mobile',     name: 'Mobile',     keywords: ['mobile','ios','android','flutter'] }
+  ],
+  
+  // Pipeline stages (from 00-Brain-Overview.md cognitive execution flow)
+  stages: [
+    'Input Tokenization',
+    'Phonetic Sanitizer',
+    'Intent Classification',
+    'Social Intelligence Check',
+    'Workspace Retrieval',
+    'Core LLM Layer 1-8',
+    'Core LLM Layer 9-16',
+    'Core LLM Layer 17-24',
+    'Core LLM Layer 25-32',
+    'Self-Healing Repair',
+    'Empathetic Response & Memory'
+  ],
+  
+  // Layout
+  layerSpacing: 3.0,          // Z-spacing between layers
+  neuronSpacing: 1.2,         // XY spacing between neurons
+  brainRadius: 18,            // Overall brain radius
+  
+  // Animation
+  pulseSpeed: 2.0,            // Signal pulse travel speed
+  glowIntensity: 1.0,         // Base glow multiplier
+  
+  // Session memory (from 05-Session-Memory.md)
+  memorySlots: 20,            // Short-term ring buffer size
+  maxTurns: 3,                // Max conversation turns stored
+  
+  // Colors (monochromatic with functional signal coding)
+  colors: {
+    neuronBase:    0x222222,
+    neuronActive:  0xffffff,
+    synapseBase:   0x111111,
+    synapseActive: 0xffffff,
+    inputSignal:   0x4fc3f7,
+    intentSignal:  0xab47bc,
+    retrieverSignal: 0x66bb6a,
+    socialSignal:    0xec407a,
+    coreSignal:    0xffffff,
+    repairSignal:  0xef5350,
+    memorySignal:  0xffa726,
+    guildSignal:   0x7c4dff,
+    outputSignal:  0x26c6da
+  }
+};
+
+
+// ═══════════════════════════════════════════
+// GLOBAL STATE
+// ═══════════════════════════════════════════
+const STATE = {
+  mode: 'text',
+  speed: 1.0,
+  density: 50,
+  glowMult: 1.0,
+  autoRotate: true,
+  stepMode: false,
+  selectedGuild: null,
+  visibleLayers: {
+    input: true, sanitizer: true, classifier: true,
+    retriever: true, social: true, core: true, guilds: true,
+    repair: true, memory: true, output: true
+  },
+  running: false,
+  currentStage: -1,
+  currentLayer: -1,
+  guildFrequency: {},
+  memoryBuffer: [],
+  memoryPointer: 0,
+  totalNeurons: 0,
+  totalSynapses: 0
+};
+
+// Initialize guild frequency
+CONFIG.guilds.forEach(g => STATE.guildFrequency[g.id] = 0);
+
+
+// ═══════════════════════════════════════════
+// ANN ENGINE -- Actual Neural Network Math
+// ═══════════════════════════════════════════
+
+/**
+ * Lightweight matrix operations for real forward propagation.
+ * Simulates the transformer computations described in
+ * 08-Neural-Thinking-Process.md using scaled-down dimensions
+ * for real-time browser execution.
+ */
+class Matrix {
+  constructor(rows, cols, data = null) {
+    this.rows = rows;
+    this.cols = cols;
+    this.data = data || new Float32Array(rows * cols);
+  }
+  
+  static random(rows, cols, scale = 0.02) {
+    const m = new Matrix(rows, cols);
+    for (let i = 0; i < m.data.length; i++) {
+      m.data[i] = (Math.random() * 2 - 1) * scale;
+    }
+    return m;
+  }
+  
+  static zeros(rows, cols) { return new Matrix(rows, cols); }
+  
+  get(r, c) { return this.data[r * this.cols + c]; }
+  set(r, c, v) { this.data[r * this.cols + c] = v; }
+  
+  // Matrix multiply: this (m x k) * B (k x n) -> (m x n)
+  matmul(B) {
+    const C = new Matrix(this.rows, B.cols);
+    for (let i = 0; i < this.rows; i++) {
+      for (let j = 0; j < B.cols; j++) {
+        let sum = 0;
+        for (let k = 0; k < this.cols; k++) {
+          sum += this.data[i * this.cols + k] * B.data[k * B.cols + j];
+        }
+        C.data[i * B.cols + j] = sum;
+      }
+    }
+    return C;
+  }
+  
+  add(B) {
+    const C = new Matrix(this.rows, this.cols);
+    for (let i = 0; i < this.data.length; i++) C.data[i] = this.data[i] + B.data[i];
+    return C;
+  }
+  
+  // Element-wise ReLU
+  relu() {
+    const C = new Matrix(this.rows, this.cols);
+    for (let i = 0; i < this.data.length; i++) C.data[i] = Math.max(0, this.data[i]);
+    return C;
+  }
+  
+  // SiLU(x) = x * sigmoid(x) -- used in SwiGLU (from 08-Neural-Thinking-Process.md)
+  silu() {
+    const C = new Matrix(this.rows, this.cols);
+    for (let i = 0; i < this.data.length; i++) {
+      const x = this.data[i];
+      C.data[i] = x / (1 + Math.exp(-x));
+    }
+    return C;
+  }
+  
+  // Element-wise multiply (Hadamard) for SwiGLU gate
+  hadamard(B) {
+    const C = new Matrix(this.rows, this.cols);
+    for (let i = 0; i < this.data.length; i++) C.data[i] = this.data[i] * B.data[i];
+    return C;
+  }
+  
+  // Softmax along rows
+  softmax() {
+    const C = new Matrix(this.rows, this.cols);
+    for (let i = 0; i < this.rows; i++) {
+      let maxVal = -Infinity;
+      for (let j = 0; j < this.cols; j++) maxVal = Math.max(maxVal, this.get(i, j));
+      let sum = 0;
+      for (let j = 0; j < this.cols; j++) {
+        const v = Math.exp(this.get(i, j) - maxVal);
+        C.set(i, j, v);
+        sum += v;
+      }
+      for (let j = 0; j < this.cols; j++) C.set(i, j, C.get(i, j) / sum);
+    }
+    return C;
+  }
+  
+  // RMSNorm (from 08-Neural-Thinking-Process.md)
+  rmsNorm(gamma) {
+    const C = new Matrix(this.rows, this.cols);
+    for (let i = 0; i < this.rows; i++) {
+      let ss = 0;
+      for (let j = 0; j < this.cols; j++) ss += this.get(i, j) ** 2;
+      const rms = Math.sqrt(ss / this.cols + 1e-6);
+      for (let j = 0; j < this.cols; j++) {
+        C.set(i, j, (this.get(i, j) / rms) * (gamma ? gamma.data[j] : 1));
+      }
+    }
+    return C;
+  }
+  
+  // Transpose
+  T() {
+    const C = new Matrix(this.cols, this.rows);
+    for (let i = 0; i < this.rows; i++)
+      for (let j = 0; j < this.cols; j++)
+        C.set(j, i, this.get(i, j));
+    return C;
+  }
+  
+  // Get row as array
+  row(i) {
+    return Array.from(this.data.slice(i * this.cols, (i + 1) * this.cols));
+  }
+  
+  // L2 norm of row
+  rowNorm(i) {
+    let s = 0;
+    for (let j = 0; j < this.cols; j++) s += this.get(i, j) ** 2;
+    return Math.sqrt(s);
+  }
+}
+
+/**
+ * CONCODE ANN -- Implements the full transformer architecture
+ * described in the Obsidian vault brain architecture notes.
+ * 
+ * Uses scaled-down dimensions (dim=32 instead of 4096) for
+ * real-time browser execution while preserving the exact
+ * computational structure: embedding -> 32 transformer layers
+ * (self-attention + SwiGLU FFN) -> LM head -> sampling.
+ */
+class ConcodeANN {
+  constructor() {
+    // Scaled-down dimensions for real-time execution
+    this.dim = 32;           // Reduced from 4096
+    this.heads = 4;          // Reduced from 32
+    this.headDim = this.dim / this.heads; // 8
+    this.ffnDim = 64;        // Reduced from 11008
+    this.vocabSize = 256;    // Reduced from 32016
+    this.numLayers = 32;     // Same as CodeLlama-7B
+    this.numGuilds = CONFIG.guilds.length;
+    
+    // Token embeddings (maps to embed_tokens in 08-Neural-Thinking-Process.md)
+    this.embeddings = Matrix.random(this.vocabSize, this.dim);
+    
+    // Transformer layers -- each contains attention + FFN weights
+    this.layers = [];
+    for (let i = 0; i < this.numLayers; i++) {
+      this.layers.push({
+        // Attention projections (Q, K, V, O)
+        Wq: Matrix.random(this.dim, this.dim),
+        Wk: Matrix.random(this.dim, this.dim),
+        Wv: Matrix.random(this.dim, this.dim),
+        Wo: Matrix.random(this.dim, this.dim),
+        // SwiGLU FFN (gate_proj, up_proj, down_proj from 08-Neural-Thinking-Process.md)
+        Wgate: Matrix.random(this.dim, this.ffnDim),
+        Wup: Matrix.random(this.dim, this.ffnDim),
+        Wdown: Matrix.random(this.ffnDim, this.dim),
+        // RMSNorm gamma vectors
+        normAttn: Matrix.random(1, this.dim, 1.0),
+        normFFN: Matrix.random(1, this.dim, 1.0)
+      });
+    }
+    
+    // LM Head (maps hidden states to vocab logits)
+    this.lmHead = Matrix.random(this.dim, this.vocabSize);
+    
+    // Intent classifier sub-network (DistilBERT analog, 01-Intent-Classifier.md)
+    this.intentW1 = Matrix.random(this.dim, 16);
+    this.intentW2 = Matrix.random(16, this.numGuilds);
+    
+    // Guild LoRA adapters (MoE pathway modulation, 08-Neural-Thinking-Process.md)
+    this.guildAdapters = {};
+    CONFIG.guilds.forEach(g => {
+      this.guildAdapters[g.id] = {
+        A: Matrix.random(this.dim, 8),  // rank=8 (reduced from 64)
+        B: Matrix.random(8, this.dim)
+      };
+    });
+    
+    // Repair sub-network (CodeT5 analog, 04-Code-Repairer.md)
+    this.repairEncoder = Matrix.random(this.dim, this.dim);
+    this.repairDecoder = Matrix.random(this.dim, this.dim);
+    
+    // Activations storage for visualization
+    this.activations = {
+      embedding: null,
+      layers: [],
+      attention: [],
+      ffn: [],
+      guildOutput: null,
+      repairOutput: null,
+      output: null,
+      intentProbs: null,
+      tokenProbs: null
+    };
+  }
+  
+  /**
+   * Tokenize input text into integer indices.
+   * Simple character-level tokenization (BPE analog).
+   */
+  tokenize(text) {
+    const tokens = [];
+    for (let i = 0; i < text.length && i < 64; i++) {
+      tokens.push(text.charCodeAt(i) % this.vocabSize);
+    }
+    return tokens;
+  }
+  
+  /**
+   * Convert token IDs to embedding matrix.
+   * Maps to: embed_tokens (32016 x 4096) from 08-Neural-Thinking-Process.md
+   */
+  embed(tokenIds) {
+    const seqLen = tokenIds.length;
+    const X = new Matrix(seqLen, this.dim);
+    for (let i = 0; i < seqLen; i++) {
+      for (let j = 0; j < this.dim; j++) {
+        // Add RoPE-like positional encoding
+        const angle = i / Math.pow(10000, 2 * j / this.dim);
+        X.set(i, j, this.embeddings.get(tokenIds[i], j) + Math.sin(angle + j) * 0.1);
+      }
+    }
+    this.activations.embedding = X;
+    return X;
+  }
+  
+  /**
+   * Multi-head self-attention (from 08-Neural-Thinking-Process.md).
+   * Attention(Q, K, V) = softmax(QK^T / sqrt(d_k)) V
+   */
+  selfAttention(X, layer) {
+    const L = this.layers[layer];
+    const Q = X.matmul(L.Wq);
+    const K = X.matmul(L.Wk);
+    const V = X.matmul(L.Wv);
+    
+    // Scaled dot-product attention
+    const scores = Q.matmul(K.T());
+    const scale = Math.sqrt(this.headDim);
+    for (let i = 0; i < scores.data.length; i++) scores.data[i] /= scale;
+    
+    const attnWeights = scores.softmax();
+    this.activations.attention[layer] = attnWeights;
+    
+    const attnOutput = attnWeights.matmul(V);
+    return attnOutput.matmul(L.Wo);
+  }
+  
+  /**
+   * SwiGLU feed-forward network (from 08-Neural-Thinking-Process.md).
+   * SwiGLU(X) = (SiLU(X * Wgate) o X * Wup) * Wdown
+   */
+  ffn(X, layer) {
+    const L = this.layers[layer];
+    const gate = X.matmul(L.Wgate).silu();
+    const up = X.matmul(L.Wup);
+    const intermediate = gate.hadamard(up);
+    const output = intermediate.matmul(L.Wdown);
+    this.activations.ffn[layer] = output;
+    return output;
+  }
+  
+  /**
+   * Run a single transformer layer with residual connections.
+   */
+  transformerLayer(X, layer) {
+    const L = this.layers[layer];
+    // Pre-norm attention (RMSNorm from 08-Neural-Thinking-Process.md)
+    const normedAttn = X.rmsNorm(L.normAttn);
+    const attnOut = this.selfAttention(normedAttn, layer);
+    const X2 = X.add(attnOut); // Residual
+    
+    // Pre-norm FFN
+    const normedFFN = X2.rmsNorm(L.normFFN);
+    const ffnOut = this.ffn(normedFFN, layer);
+    const X3 = X2.add(ffnOut); // Residual
+    
+    this.activations.layers[layer] = X3;
+    return X3;
+  }
+  
+  /**
+   * Intent classification (from 01-Intent-Classifier.md).
+   * Classifies input into one of the 13 expert guilds.
+   */
+  classifyIntent(X) {
+    // Pool sequence to single vector (mean pooling)
+    const pooled = new Matrix(1, this.dim);
+    for (let j = 0; j < this.dim; j++) {
+      let sum = 0;
+      for (let i = 0; i < X.rows; i++) sum += X.get(i, j);
+      pooled.set(0, j, sum / X.rows);
+    }
+    
+    const hidden = pooled.matmul(this.intentW1).relu();
+    const logits = hidden.matmul(this.intentW2);
+    const probs = logits.softmax();
+    this.activations.intentProbs = probs;
+    
+    // Find top guild
+    let maxProb = 0, maxIdx = 0;
+    for (let i = 0; i < this.numGuilds; i++) {
+      if (probs.get(0, i) > maxProb) {
+        maxProb = probs.get(0, i);
+        maxIdx = i;
+      }
+    }
+    
+    return { guild: CONFIG.guilds[maxIdx], confidence: maxProb, probs: probs.row(0) };
+  }
+  
+  /**
+   * Apply guild-specific LoRA adapter modulation.
+   * W_effective = W_base + (B_guild * A_guild) * alpha
+   * (from 08-Neural-Thinking-Process.md section 4)
+   */
+  applyGuildAdapter(X, guildId) {
+    const adapter = this.guildAdapters[guildId];
+    if (!adapter) return X;
+    const loraOut = X.matmul(adapter.A).matmul(adapter.B);
+    // Scale by alpha/r = 2.0 (as documented)
+    for (let i = 0; i < loraOut.data.length; i++) loraOut.data[i] *= 2.0;
+    this.activations.guildOutput = loraOut;
+    return X.add(loraOut);
+  }
+  
+  /**
+   * Self-healing code repair check (from 04-Code-Repairer.md).
+   * Simulates CodeT5 seq2seq error detection.
+   */
+  repairCheck(X) {
+    const encoded = X.matmul(this.repairEncoder).relu();
+    const decoded = encoded.matmul(this.repairDecoder);
+    
+    // Check if repair needed (compare norms)
+    let repairScore = 0;
+    for (let i = 0; i < X.rows; i++) {
+      repairScore += Math.abs(decoded.rowNorm(i) - X.rowNorm(i));
+    }
+    repairScore /= X.rows;
+    
+    this.activations.repairOutput = decoded;
+    return {
+      repairApplied: repairScore > 0.5,
+      score: repairScore,
+      output: repairScore > 0.5 ? decoded : X
+    };
+  }
+  
+  /**
+   * Decode hidden states to token probabilities via LM Head.
+   * Maps hidden (seq x dim) -> logits (seq x vocab) -> probs
+   */
+  decode(X) {
+    const logits = X.matmul(this.lmHead);
+    const probs = logits.softmax();
+    this.activations.tokenProbs = probs;
+    this.activations.output = X;
+    return probs;
+  }
+  
+  /**
+   * Full forward pass through the entire CONCODE brain pipeline.
+   * Implements the cognitive execution flow from 00-Brain-Overview.md
+   */
+  async forward(text, onLayerComplete) {
+    // 1. Tokenize
+    const tokens = this.tokenize(text);
+    
+    // 2. Embed with positional encoding
+    let X = this.embed(tokens);
+    if (onLayerComplete) await onLayerComplete('embedding', X, -1);
+    
+    // 3. Intent classification
+    const intent = this.classifyIntent(X);
+    if (onLayerComplete) await onLayerComplete('intent', X, -1, intent);
+    
+    // 4. Process through 32 transformer layers
+    for (let i = 0; i < this.numLayers; i++) {
+      X = this.transformerLayer(X, i);
+      if (onLayerComplete) await onLayerComplete('transformer', X, i);
+    }
+    
+    // 5. Apply guild LoRA adapter
+    X = this.applyGuildAdapter(X, intent.guild.id);
+    if (onLayerComplete) await onLayerComplete('guild', X, -1, intent);
+    
+    // 6. Self-healing repair check
+    const repair = this.repairCheck(X);
+    X = repair.output;
+    if (onLayerComplete) await onLayerComplete('repair', X, -1, { repair });
+    
+    // 7. Decode to token probabilities
+    const probs = this.decode(X);
+    if (onLayerComplete) await onLayerComplete('output', X, -1, { probs, intent, repair });
+    
+    return { tokens, intent, repair, probs, finalHidden: X };
+  }
+}
+
+
+// ═══════════════════════════════════════════
+// THREE.JS 3D VISUALIZATION ENGINE
+// ═══════════════════════════════════════════
+
+let scene, camera, renderer, clock;
+let neuronGeometry, neuronMaterial;
+let brainGroup, subsystemGroups = {};
+let neurons = [], synapses = [], pulses = [];
+let raycaster, mouse;
+let frameCount = 0, lastFPSTime = 0, fpsDisplay = 60;
+
+const ann = new ConcodeANN();
+
+function initThreeJS() {
+  const container = document.getElementById('canvas-container');
+  
+  // Scene
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x000000);
+  scene.fog = new THREE.FogExp2(0x000000, 0.008);
+  
+  // Camera
+  const aspect = window.innerWidth / window.innerHeight;
+  camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 500);
+  camera.position.set(0, 15, 55);
+  camera.lookAt(0, 0, 0);
+  
+  // Renderer with high DPR for Metal
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.2;
+  container.appendChild(renderer.domElement);
+  
+  clock = new THREE.Clock();
+  
+  // Raycaster for tooltips
+  raycaster = new THREE.Raycaster();
+  mouse = new THREE.Vector2(-999, -999);
+  
+  // Orbit controls (manual implementation)
+  initOrbitControls();
+  
+  // Lights -- minimal for monochromatic feel
+  const ambient = new THREE.AmbientLight(0xffffff, 0.15);
+  scene.add(ambient);
+  
+  const directional = new THREE.DirectionalLight(0xffffff, 0.3);
+  directional.position.set(20, 30, 20);
+  scene.add(directional);
+  
+  // Point lights for subsystem glow
+  const coreLight = new THREE.PointLight(0xffffff, 0.5, 60);
+  coreLight.position.set(0, 0, 0);
+  scene.add(coreLight);
+  
+  // Build the brain
+  brainGroup = new THREE.Group();
+  scene.add(brainGroup);
+  
+  buildBrainArchitecture();
+  
+  // Events
+  window.addEventListener('resize', onResize);
+  renderer.domElement.addEventListener('mousemove', onMouseMove);
+  
+  // Start render loop
+  animate();
+}
+
+/**
+ * Build the full 3D brain architecture from the Obsidian vault mapping.
+ * Each subsystem from the canvas is positioned in 3D space.
+ */
+function buildBrainArchitecture() {
+  const spacing = CONFIG.layerSpacing;
+  
+  // Create subsystem groups for layer visibility control
+  const groupNames = ['input', 'sanitizer', 'classifier', 'retriever', 'social', 'core', 'guilds', 'repair', 'memory', 'output'];
+  groupNames.forEach(name => {
+    subsystemGroups[name] = new THREE.Group();
+    subsystemGroups[name].name = name;
+    brainGroup.add(subsystemGroups[name]);
+  });
+  
+  // ── 1. INPUT MODULE (left side) ──
+  // Represents token embedding layer (32016 -> 4096 dim from 08-Neural-Thinking-Process.md)
+  createSubsystemCluster(
+    subsystemGroups.input,
+    CONFIG.neuronsInputLayer, 3,
+    new THREE.Vector3(-30, 0, 0),
+    'Input Module',
+    CONFIG.colors.inputSignal,
+    'input'
+  );
+  
+  // ── 2. PHONETIC SANITIZER ──
+  createSubsystemCluster(
+    subsystemGroups.sanitizer,
+    6, 2,
+    new THREE.Vector3(-24, 4, 0),
+    'Phonetic Sanitizer',
+    CONFIG.colors.inputSignal,
+    'sanitizer'
+  );
+  
+  // ── 3. INTENT CLASSIFIER (DistilBERT 6 layers, 01-Intent-Classifier.md) ──
+  createSubsystemCluster(
+    subsystemGroups.classifier,
+    CONFIG.neuronsIntentLayer, CONFIG.intentLayers,
+    new THREE.Vector3(-20, -5, 0),
+    'Intent Classifier (DistilBERT 66M)',
+    CONFIG.colors.intentSignal,
+    'classifier'
+  );
+  
+  // ── 4. WORKSPACE RETRIEVER (MiniLM + FAISS, 02-Workspace-Retriever.md) ──
+  createSubsystemCluster(
+    subsystemGroups.retriever,
+    CONFIG.neuronsRetrieverLayer, CONFIG.retrieverLayers,
+    new THREE.Vector3(-20, 5, 0),
+    'Workspace Retriever (FAISS)',
+    CONFIG.colors.retrieverSignal,
+    'retriever'
+  );
+
+  // ── 4b. SOCIAL INTELLIGENCE LAYER (Subsystem 6, 09-Social-Intelligence.md) ──
+  createSubsystemCluster(
+    subsystemGroups.social,
+    8, 3,
+    new THREE.Vector3(-15, 10, 0),
+    'Social Intelligence (DistilBERT SST-2 + Memory)',
+    CONFIG.colors.socialSignal,
+    'social'
+  );
+  
+  // ── 5. CORE LLM GENERATOR (CodeLlama-7B, 32 layers, 03-Core-LLM-Generator.md) ──
+  // This is the central massive structure
+  buildCoreLLM(subsystemGroups.core);
+  
+  // ── 6. EXPERT GUILDS (13 MoE branches, Guild-Overview.md) ──
+  buildGuildBranches(subsystemGroups.guilds);
+  
+  // ── 7. CODE REPAIRER (CodeT5, 04-Code-Repairer.md) ──
+  createSubsystemCluster(
+    subsystemGroups.repair,
+    CONFIG.neuronsRepairLayer, CONFIG.repairLayers,
+    new THREE.Vector3(20, -5, 0),
+    'Self-Healing Engine (CodeT5 60M)',
+    CONFIG.colors.repairSignal,
+    'repair'
+  );
+  
+  // ── 8. SESSION MEMORY (05-Session-Memory.md) ──
+  buildMemorySystem(subsystemGroups.memory);
+  
+  // ── 9. OUTPUT MODULE ──
+  createSubsystemCluster(
+    subsystemGroups.output,
+    CONFIG.neuronsOutputLayer, 3,
+    new THREE.Vector3(30, 0, 0),
+    'Output Module',
+    CONFIG.colors.outputSignal,
+    'output'
+  );
+  
+  // ── CONNECT SUBSYSTEMS WITH SYNAPSES ──
+  buildInterSubsystemConnections();
+  
+  // Update HUD
+  document.getElementById('hud-neurons').textContent = STATE.totalNeurons.toLocaleString();
+  document.getElementById('hud-synapses').textContent = STATE.totalSynapses.toLocaleString();
+}
+
+/**
+ * Create a cluster of neurons representing a subsystem.
+ */
+function createSubsystemCluster(group, neuronsPerLayer, numLayers, center, name, color, subsystem) {
+  const clusterNeurons = [];
+  
+  for (let layer = 0; layer < numLayers; layer++) {
+    for (let n = 0; n < neuronsPerLayer; n++) {
+      const angle = (n / neuronsPerLayer) * Math.PI * 2;
+      const radius = 1.5 + layer * 0.3;
+      const x = center.x + Math.cos(angle) * radius;
+      const y = center.y + Math.sin(angle) * radius;
+      const z = center.z + (layer - numLayers / 2) * 0.8;
+      
+      const neuron = createNeuron(x, y, z, name, subsystem, layer, color);
+      group.add(neuron.mesh);
+      clusterNeurons.push(neuron);
+      neurons.push(neuron);
+      STATE.totalNeurons++;
+    }
+  }
+  
+  // Intra-cluster connections
+  for (let i = 0; i < clusterNeurons.length - neuronsPerLayer; i++) {
+    const targetIdx = i + neuronsPerLayer + Math.floor(Math.random() * 3) - 1;
+    if (targetIdx >= 0 && targetIdx < clusterNeurons.length) {
+      const syn = createSynapse(clusterNeurons[i], clusterNeurons[targetIdx], color);
+      group.add(syn.line);
+      synapses.push(syn);
+      STATE.totalSynapses++;
+    }
+  }
+  
+  // Subsystem label
+  addSubsystemLabel(group, center, name);
+  
+  return clusterNeurons;
+}
+
+/**
+ * Build the 32-layer core LLM (CodeLlama-7B architecture).
+ * Each layer has attention heads and FFN visualized.
+ */
+function buildCoreLLM(group) {
+  const coreNeurons = [];
+  const layerRadius = 4;
+  
+  for (let layer = 0; layer < CONFIG.transformerLayers; layer++) {
+    const z = (layer - CONFIG.transformerLayers / 2) * 1.2;
+    const layerNeurons = [];
+    
+    for (let n = 0; n < CONFIG.neuronsPerLayer; n++) {
+      const angle = (n / CONFIG.neuronsPerLayer) * Math.PI * 2;
+      const r = layerRadius + Math.sin(layer * 0.3) * 0.5;
+      const x = Math.cos(angle) * r;
+      const y = Math.sin(angle) * r;
+      
+      const neuron = createNeuron(
+        x, y, z,
+        `Core Layer ${layer + 1} / Neuron ${n}`,
+        'core', layer,
+        CONFIG.colors.coreSignal
+      );
+      group.add(neuron.mesh);
+      layerNeurons.push(neuron);
+      neurons.push(neuron);
+      STATE.totalNeurons++;
+    }
+    
+    // Cross-layer connections (attention patterns)
+    if (coreNeurons.length > 0) {
+      const prevLayer = coreNeurons[coreNeurons.length - 1];
+      const connCount = Math.min(8, CONFIG.neuronsPerLayer);
+      for (let i = 0; i < connCount; i++) {
+        const fromIdx = Math.floor(Math.random() * prevLayer.length);
+        const toIdx = Math.floor(Math.random() * layerNeurons.length);
+        const syn = createSynapse(prevLayer[fromIdx], layerNeurons[toIdx], CONFIG.colors.coreSignal);
+        group.add(syn.line);
+        synapses.push(syn);
+        STATE.totalSynapses++;
+      }
+    }
+    
+    coreNeurons.push(layerNeurons);
+  }
+  
+  addSubsystemLabel(group, new THREE.Vector3(0, layerRadius + 2, 0), 'Core LLM (CodeLlama-7B / 6.74B params)');
+}
+
+/**
+ * Build the 13 expert guild branches as MoE sub-networks.
+ * Arranged radially around the core (from Guild-Overview.md).
+ */
+function buildGuildBranches(group) {
+  CONFIG.guilds.forEach((guild, idx) => {
+    const angle = (idx / CONFIG.guilds.length) * Math.PI * 2;
+    const branchRadius = 12;
+    const cx = Math.cos(angle) * branchRadius;
+    const cy = Math.sin(angle) * branchRadius;
+    
+    const guildGroup = new THREE.Group();
+    guildGroup.userData = { guildId: guild.id };
+    
+    const guildNeurons = [];
+    for (let n = 0; n < CONFIG.neuronsGuildBranch; n++) {
+      const subAngle = angle + (n - CONFIG.neuronsGuildBranch / 2) * 0.15;
+      const r = branchRadius + n * 0.6;
+      const x = Math.cos(subAngle) * r;
+      const y = Math.sin(subAngle) * r;
+      const z = (Math.random() - 0.5) * 4;
+      
+      const neuron = createNeuron(x, y, z, `Guild: ${guild.name}`, 'guilds', idx, CONFIG.colors.guildSignal);
+      neuron.guildId = guild.id;
+      guildGroup.add(neuron.mesh);
+      guildNeurons.push(neuron);
+      neurons.push(neuron);
+      STATE.totalNeurons++;
+    }
+    
+    // Connect guild neurons
+    for (let i = 0; i < guildNeurons.length - 1; i++) {
+      const syn = createSynapse(guildNeurons[i], guildNeurons[i + 1], CONFIG.colors.guildSignal);
+      guildGroup.add(syn.line);
+      synapses.push(syn);
+      STATE.totalSynapses++;
+    }
+    
+    // Label
+    addSubsystemLabel(guildGroup, new THREE.Vector3(cx, cy, 3), guild.name);
+    
+    group.add(guildGroup);
+  });
+}
+
+/**
+ * Build the session memory visualization (05-Session-Memory.md).
+ * Short-term ring buffer as orbiting nodes.
+ */
+function buildMemorySystem(group) {
+  const center = new THREE.Vector3(20, 5, 0);
+  const ringRadius = 3;
+  
+  for (let i = 0; i < CONFIG.memorySlots; i++) {
+    const angle = (i / CONFIG.memorySlots) * Math.PI * 2;
+    const x = center.x + Math.cos(angle) * ringRadius;
+    const y = center.y + Math.sin(angle) * ringRadius;
+    const z = center.z;
+    
+    const neuron = createNeuron(x, y, z, `Memory Slot ${i + 1}`, 'memory', 0, CONFIG.colors.memorySignal);
+    neuron.memorySlot = i;
+    group.add(neuron.mesh);
+    neurons.push(neuron);
+    STATE.totalNeurons++;
+  }
+  
+  addSubsystemLabel(group, new THREE.Vector3(center.x, center.y + ringRadius + 1.5, center.z), 'Session Memory (Ring Buffer)');
+}
+
+/**
+ * Build connections between the major subsystems.
+ * Following the pipeline flow from 00-Brain-Overview.md:
+ * Input -> Intent Classifier -> Workspace Retriever -> Core LLM -> Code Repairer -> Output
+ */
+function buildInterSubsystemConnections() {
+  // Connect subsystem clusters with long-range synapses
+  const subsystemCenters = {
+    input: new THREE.Vector3(-30, 0, 0),
+    classifier: new THREE.Vector3(-20, -5, 0),
+    retriever: new THREE.Vector3(-20, 5, 0),
+    social: new THREE.Vector3(-15, 10, 0),
+    core: new THREE.Vector3(0, 0, 0),
+    repair: new THREE.Vector3(20, -5, 0),
+    memory: new THREE.Vector3(20, 5, 0),
+    output: new THREE.Vector3(30, 0, 0)
+  };
+  
+  // Find nearest neurons between subsystems and connect them
+  const connections = [
+    ['input', 'classifier'],
+    ['input', 'retriever'],
+    ['input', 'social'],
+    ['social', 'classifier'],
+    ['social', 'core'],
+    ['classifier', 'core'],
+    ['retriever', 'core'],
+    ['core', 'repair'],
+    ['core', 'memory'],
+    ['repair', 'social'],
+    ['repair', 'output'],
+    ['memory', 'output'],
+    ['social', 'output']
+  ];
+  
+  connections.forEach(([from, to]) => {
+    const fromNeurons = neurons.filter(n => n.subsystem === from);
+    const toNeurons = neurons.filter(n => n.subsystem === to);
+    if (fromNeurons.length === 0 || toNeurons.length === 0) return;
+    
+    const count = Math.min(4, fromNeurons.length, toNeurons.length);
+    for (let i = 0; i < count; i++) {
+      const fn = fromNeurons[Math.floor(Math.random() * fromNeurons.length)];
+      const tn = toNeurons[Math.floor(Math.random() * toNeurons.length)];
+      const syn = createSynapse(fn, tn, 0x333333);
+      brainGroup.add(syn.line);
+      synapses.push(syn);
+      STATE.totalSynapses++;
+    }
+  });
+}
+
+/**
+ * Create a single neuron (sphere) with metadata.
+ */
+function createNeuron(x, y, z, name, subsystem, layer, color) {
+  const geometry = new THREE.SphereGeometry(0.15, 8, 6);
+  const material = new THREE.MeshPhongMaterial({
+    color: CONFIG.colors.neuronBase,
+    emissive: CONFIG.colors.neuronBase,
+    emissiveIntensity: 0.1,
+    transparent: true,
+    opacity: 0.7,
+    shininess: 80
+  });
+  
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(x, y, z);
+  
+  const neuron = {
+    mesh,
+    name,
+    subsystem,
+    layer,
+    signalColor: color,
+    activation: 0,
+    basePosition: new THREE.Vector3(x, y, z),
+    targetActivation: 0
+  };
+  
+  mesh.userData = { neuron };
+  
+  return neuron;
+}
+
+/**
+ * Create a synapse (line) between two neurons.
+ */
+function createSynapse(from, to, color) {
+  const geometry = new THREE.BufferGeometry().setFromPoints([
+    from.mesh.position.clone(),
+    to.mesh.position.clone()
+  ]);
+  
+  const material = new THREE.LineBasicMaterial({
+    color: CONFIG.colors.synapseBase,
+    transparent: true,
+    opacity: 0.06,
+    linewidth: 1
+  });
+  
+  const line = new THREE.Line(geometry, material);
+  
+  return {
+    line,
+    from,
+    to,
+    signalColor: color,
+    weight: (Math.random() * 2 - 1),
+    activation: 0
+  };
+}
+
+/**
+ * Add a text label above a subsystem (using sprite).
+ */
+function addSubsystemLabel(group, position, text) {
+  const canvas = document.createElement('canvas');
+  canvas.width = 512;
+  canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  ctx.font = '20px "JetBrains Mono", monospace';
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.textAlign = 'center';
+  ctx.fillText(text, 256, 40);
+  
+  const texture = new THREE.CanvasTexture(canvas);
+  const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false });
+  const sprite = new THREE.Sprite(material);
+  sprite.position.copy(position);
+  sprite.scale.set(10, 1.25, 1);
+  group.add(sprite);
+}
+
+/**
+ * Create a signal pulse that travels along a synapse.
+ */
+function createPulse(synapse, color, speed = 1) {
+  const geometry = new THREE.SphereGeometry(0.12, 6, 4);
+  const material = new THREE.MeshBasicMaterial({
+    color: color || synapse.signalColor,
+    transparent: true,
+    opacity: 0.9
+  });
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.copy(synapse.from.mesh.position);
+  brainGroup.add(mesh);
+  
+  const pulse = {
+    mesh,
+    synapse,
+    progress: 0,
+    speed: speed * STATE.speed,
+    alive: true
+  };
+  pulses.push(pulse);
+  return pulse;
+}
+
+
+// ═══════════════════════════════════════════
+// ORBIT CONTROLS (Manual)
+// ═══════════════════════════════════════════
+
+let orbitState = {
+  theta: 0, phi: Math.PI / 4,
+  radius: 55,
+  target: new THREE.Vector3(0, 0, 0),
+  isDragging: false,
+  lastX: 0, lastY: 0,
+  autoTheta: 0
+};
+
+function initOrbitControls() {
+  const el = renderer.domElement;
+  
+  el.addEventListener('mousedown', (e) => {
+    orbitState.isDragging = true;
+    orbitState.lastX = e.clientX;
+    orbitState.lastY = e.clientY;
+  });
+  
+  el.addEventListener('mousemove', (e) => {
+    if (!orbitState.isDragging) return;
+    const dx = e.clientX - orbitState.lastX;
+    const dy = e.clientY - orbitState.lastY;
+    orbitState.theta -= dx * 0.005;
+    orbitState.phi = Math.max(0.1, Math.min(Math.PI - 0.1, orbitState.phi - dy * 0.005));
+    orbitState.lastX = e.clientX;
+    orbitState.lastY = e.clientY;
+  });
+  
+  el.addEventListener('mouseup', () => orbitState.isDragging = false);
+  el.addEventListener('mouseleave', () => orbitState.isDragging = false);
+  
+  el.addEventListener('wheel', (e) => {
+    orbitState.radius = Math.max(10, Math.min(120, orbitState.radius + e.deltaY * 0.05));
+  });
+}
+
+function updateCamera() {
+  if (STATE.autoRotate && !orbitState.isDragging) {
+    orbitState.autoTheta += 0.002;
+  }
+  
+  const theta = orbitState.theta + orbitState.autoTheta;
+  const phi = orbitState.phi;
+  const r = orbitState.radius;
+  
+  camera.position.x = r * Math.sin(phi) * Math.cos(theta);
+  camera.position.y = r * Math.cos(phi);
+  camera.position.z = r * Math.sin(phi) * Math.sin(theta);
+  camera.lookAt(orbitState.target);
+}
+
+
+// ═══════════════════════════════════════════
+// SIMULATION ENGINE
+// ═══════════════════════════════════════════
+
+/**
+ * Run the full brain simulation with visualization.
+ * Follows the 10-stage demo scenario from the requirements.
+ */
+async function runSimulation() {
+  if (STATE.running) return;
+  STATE.running = true;
+  
+  const btn = document.getElementById('run-btn');
+  btn.classList.add('running');
+  btn.textContent = 'PROCESSING...';
+  
+  const text = document.getElementById('prompt-input').value;
+  const startTime = performance.now();
+  
+  // Reset visuals
+  resetActivations();
+  
+  let stageIdx = 0;
+  const stageDelay = 800 / STATE.speed;
+  
+  // ── Stage 0: Input Tokenization ──
+  await setStage(0, 'Tokenizing input...');
+  const tokens = ann.tokenize(text);
+  document.getElementById('stat-tokens').textContent = tokens.length;
+  activateSubsystem('input', CONFIG.colors.inputSignal);
+  await delay(stageDelay);
+  
+  // ── Stage 1: Phonetic Sanitizer ──
+  await setStage(1, 'Sanitizing input...');
+  activateSubsystem('sanitizer', CONFIG.colors.inputSignal);
+  await delay(stageDelay * 0.5);
+  
+  // ── Stage 2: Intent Classification ──
+  await setStage(2, 'Classifying intent...');
+  const embedded = ann.embed(tokens);
+  const intent = ann.classifyIntent(embedded);
+  
+  let finalGuild = null;
+  let finalConfidence = 0.95;
+  let apiResponse = null;
+
+  try {
+    const apiRes = await fetch('/api/v1/cognitive', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: text, mode: STATE.mode })
+    });
+    if (apiRes.ok) {
+      apiResponse = await apiRes.json();
+      const matched = CONFIG.guilds.find(g => g.id === apiResponse.guild);
+      if (matched) {
+        finalGuild = matched;
+        finalConfidence = apiResponse.confidence || 0.95;
+      }
+    }
+  } catch (e) {
+    console.warn('API call bypassed, using offline fallback:', e);
+  }
+
+  if (!finalGuild) {
+    const keywordIntent = classifyByKeywords(text);
+    finalGuild = keywordIntent || intent.guild;
+    finalConfidence = keywordIntent ? 0.95 : intent.confidence;
+  }
+  
+  document.getElementById('stat-guild').textContent = finalGuild.name;
+  document.getElementById('stat-confidence').textContent = (finalConfidence * 100).toFixed(1) + '%';
+  
+  activateSubsystem('classifier', CONFIG.colors.intentSignal);
+  highlightGuild(finalGuild.id);
+  STATE.guildFrequency[finalGuild.id] = (STATE.guildFrequency[finalGuild.id] || 0) + 1;
+  updateGuildFreqDisplay();
+  await delay(stageDelay);
+  
+  // ── Stage 3: Social Intelligence Check ──
+  await setStage(3, 'Analyzing sentiment & tone...');
+  activateSubsystem('social', CONFIG.colors.socialSignal);
+  const sentLabel = (apiResponse && apiResponse.sentiment) ? apiResponse.sentiment.toUpperCase() : ((text.toLowerCase().includes('bug') || text.toLowerCase().includes('error') || text.toLowerCase().includes('fix')) ? 'NEGATIVE' : 'POSITIVE');
+  document.getElementById('stat-sentiment').textContent = sentLabel;
+  await delay(stageDelay);
+
+  // ── Stage 4: Workspace Retrieval ──
+  await setStage(4, 'Retrieving workspace context...');
+  activateSubsystem('retriever', CONFIG.colors.retrieverSignal);
+  await delay(stageDelay);
+  
+  // ── Stages 5-8: Core LLM Processing (32 layers) ──
+  let X = embedded;
+  for (let i = 0; i < CONFIG.transformerLayers; i++) {
+    const stageGroup = Math.floor(i / 8);
+    if (i % 8 === 0) {
+      await setStage(5 + stageGroup, `Processing layers ${i + 1}-${Math.min(i + 8, 32)}...`);
+    }
+    
+    X = ann.transformerLayer(X, i);
+    STATE.currentLayer = i;
+    document.getElementById('hud-layer').textContent = `${i + 1}/32`;
+    
+    // Activate core neurons for this layer
+    activateCoreLayer(i);
+    updateAttentionHeatmap(i);
+    
+    // Fire pulses through core
+    firePulsesForLayer(i);
+    
+    if (STATE.stepMode) {
+      await waitForStep();
+    } else {
+      await delay(Math.max(30, 150 / STATE.speed));
+    }
+  }
+  
+  // ── Stage 9: Self-Healing Repair ──
+  await setStage(9, 'Running self-healing check...');
+  X = ann.applyGuildAdapter(X, finalGuild.id);
+  const repair = ann.repairCheck(X);
+  activateSubsystem('repair', CONFIG.colors.repairSignal);
+  const isRepaired = (apiResponse && apiResponse.repair_applied) || repair.repairApplied;
+  document.getElementById('stat-repair').textContent = isRepaired ? 'REPAIRED' : 'CLEAN';
+  await delay(stageDelay);
+  
+  // ── Stage 10: Empathetic Response & Memory ──
+  await setStage(10, 'Updating memory & wrapping empathetic response...');
+  activateSubsystem('social', CONFIG.colors.socialSignal);
+  activateSubsystem('memory', CONFIG.colors.memorySignal);
+  activateSubsystem('output', CONFIG.colors.outputSignal);
+  
+  // Update memory ring
+  STATE.memoryBuffer.push(text);
+  if (STATE.memoryBuffer.length > CONFIG.memorySlots) STATE.memoryBuffer.shift();
+  STATE.memoryPointer = (STATE.memoryPointer + 1) % CONFIG.memorySlots;
+  updateMemoryRingDisplay();
+  
+  // Generate output from API or fallback
+  const output = (apiResponse && apiResponse.code) ? apiResponse.code : generateDemoOutput(text, finalGuild);
+  typewriterOutput(output);
+  
+  const elapsed = ((performance.now() - startTime) / 1000).toFixed(2);
+  document.getElementById('stat-latency').textContent = (apiResponse && apiResponse.latency_ms) ? (apiResponse.latency_ms / 1000).toFixed(2) + 's' : elapsed + 's';
+  
+  await delay(stageDelay);
+  
+  // Done
+  STATE.running = false;
+  STATE.currentStage = -1;
+  btn.classList.remove('running');
+  btn.textContent = 'INITIATE COGNITION';
+  document.getElementById('stage-label').textContent = 'Complete';
+}
+
+/**
+ * Keyword-based intent classification fallback.
+ * Matches the _predict_keyword logic from 01-Intent-Classifier.md
+ */
+function classifyByKeywords(text) {
+  const lower = text.toLowerCase();
+  let bestGuild = null, bestCount = 0;
+  
+  CONFIG.guilds.forEach(guild => {
+    let count = 0;
+    guild.keywords.forEach(kw => {
+      if (lower.includes(kw)) count++;
+    });
+    if (count > bestCount) {
+      bestCount = count;
+      bestGuild = guild;
+    }
+  });
+  
+  return bestGuild;
+}
+
+/**
+ * Generate realistic demo output based on guild and query.
+ */
+function generateDemoOutput(query, guild) {
+  const outputs = {
+    security: `// JWT Authentication Login Form
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+const router = express.Router();
+
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  
+  const user = await User.findOne({ email });
+  if (!user) return res.status(401).json({
+    error: 'Invalid credentials'
+  });
+  
+  const isValid = await bcrypt.compare(
+    password, user.passwordHash
+  );
+  if (!isValid) return res.status(401).json({
+    error: 'Invalid credentials'
+  });
+  
+  const token = jwt.sign(
+    { userId: user._id, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: '24h' }
+  );
+  
+  res.json({ token, user: {
+    id: user._id,
+    email: user.email
+  }});
+});
+
+module.exports = router;`,
+    debugger: `// Debug: Fixed null pointer in login
+function login(credentials) {
+  if (!credentials?.email) {
+    throw new Error('Email required');
+  }
+  return authenticate(credentials);
+}`,
+    fullstack: `// Full-stack implementation
+// Server + Client architecture
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use('/api/auth', authRouter);`
+  };
+  
+  return outputs[guild.id] || outputs.fullstack;
+}
+
+/**
+ * Typewriter effect for output display.
+ */
+function typewriterOutput(text) {
+  const el = document.getElementById('output-code');
+  el.textContent = '';
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i < text.length) {
+      el.textContent += text[i];
+      i++;
+      el.scrollTop = el.scrollHeight;
+    } else {
+      clearInterval(interval);
+    }
+  }, 8);
+}
+
+
+// ═══════════════════════════════════════════
+// VISUALIZATION HELPERS
+// ═══════════════════════════════════════════
+
+function activateSubsystem(subsystem, color) {
+  neurons.forEach(n => {
+    if (n.subsystem === subsystem) {
+      n.targetActivation = 1.0;
+      n.signalColor = color;
+    }
+  });
+  
+  // Fire pulses on related synapses
+  synapses.forEach(s => {
+    if (s.from.subsystem === subsystem || s.to.subsystem === subsystem) {
+      if (Math.random() < 0.3) createPulse(s, color, 1.5);
+    }
+  });
+}
+
+function activateCoreLayer(layerIdx) {
+  neurons.forEach(n => {
+    if (n.subsystem === 'core' && n.layer === layerIdx) {
+      n.targetActivation = 0.8 + Math.random() * 0.2;
+    } else if (n.subsystem === 'core' && n.layer < layerIdx) {
+      n.targetActivation = Math.max(0.1, n.targetActivation * 0.95);
+    }
+  });
+}
+
+function firePulsesForLayer(layerIdx) {
+  synapses.forEach(s => {
+    if (s.from.subsystem === 'core' && s.from.layer === layerIdx &&
+        s.to.subsystem === 'core' && s.to.layer === layerIdx + 1) {
+      if (Math.random() < 0.4) createPulse(s, CONFIG.colors.coreSignal, 2);
+    }
+  });
+}
+
+function highlightGuild(guildId) {
+  neurons.forEach(n => {
+    if (n.guildId === guildId) {
+      n.targetActivation = 1.0;
+    }
+  });
+}
+
+function resetActivations() {
+  neurons.forEach(n => {
+    n.targetActivation = 0;
+    n.activation = 0;
+  });
+  
+  // Clear pulses
+  pulses.forEach(p => {
+    brainGroup.remove(p.mesh);
+    p.mesh.geometry.dispose();
+    p.mesh.material.dispose();
+  });
+  pulses.length = 0;
+}
+
+async function setStage(idx, label) {
+  STATE.currentStage = idx;
+  document.getElementById('stage-label').textContent = label;
+  
+  // Update bottom stage dots
+  document.querySelectorAll('.stage-dot').forEach((dot, i) => {
+    dot.classList.remove('active', 'done');
+    if (i === idx) dot.classList.add('active');
+    else if (i < idx) dot.classList.add('done');
+  });
+  
+  // Update pipeline stages in right panel
+  updatePipelineDisplay(idx);
+}
+
+function delay(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+function waitForStep() {
+  return new Promise(resolve => {
+    const handler = (e) => {
+      if (e.code === 'Space' || e.code === 'ArrowRight') {
+        document.removeEventListener('keydown', handler);
+        resolve();
+      }
+    };
+    document.addEventListener('keydown', handler);
+  });
+}
+
+
+// ═══════════════════════════════════════════
+// ANIMATION LOOP
+// ═══════════════════════════════════════════
+
+function animate() {
+  requestAnimationFrame(animate);
+  
+  const delta = clock.getDelta();
+  const time = clock.getElapsedTime();
+  
+  // FPS counter
+  frameCount++;
+  if (time - lastFPSTime >= 1) {
+    fpsDisplay = frameCount;
+    document.getElementById('hud-fps').textContent = fpsDisplay;
+    frameCount = 0;
+    lastFPSTime = time;
+  }
+  
+  // Update camera
+  updateCamera();
+  
+  // Update layer visibility
+  Object.entries(subsystemGroups).forEach(([name, group]) => {
+    group.visible = STATE.visibleLayers[name] !== false;
+  });
+  
+  // Update neuron activations (smooth lerp)
+  neurons.forEach(n => {
+    n.activation += (n.targetActivation - n.activation) * 0.08;
+    
+    const intensity = n.activation * STATE.glowMult;
+    const mat = n.mesh.material;
+    
+    // Scale neuron by activation
+    const s = 0.15 + intensity * 0.25;
+    n.mesh.scale.setScalar(s / 0.15);
+    
+    // Glow
+    mat.emissiveIntensity = 0.1 + intensity * 1.5;
+    mat.opacity = 0.4 + intensity * 0.6;
+    
+    if (intensity > 0.3) {
+      const c = new THREE.Color(n.signalColor);
+      mat.emissive.lerp(c, intensity * 0.7);
+      mat.color.lerp(c, intensity * 0.5);
+    } else {
+      mat.emissive.set(CONFIG.colors.neuronBase);
+      mat.color.set(CONFIG.colors.neuronBase);
+    }
+    
+    // Gentle idle breathing
+    if (n.activation < 0.1) {
+      const breathe = Math.sin(time * 1.5 + n.mesh.position.x * 0.5) * 0.02;
+      n.mesh.position.y = n.basePosition.y + breathe;
+    }
+    
+    // Decay activation
+    n.targetActivation *= 0.998;
+  });
+  
+  // Update synapses
+  const densityThreshold = 1 - (STATE.density / 100);
+  synapses.forEach(s => {
+    const isRelated = (STATE.selectedGuild && 
+      (s.from.guildId === STATE.selectedGuild || s.to.guildId === STATE.selectedGuild));
+    
+    if (Math.abs(s.weight) < densityThreshold && !isRelated) {
+      s.line.visible = false;
+      return;
+    }
+    s.line.visible = true;
+    
+    const fromAct = s.from.activation;
+    const toAct = s.to.activation;
+    const avgAct = (fromAct + toAct) / 2;
+    
+    s.line.material.opacity = 0.03 + avgAct * 0.3;
+    
+    if (avgAct > 0.3) {
+      s.line.material.color.set(s.signalColor);
+    } else {
+      s.line.material.color.set(CONFIG.colors.synapseBase);
+    }
+  });
+  
+  // Update pulses
+  for (let i = pulses.length - 1; i >= 0; i--) {
+    const p = pulses[i];
+    p.progress += delta * p.speed;
+    
+    if (p.progress >= 1) {
+      brainGroup.remove(p.mesh);
+      p.mesh.geometry.dispose();
+      p.mesh.material.dispose();
+      pulses.splice(i, 1);
+      
+      // Activate target neuron
+      p.synapse.to.targetActivation = Math.min(1, p.synapse.to.targetActivation + 0.5);
+      continue;
+    }
+    
+    // Lerp position
+    p.mesh.position.lerpVectors(
+      p.synapse.from.mesh.position,
+      p.synapse.to.mesh.position,
+      p.progress
+    );
+    
+    // Fade pulse
+    p.mesh.material.opacity = Math.sin(p.progress * Math.PI) * 0.9;
+    const pulseScale = 0.8 + Math.sin(p.progress * Math.PI) * 0.5;
+    p.mesh.scale.setScalar(pulseScale);
+  }
+  
+  // Gentle brain rotation on idle
+  if (!STATE.running) {
+    brainGroup.rotation.y = Math.sin(time * 0.1) * 0.05;
+  }
+  
+  renderer.render(scene, camera);
+}
+
+
+// ═══════════════════════════════════════════
+// TOOLTIP & INTERACTION
+// ═══════════════════════════════════════════
+
+function onMouseMove(event) {
+  // Update mouse for raycaster
+  const rect = renderer.domElement.getBoundingClientRect();
+  mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+  
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(brainGroup.children, true);
+  
+  const tooltip = document.getElementById('tooltip');
+  
+  if (intersects.length > 0) {
+    const obj = intersects[0].object;
+    if (obj.userData && obj.userData.neuron) {
+      const n = obj.userData.neuron;
+      document.getElementById('tt-title').textContent = n.name;
+      document.getElementById('tt-detail').textContent = 
+        `Subsystem: ${n.subsystem}\n` +
+        `Layer: ${n.layer >= 0 ? n.layer + 1 : '--'}\n` +
+        `Activation: ${n.activation.toFixed(4)}\n` +
+        `Position: (${n.mesh.position.x.toFixed(1)}, ${n.mesh.position.y.toFixed(1)}, ${n.mesh.position.z.toFixed(1)})`;
+      
+      tooltip.style.left = event.clientX + 12 + 'px';
+      tooltip.style.top = event.clientY + 12 + 'px';
+      tooltip.classList.add('visible');
+      return;
+    }
+  }
+  
+  tooltip.classList.remove('visible');
+}
+
+function onResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+
+// ═══════════════════════════════════════════
+// UI CONTROLS
+// ═══════════════════════════════════════════
+
+function setMode(mode) {
+  document.querySelectorAll('#mode-text, #mode-ast, #mode-raw').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('mode-' + mode);
+  if (btn) btn.classList.add('active');
+  STATE.mode = mode;
+}
+
+function updateSliderVal(slider) {
+  const id = slider.id;
+  if (id === 'speed-slider') {
+    STATE.speed = parseFloat(slider.value);
+    document.getElementById('speed-val').textContent = STATE.speed.toFixed(1) + 'x';
+  } else if (id === 'density-slider') {
+    STATE.density = parseInt(slider.value);
+    document.getElementById('density-val').textContent = STATE.density + '%';
+  } else if (id === 'glow-slider') {
+    STATE.glowMult = parseFloat(slider.value);
+    document.getElementById('glow-val').textContent = STATE.glowMult.toFixed(1);
+  }
+}
+
+function toggleRotate(btn) {
+  STATE.autoRotate = !STATE.autoRotate;
+  btn.classList.toggle('active');
+}
+
+function toggleStep(btn) {
+  STATE.stepMode = !STATE.stepMode;
+  btn.classList.toggle('active');
+}
+
+function selectGuild(guildId) {
+  STATE.selectedGuild = STATE.selectedGuild === guildId ? null : guildId;
+  
+  document.querySelectorAll('.guild-chip').forEach(chip => {
+    chip.classList.toggle('active', chip.dataset.guild === STATE.selectedGuild);
+  });
+  
+  // Highlight guild neurons
+  neurons.forEach(n => {
+    if (n.guildId && n.guildId === STATE.selectedGuild) {
+      n.targetActivation = 0.8;
+    }
+  });
+}
+
+// ── Build UI Elements ──
+
+function buildGuildGrid() {
+  const grid = document.getElementById('guild-grid');
+  CONFIG.guilds.forEach(g => {
+    const chip = document.createElement('button');
+    chip.className = 'guild-chip';
+    chip.dataset.guild = g.id;
+    chip.textContent = g.name;
+    chip.onclick = () => selectGuild(g.id);
+    grid.appendChild(chip);
+  });
+}
+
+function buildLayerToggles() {
+  const container = document.getElementById('layer-toggles');
+  const layers = [
+    { id: 'input', label: 'Input Module' },
+    { id: 'sanitizer', label: 'Phonetic Sanitizer' },
+    { id: 'classifier', label: 'Intent Classifier' },
+    { id: 'retriever', label: 'Workspace Retriever' },
+    { id: 'social', label: 'Social Intelligence' },
+    { id: 'core', label: 'Core LLM (32 layers)' },
+    { id: 'guilds', label: 'Expert Guilds (13)' },
+    { id: 'repair', label: 'Self-Healing Engine' },
+    { id: 'memory', label: 'Session Memory' },
+    { id: 'output', label: 'Output Module' }
+  ];
+  
+  layers.forEach(l => {
+    const row = document.createElement('div');
+    row.className = 'layer-toggle';
+    
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.checked = true;
+    cb.id = 'layer-' + l.id;
+    cb.onchange = () => { STATE.visibleLayers[l.id] = cb.checked; };
+    
+    const label = document.createElement('label');
+    label.htmlFor = 'layer-' + l.id;
+    label.textContent = l.label;
+    
+    row.appendChild(cb);
+    row.appendChild(label);
+    container.appendChild(row);
+  });
+}
+
+function buildPipelineStages() {
+  const container = document.getElementById('pipeline-stages');
+  CONFIG.stages.forEach((name, i) => {
+    const row = document.createElement('div');
+    row.className = 'pipeline-stage';
+    row.id = 'pipeline-stage-' + i;
+    
+    const indicator = document.createElement('div');
+    indicator.className = 'stage-indicator';
+    
+    const label = document.createElement('span');
+    label.className = 'stage-name';
+    label.textContent = name;
+    
+    const time = document.createElement('span');
+    time.className = 'stage-time';
+    time.id = 'stage-time-' + i;
+    
+    row.appendChild(indicator);
+    row.appendChild(label);
+    row.appendChild(time);
+    container.appendChild(row);
+  });
+}
+
+function updatePipelineDisplay(activeIdx) {
+  CONFIG.stages.forEach((_, i) => {
+    const row = document.getElementById('pipeline-stage-' + i);
+    if (!row) return;
+    const indicator = row.querySelector('.stage-indicator');
+    indicator.classList.remove('active', 'done');
+    if (i === activeIdx) indicator.classList.add('active');
+    else if (i < activeIdx) indicator.classList.add('done');
+  });
+}
+
+function buildGuildFreqDisplay() {
+  const container = document.getElementById('guild-freq');
+  CONFIG.guilds.forEach(g => {
+    const row = document.createElement('div');
+    row.className = 'freq-bar-row';
+    
+    const label = document.createElement('span');
+    label.className = 'freq-bar-label';
+    label.textContent = g.name;
+    
+    const track = document.createElement('div');
+    track.className = 'freq-bar-track';
+    
+    const fill = document.createElement('div');
+    fill.className = 'freq-bar-fill';
+    fill.id = 'freq-' + g.id;
+    fill.style.width = '0%';
+    
+    track.appendChild(fill);
+    row.appendChild(label);
+    row.appendChild(track);
+    container.appendChild(row);
+  });
+}
+
+function updateGuildFreqDisplay() {
+  const maxFreq = Math.max(1, ...Object.values(STATE.guildFrequency));
+  CONFIG.guilds.forEach(g => {
+    const el = document.getElementById('freq-' + g.id);
+    if (el) {
+      el.style.width = (STATE.guildFrequency[g.id] / maxFreq * 100) + '%';
+    }
+  });
+}
+
+function buildMemoryRing() {
+  const container = document.getElementById('memory-ring');
+  for (let i = 0; i < CONFIG.memorySlots; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'memory-slot';
+    slot.id = 'mem-slot-' + i;
+    container.appendChild(slot);
+  }
+}
+
+function updateMemoryRingDisplay() {
+  for (let i = 0; i < CONFIG.memorySlots; i++) {
+    const el = document.getElementById('mem-slot-' + i);
+    if (!el) continue;
+    el.classList.remove('filled', 'current');
+    if (i < STATE.memoryBuffer.length) el.classList.add('filled');
+    if (i === STATE.memoryPointer) el.classList.add('current');
+  }
+}
+
+/**
+ * Render attention heatmap on canvas.
+ * Visualizes the attention weights from the last processed layer.
+ */
+function updateAttentionHeatmap(layerIdx) {
+  const canvas = document.getElementById('attention-canvas');
+  const ctx = canvas.getContext('2d');
+  const attn = ann.activations.attention[layerIdx];
+  
+  if (!attn) {
+    ctx.fillStyle = '#0a0a0a';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    return;
+  }
+  
+  const cellW = canvas.width / attn.cols;
+  const cellH = canvas.height / attn.rows;
+  
+  for (let i = 0; i < attn.rows; i++) {
+    for (let j = 0; j < attn.cols; j++) {
+      const val = attn.get(i, j);
+      const intensity = Math.floor(val * 255);
+      ctx.fillStyle = `rgb(${intensity}, ${intensity}, ${intensity})`;
+      ctx.fillRect(j * cellW, i * cellH, cellW + 1, cellH + 1);
+    }
+  }
+  
+  // Layer label
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.font = '10px "JetBrains Mono"';
+  ctx.fillText(`Layer ${layerIdx + 1}`, 4, 12);
+}
+
+
+// ═══════════════════════════════════════════
+// INITIALIZATION
+// ═══════════════════════════════════════════
+
+function init() {
+  // Build UI
+  buildGuildGrid();
+  buildLayerToggles();
+  buildPipelineStages();
+  buildGuildFreqDisplay();
+  buildMemoryRing();
+  
+  // Init 3D
+  initThreeJS();
+  
+  // Auto-run demo after short delay
+  setTimeout(() => {
+    runSimulation();
+  }, 1500);
+}
+
+// Start
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

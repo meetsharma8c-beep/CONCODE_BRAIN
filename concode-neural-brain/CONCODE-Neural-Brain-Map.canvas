@@ -1,0 +1,1842 @@
+{
+  "nodes": [
+    {
+      "id": "node_01_Brain_Architecture_06_FastAPI_Service_md",
+      "type": "file",
+      "file": "01-Brain-Architecture/06-FastAPI-Service.md",
+      "x": -550,
+      "y": -300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_01_Brain_Architecture_07_Client_Integration_md",
+      "type": "file",
+      "file": "01-Brain-Architecture/07-Client-Integration.md",
+      "x": -550,
+      "y": 60,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_Welcome_md",
+      "type": "file",
+      "file": "Welcome.md",
+      "x": 0,
+      "y": -300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_01_Brain_Architecture_00_Brain_Overview_md",
+      "type": "file",
+      "file": "01-Brain-Architecture/00-Brain-Overview.md",
+      "x": 0,
+      "y": 60,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_00_Dashboard_Dashboard_md",
+      "type": "file",
+      "file": "00-Dashboard/Dashboard.md",
+      "x": 0,
+      "y": 420,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_01_Brain_Architecture_01_Intent_Classifier_md",
+      "type": "file",
+      "file": "01-Brain-Architecture/01-Intent-Classifier.md",
+      "x": 550,
+      "y": -300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_01_Brain_Architecture_02_Workspace_Retriever_md",
+      "type": "file",
+      "file": "01-Brain-Architecture/02-Workspace-Retriever.md",
+      "x": 550,
+      "y": 60,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_01_Brain_Architecture_03_Core_LLM_Generator_md",
+      "type": "file",
+      "file": "01-Brain-Architecture/03-Core-LLM-Generator.md",
+      "x": 550,
+      "y": 420,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_01_Brain_Architecture_04_Code_Repairer_md",
+      "type": "file",
+      "file": "01-Brain-Architecture/04-Code-Repairer.md",
+      "x": 550,
+      "y": 780,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_01_Brain_Architecture_05_Session_Memory_md",
+      "type": "file",
+      "file": "01-Brain-Architecture/05-Session-Memory.md",
+      "x": 550,
+      "y": 1140,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_01_Brain_Architecture_08_Neural_Thinking_Process_md",
+      "type": "file",
+      "file": "01-Brain-Architecture/08-Neural-Thinking-Process.md",
+      "x": 550,
+      "y": 1500,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_01_Brain_Architecture_09_Social_Intelligence_md",
+      "type": "file",
+      "file": "01-Brain-Architecture/09-Social-Intelligence.md",
+      "x": 550,
+      "y": 1860,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_01_Intent_Classification_Routing_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/01-Intent-Classification-Routing.md",
+      "x": 1100,
+      "y": -300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_02_Dense_Vector_Similarity_Search_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/02-Dense-Vector-Similarity-Search.md",
+      "x": 1100,
+      "y": 60,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_03_Autoregressive_Code_Generation_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/03-Autoregressive-Code-Generation.md",
+      "x": 1100,
+      "y": 420,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_04_Seq2Seq_Neural_Code_Repair_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/04-Seq2Seq-Neural-Code-Repair.md",
+      "x": 1100,
+      "y": 780,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_05_Regex_Bracket_Typo_Fixing_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/05-Regex-Bracket-Typo-Fixing.md",
+      "x": 1100,
+      "y": 1140,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_06_Multi_Turn_Session_Memory_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/06-Multi-Turn-Session-Memory.md",
+      "x": 1100,
+      "y": 1500,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_07_QLoRA_Adapter_Pathway_Modulation_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/07-QLoRA-Adapter-Pathway-Modulation.md",
+      "x": 1100,
+      "y": 1860,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_08_Prompt_Deconstruction_And_Tagging_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/08-Prompt-Deconstruction-And-Tagging.md",
+      "x": 1100,
+      "y": 2220,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_09_Sub_Graph_Execution_Orchestration_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/09-Sub-Graph-Execution-Orchestration.md",
+      "x": 1100,
+      "y": 2580,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_10_Context_Window_Pruning_Strategy_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/10-Context-Window-Pruning-Strategy.md",
+      "x": 1100,
+      "y": 2940,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_11_Confidence_Scoring_And_Fallback_Routing_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/11-Confidence-Scoring-And-Fallback-Routing.md",
+      "x": 1100,
+      "y": 3300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_12_AST_Syntax_Tree_Balancing_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/12-AST-Syntax-Tree-Balancing.md",
+      "x": 1100,
+      "y": 3660,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_13_Attention_Masking_And_Padding_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/13-Attention-Masking-And-Padding.md",
+      "x": 1100,
+      "y": 4020,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_14_Gradient_Checkpointing_And_Offloading_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/14-Gradient-Checkpointing-And-Offloading.md",
+      "x": 1100,
+      "y": 4380,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_15_Token_Probability_Entropy_Analysis_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/15-Token-Probability-Entropy-Analysis.md",
+      "x": 1100,
+      "y": 4740,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_16_RoPE_Rotary_Position_Embeddings_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/16-RoPE-Rotary-Position-Embeddings.md",
+      "x": 1100,
+      "y": 5100,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_17_KV_Cache_State_Management_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/17-KV-Cache-State-Management.md",
+      "x": 1100,
+      "y": 5460,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_18_Softmax_Temperature_Scaling_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/18-Softmax-Temperature-Scaling.md",
+      "x": 1100,
+      "y": 5820,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_19_Multi_Head_Attention_Sub_Space_Fusion_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/19-Multi-Head-Attention-Sub-Space-Fusion.md",
+      "x": 1100,
+      "y": 6180,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_20_RMSNorm_Layer_Normalization_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/20-RMSNorm-Layer-Normalization.md",
+      "x": 1100,
+      "y": 6540,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_21_FAISS_L2_Vector_Normalization_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/21-FAISS-L2-Vector-Normalization.md",
+      "x": 1100,
+      "y": 6900,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_22_NF4_Quantization_Dtype_Mapping_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/22-NF4-Quantization-Dtype-Mapping.md",
+      "x": 1100,
+      "y": 7260,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_23_CORS_Security_And_Origin_Validation_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/23-CORS-Security-And-Origin-Validation.md",
+      "x": 1100,
+      "y": 7620,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_24_Beam_Search_Hypothesis_Scoring_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/24-Beam-Search-Hypothesis-Scoring.md",
+      "x": 1100,
+      "y": 7980,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_25_System_Prompt_Role_Injection_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/25-System-Prompt-Role-Injection.md",
+      "x": 1100,
+      "y": 8340,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_26_Tokenizer_Byte_Pair_Encoding_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/26-Tokenizer-Byte-Pair-Encoding.md",
+      "x": 1100,
+      "y": 8700,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_27_Gradient_Accumulation_Step_Optimization_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/27-Gradient-Accumulation-Step-Optimization.md",
+      "x": 1100,
+      "y": 9060,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_28_Loss_Function_Cross_Entropy_Computation_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/28-Loss-Function-Cross-Entropy-Computation.md",
+      "x": 1100,
+      "y": 9420,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_29_Attention_Pattern_Visualization_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/29-Attention-Pattern-Visualization.md",
+      "x": 1100,
+      "y": 9780,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_30_Self_Correction_Loop_Termination_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/30-Self-Correction-Loop-Termination.md",
+      "x": 1100,
+      "y": 10140,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_31_Top_P_Nucleus_Sampling_Cutoff_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/31-Top-P-Nucleus-Sampling-Cutoff.md",
+      "x": 1100,
+      "y": 10500,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_32_KV_Cache_Memory_Allocation_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/32-KV-Cache-Memory-Allocation.md",
+      "x": 1100,
+      "y": 10860,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_33_SwiGLU_Gated_Linear_Unit_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/33-SwiGLU-Gated-Linear-Unit.md",
+      "x": 1100,
+      "y": 11220,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_34_AdamW_Weight_Decay_Optimization_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/34-AdamW-Weight-Decay-Optimization.md",
+      "x": 1100,
+      "y": 11580,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_35_LoRA_Rank_And_Alpha_Scaling_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/35-LoRA-Rank-And-Alpha-Scaling.md",
+      "x": 1100,
+      "y": 11940,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_36_Multi_Turn_Conversation_Context_Trimming_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/36-Multi-Turn-Conversation-Context-Trimming.md",
+      "x": 1100,
+      "y": 12300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_37_Regex_Keyword_Typo_Correction_Dictionary_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/37-Regex-Keyword-Typo-Correction-Dictionary.md",
+      "x": 1100,
+      "y": 12660,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_38_FastAPI_Async_Event_Loop_Handling_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/38-FastAPI-Async-Event-Loop-Handling.md",
+      "x": 1100,
+      "y": 13020,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_39_FAISS_IndexFlatIP_Inner_Product_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/39-FAISS-IndexFlatIP-Inner-Product.md",
+      "x": 1100,
+      "y": 13380,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_40_Pydantic_Request_Schema_Validation_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/40-Pydantic-Request-Schema-Validation.md",
+      "x": 1100,
+      "y": 13740,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_41_Metal_GPU_Unified_Memory_Offloading_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/41-Metal-GPU-Unified-Memory-Offloading.md",
+      "x": 1100,
+      "y": 14100,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_42_Sub_Graph_Decision_Tree_Pruning_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/42-Sub-Graph-Decision-Tree-Pruning.md",
+      "x": 1100,
+      "y": 14460,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_43_Instruction_Dataset_Formatting_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/43-Instruction-Dataset-Formatting.md",
+      "x": 1100,
+      "y": 14820,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_44_CodeT5_Encoder_Decoder_Attention_Alignment_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/44-CodeT5-Encoder-Decoder-Attention-Alignment.md",
+      "x": 1100,
+      "y": 15180,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_45_FAISS_Index_Save_And_Reload_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/45-FAISS-Index-Save-And-Reload.md",
+      "x": 1100,
+      "y": 15540,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_46_Multi_Guild_Data_Augmentation_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/46-Multi-Guild-Data-Augmentation.md",
+      "x": 1100,
+      "y": 15900,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_47_LLM_Generator_Fallback_Heuristics_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/47-LLM-Generator-Fallback-Heuristics.md",
+      "x": 1100,
+      "y": 16260,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_48_HTTP_Status_Code_Error_Mapping_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/48-HTTP-Status-Code-Error-Mapping.md",
+      "x": 1100,
+      "y": 16620,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_49_OpenAPI_Swagger_Schema_Generation_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/49-OpenAPI-Swagger-Schema-Generation.md",
+      "x": 1100,
+      "y": 16980,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_50_Session_ID_UUID4_Generation_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/50-Session-ID-UUID4-Generation.md",
+      "x": 1100,
+      "y": 17340,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_51_Sentiment_Classification_Threshold_Mapping_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/51-Sentiment-Classification-Threshold-Mapping.md",
+      "x": 1100,
+      "y": 17700,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_52_User_Profile_Persistence_And_Tone_Detection_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/52-User-Profile-Persistence-And-Tone-Detection.md",
+      "x": 1100,
+      "y": 18060,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_53_Dynamic_System_Prompt_Composition_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/53-Dynamic-System-Prompt-Composition.md",
+      "x": 1100,
+      "y": 18420,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_54_Ambiguity_Detection_And_Clarification_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/54-Ambiguity-Detection-And-Clarification.md",
+      "x": 1100,
+      "y": 18780,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_55_Empathetic_Response_Wrapping_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/55-Empathetic-Response-Wrapping.md",
+      "x": 1100,
+      "y": 19140,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "type": "file",
+      "file": "07-Thinking-Skills/Thinking-Skills-MOC.md",
+      "x": 1100,
+      "y": 19500,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_AI_ML_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/AI-ML-Guild.md",
+      "x": 1650,
+      "y": -300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_API_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/API-Guild.md",
+      "x": 1650,
+      "y": 60,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_Blockchain_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/Blockchain-Guild.md",
+      "x": 1650,
+      "y": 420,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_Conversational_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/Conversational-Guild.md",
+      "x": 1650,
+      "y": 780,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_Database_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/Database-Guild.md",
+      "x": 1650,
+      "y": 1140,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_Debugger_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/Debugger-Guild.md",
+      "x": 1650,
+      "y": 1500,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_DevOps_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/DevOps-Guild.md",
+      "x": 1650,
+      "y": 1860,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_Fullstack_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/Fullstack-Guild.md",
+      "x": 2100,
+      "y": -300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_Guild_Overview_md",
+      "type": "file",
+      "file": "02-Guilds/Guild-Overview.md",
+      "x": 2100,
+      "y": 60,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_Mobile_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/Mobile-Guild.md",
+      "x": 2100,
+      "y": 420,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_Performance_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/Performance-Guild.md",
+      "x": 2100,
+      "y": 780,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_QA_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/QA-Guild.md",
+      "x": 2100,
+      "y": 1140,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_Security_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/Security-Guild.md",
+      "x": 2100,
+      "y": 1500,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_UI_UX_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/UI-UX-Guild.md",
+      "x": 2100,
+      "y": 1860,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_02_Guilds_WebGL_Guild_md",
+      "type": "file",
+      "file": "02-Guilds/WebGL-Guild.md",
+      "x": 2100,
+      "y": 2220,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_12_Infrastructure_01_Docker_Containerization_md",
+      "type": "file",
+      "file": "12-Infrastructure/01-Docker-Containerization.md",
+      "x": 2600,
+      "y": -300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_12_Infrastructure_02_Apple_Silicon_Metal_Setup_md",
+      "type": "file",
+      "file": "12-Infrastructure/02-Apple-Silicon-Metal-Setup.md",
+      "x": 2600,
+      "y": 60,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_12_Infrastructure_03_Deployment_Verification_md",
+      "type": "file",
+      "file": "12-Infrastructure/03-Deployment-Verification.md",
+      "x": 2600,
+      "y": 420,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_12_Infrastructure_04_Kaggle_GPU_Deployment_md",
+      "type": "file",
+      "file": "12-Infrastructure/04-Kaggle-GPU-Deployment.md",
+      "x": 2600,
+      "y": 780,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_12_Infrastructure_Infrastructure_MOC_md",
+      "type": "file",
+      "file": "12-Infrastructure/Infrastructure-MOC.md",
+      "x": 2600,
+      "y": 1140,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_AI_ML_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/AI-ML-Spec.md",
+      "x": 2600,
+      "y": 1500,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_API_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/API-Spec.md",
+      "x": 2600,
+      "y": 1860,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_Blockchain_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/Blockchain-Spec.md",
+      "x": 2600,
+      "y": 2220,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_Database_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/Database-Spec.md",
+      "x": 2600,
+      "y": 2580,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_Debugger_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/Debugger-Spec.md",
+      "x": 2600,
+      "y": 2940,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_DevOps_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/DevOps-Spec.md",
+      "x": 2600,
+      "y": 3300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_Fullstack_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/Fullstack-Spec.md",
+      "x": 2600,
+      "y": 3660,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_Guild_Networks_MOC_md",
+      "type": "file",
+      "file": "09-Guild-Networks/Guild-Networks-MOC.md",
+      "x": 2600,
+      "y": 4020,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_Mobile_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/Mobile-Spec.md",
+      "x": 2600,
+      "y": 4380,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_Performance_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/Performance-Spec.md",
+      "x": 2600,
+      "y": 4740,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_QA_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/QA-Spec.md",
+      "x": 2600,
+      "y": 5100,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_Security_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/Security-Spec.md",
+      "x": 2600,
+      "y": 5460,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_UI_UX_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/UI-UX-Spec.md",
+      "x": 2600,
+      "y": 5820,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_09_Guild_Networks_WebGL_Spec_md",
+      "type": "file",
+      "file": "09-Guild-Networks/WebGL-Spec.md",
+      "x": 2600,
+      "y": 6180,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_10_Benchmarks_01_Inference_Latency_Breakdown_md",
+      "type": "file",
+      "file": "10-Benchmarks/01-Inference-Latency-Breakdown.md",
+      "x": 2600,
+      "y": 6540,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_10_Benchmarks_02_VRAM_Memory_Allocation_md",
+      "type": "file",
+      "file": "10-Benchmarks/02-VRAM-Memory-Allocation.md",
+      "x": 2600,
+      "y": 6900,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_10_Benchmarks_03_Code_Repair_Accuracy_Metrics_md",
+      "type": "file",
+      "file": "10-Benchmarks/03-Code-Repair-Accuracy-Metrics.md",
+      "x": 2600,
+      "y": 7260,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_10_Benchmarks_Benchmarks_MOC_md",
+      "type": "file",
+      "file": "10-Benchmarks/Benchmarks-MOC.md",
+      "x": 2600,
+      "y": 7620,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_08_Decision_Graphs_01_Query_Guild_Routing_Graph_md",
+      "type": "file",
+      "file": "08-Decision-Graphs/01-Query-Guild-Routing-Graph.md",
+      "x": 2600,
+      "y": 7980,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_08_Decision_Graphs_02_Code_Repair_Fallbacks_Graph_md",
+      "type": "file",
+      "file": "08-Decision-Graphs/02-Code-Repair-Fallbacks-Graph.md",
+      "x": 2600,
+      "y": 8340,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_08_Decision_Graphs_03_Retrieval_Relevance_Filter_Graph_md",
+      "type": "file",
+      "file": "08-Decision-Graphs/03-Retrieval-Relevance-Filter-Graph.md",
+      "x": 2600,
+      "y": 8700,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_08_Decision_Graphs_04_Model_Quantization_Pipeline_Graph_md",
+      "type": "file",
+      "file": "08-Decision-Graphs/04-Model-Quantization-Pipeline-Graph.md",
+      "x": 2600,
+      "y": 9060,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_08_Decision_Graphs_Decision_Graphs_MOC_md",
+      "type": "file",
+      "file": "08-Decision-Graphs/Decision-Graphs-MOC.md",
+      "x": 2600,
+      "y": 9420,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_11_Security_Protocols_01_JWT_Token_Verification_md",
+      "type": "file",
+      "file": "11-Security-Protocols/01-JWT-Token-Verification.md",
+      "x": 2600,
+      "y": 9780,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_11_Security_Protocols_02_Input_Sanitization_And_Escaping_md",
+      "type": "file",
+      "file": "11-Security-Protocols/02-Input-Sanitization-And-Escaping.md",
+      "x": 2600,
+      "y": 10140,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_11_Security_Protocols_03_Rate_Limiting_And_Throttling_md",
+      "type": "file",
+      "file": "11-Security-Protocols/03-Rate-Limiting-And-Throttling.md",
+      "x": 2600,
+      "y": 10500,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_11_Security_Protocols_04_API_Key_Validation_md",
+      "type": "file",
+      "file": "11-Security-Protocols/04-API-Key-Validation.md",
+      "x": 2600,
+      "y": 10860,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_11_Security_Protocols_Security_Protocols_MOC_md",
+      "type": "file",
+      "file": "11-Security-Protocols/Security-Protocols-MOC.md",
+      "x": 2600,
+      "y": 11220,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_14_Client_SDK_01_JavaScript_Client_SDK_md",
+      "type": "file",
+      "file": "14-Client-SDK/01-JavaScript-Client-SDK.md",
+      "x": 2600,
+      "y": 11580,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_14_Client_SDK_02_Python_Client_SDK_md",
+      "type": "file",
+      "file": "14-Client-SDK/02-Python-Client-SDK.md",
+      "x": 2600,
+      "y": 11940,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_14_Client_SDK_03_WebSocket_Streaming_Client_md",
+      "type": "file",
+      "file": "14-Client-SDK/03-WebSocket-Streaming-Client.md",
+      "x": 2600,
+      "y": 12300,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_14_Client_SDK_04_TripVerse_AI_Planner_Bridge_md",
+      "type": "file",
+      "file": "14-Client-SDK/04-TripVerse-AI-Planner-Bridge.md",
+      "x": 2600,
+      "y": 12660,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_14_Client_SDK_Client_SDK_MOC_md",
+      "type": "file",
+      "file": "14-Client-SDK/Client-SDK-MOC.md",
+      "x": 2600,
+      "y": 13020,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_15_Diagnostics_01_Model_Load_Failure_Recovery_md",
+      "type": "file",
+      "file": "15-Diagnostics/01-Model-Load-Failure-Recovery.md",
+      "x": 2600,
+      "y": 13380,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_15_Diagnostics_02_Out_Of_Memory_Prevention_md",
+      "type": "file",
+      "file": "15-Diagnostics/02-Out-Of-Memory-Prevention.md",
+      "x": 2600,
+      "y": 13740,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_15_Diagnostics_Diagnostics_MOC_md",
+      "type": "file",
+      "file": "15-Diagnostics/Diagnostics-MOC.md",
+      "x": 2600,
+      "y": 14100,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_06_Templates_Guild_Template_md",
+      "type": "file",
+      "file": "06-Templates/Guild-Template.md",
+      "x": 2600,
+      "y": 14460,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_06_Templates_Subsystem_Template_md",
+      "type": "file",
+      "file": "06-Templates/Subsystem-Template.md",
+      "x": 2600,
+      "y": 14820,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_13_Mathematical_Foundations_01_Softmax_Temperature_Math_md",
+      "type": "file",
+      "file": "13-Mathematical-Foundations/01-Softmax-Temperature-Math.md",
+      "x": 2600,
+      "y": 15180,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_13_Mathematical_Foundations_02_Rotary_Embedding_Complex_Math_md",
+      "type": "file",
+      "file": "13-Mathematical-Foundations/02-Rotary-Embedding-Complex-Math.md",
+      "x": 2600,
+      "y": 15540,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_13_Mathematical_Foundations_03_SwiGLU_Activation_Math_md",
+      "type": "file",
+      "file": "13-Mathematical-Foundations/03-SwiGLU-Activation-Math.md",
+      "x": 2600,
+      "y": 15900,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_13_Mathematical_Foundations_04_Cosine_Vector_Similarity_Math_md",
+      "type": "file",
+      "file": "13-Mathematical-Foundations/04-Cosine-Vector-Similarity-Math.md",
+      "x": 2600,
+      "y": 16260,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_13_Mathematical_Foundations_05_Cross_Entropy_Sequence_Math_md",
+      "type": "file",
+      "file": "13-Mathematical-Foundations/05-Cross-Entropy-Sequence-Math.md",
+      "x": 2600,
+      "y": 16620,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_13_Mathematical_Foundations_06_RMSNorm_Scaling_Math_md",
+      "type": "file",
+      "file": "13-Mathematical-Foundations/06-RMSNorm-Scaling-Math.md",
+      "x": 2600,
+      "y": 16980,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_13_Mathematical_Foundations_Math_Foundations_MOC_md",
+      "type": "file",
+      "file": "13-Mathematical-Foundations/Math-Foundations-MOC.md",
+      "x": 2600,
+      "y": 17340,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_03_Training_Data_Data_Pipeline_md",
+      "type": "file",
+      "file": "03-Training-Data/Data-Pipeline.md",
+      "x": 2600,
+      "y": 17700,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_03_Training_Data_Intent_Dataset_md",
+      "type": "file",
+      "file": "03-Training-Data/Intent-Dataset.md",
+      "x": 2600,
+      "y": 18060,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_03_Training_Data_Multi_Guild_Train_md",
+      "type": "file",
+      "file": "03-Training-Data/Multi-Guild-Train.md",
+      "x": 2600,
+      "y": 18420,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_03_Training_Data_Repair_Dataset_md",
+      "type": "file",
+      "file": "03-Training-Data/Repair-Dataset.md",
+      "x": 2600,
+      "y": 18780,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_guilds_conversational_guild_md",
+      "type": "file",
+      "file": "guilds/conversational-guild.md",
+      "x": 2600,
+      "y": 19140,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_05_Session_Logs_Session_Tracking_md",
+      "type": "file",
+      "file": "05-Session-Logs/Session-Tracking.md",
+      "x": 2600,
+      "y": 19500,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_04_Experiments_GGUF_Quantization_md",
+      "type": "file",
+      "file": "04-Experiments/GGUF-Quantization.md",
+      "x": 2600,
+      "y": 19860,
+      "width": 420,
+      "height": 300
+    },
+    {
+      "id": "node_04_Experiments_QLoRA_FineTuning_md",
+      "type": "file",
+      "file": "04-Experiments/QLoRA-FineTuning.md",
+      "x": 2600,
+      "y": 20220,
+      "width": 420,
+      "height": 300
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge_1",
+      "fromNode": "node_00_Dashboard_Dashboard_md",
+      "fromSide": "right",
+      "toNode": "node_01_Brain_Architecture_00_Brain_Overview_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_2",
+      "fromNode": "node_00_Dashboard_Dashboard_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_3",
+      "fromNode": "node_00_Dashboard_Dashboard_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_Guild_Overview_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_4",
+      "fromNode": "node_01_Brain_Architecture_06_FastAPI_Service_md",
+      "fromSide": "right",
+      "toNode": "node_00_Dashboard_Dashboard_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_5",
+      "fromNode": "node_01_Brain_Architecture_07_Client_Integration_md",
+      "fromSide": "right",
+      "toNode": "node_00_Dashboard_Dashboard_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_6",
+      "fromNode": "node_01_Brain_Architecture_00_Brain_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_01_Brain_Architecture_01_Intent_Classifier_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_7",
+      "fromNode": "node_01_Brain_Architecture_00_Brain_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_01_Brain_Architecture_02_Workspace_Retriever_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_8",
+      "fromNode": "node_01_Brain_Architecture_00_Brain_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_01_Brain_Architecture_03_Core_LLM_Generator_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_9",
+      "fromNode": "node_01_Brain_Architecture_00_Brain_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_01_Brain_Architecture_04_Code_Repairer_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_10",
+      "fromNode": "node_01_Brain_Architecture_00_Brain_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_01_Brain_Architecture_05_Session_Memory_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_11",
+      "fromNode": "node_01_Brain_Architecture_00_Brain_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_01_Brain_Architecture_08_Neural_Thinking_Process_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_12",
+      "fromNode": "node_01_Brain_Architecture_00_Brain_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_01_Brain_Architecture_09_Social_Intelligence_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_13",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_01_Intent_Classification_Routing_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_14",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_02_Dense_Vector_Similarity_Search_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_15",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_03_Autoregressive_Code_Generation_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_16",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_04_Seq2Seq_Neural_Code_Repair_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_17",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_05_Regex_Bracket_Typo_Fixing_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_18",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_06_Multi_Turn_Session_Memory_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_19",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_07_QLoRA_Adapter_Pathway_Modulation_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_20",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_08_Prompt_Deconstruction_And_Tagging_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_21",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_09_Sub_Graph_Execution_Orchestration_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_22",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_10_Context_Window_Pruning_Strategy_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_23",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_11_Confidence_Scoring_And_Fallback_Routing_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_24",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_12_AST_Syntax_Tree_Balancing_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_25",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_13_Attention_Masking_And_Padding_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_26",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_14_Gradient_Checkpointing_And_Offloading_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_27",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_15_Token_Probability_Entropy_Analysis_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_28",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_16_RoPE_Rotary_Position_Embeddings_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_29",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_17_KV_Cache_State_Management_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_30",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_18_Softmax_Temperature_Scaling_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_31",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_19_Multi_Head_Attention_Sub_Space_Fusion_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_32",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_20_RMSNorm_Layer_Normalization_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_33",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_21_FAISS_L2_Vector_Normalization_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_34",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_22_NF4_Quantization_Dtype_Mapping_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_35",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_23_CORS_Security_And_Origin_Validation_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_36",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_24_Beam_Search_Hypothesis_Scoring_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_37",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_25_System_Prompt_Role_Injection_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_38",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_26_Tokenizer_Byte_Pair_Encoding_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_39",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_27_Gradient_Accumulation_Step_Optimization_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_40",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_28_Loss_Function_Cross_Entropy_Computation_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_41",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_29_Attention_Pattern_Visualization_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_42",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_30_Self_Correction_Loop_Termination_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_43",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_31_Top_P_Nucleus_Sampling_Cutoff_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_44",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_32_KV_Cache_Memory_Allocation_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_45",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_33_SwiGLU_Gated_Linear_Unit_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_46",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_34_AdamW_Weight_Decay_Optimization_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_47",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_35_LoRA_Rank_And_Alpha_Scaling_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_48",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_36_Multi_Turn_Conversation_Context_Trimming_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_49",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_37_Regex_Keyword_Typo_Correction_Dictionary_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_50",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_38_FastAPI_Async_Event_Loop_Handling_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_51",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_39_FAISS_IndexFlatIP_Inner_Product_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_52",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_40_Pydantic_Request_Schema_Validation_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_53",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_41_Metal_GPU_Unified_Memory_Offloading_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_54",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_42_Sub_Graph_Decision_Tree_Pruning_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_55",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_43_Instruction_Dataset_Formatting_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_56",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_44_CodeT5_Encoder_Decoder_Attention_Alignment_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_57",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_45_FAISS_Index_Save_And_Reload_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_58",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_46_Multi_Guild_Data_Augmentation_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_59",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_47_LLM_Generator_Fallback_Heuristics_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_60",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_48_HTTP_Status_Code_Error_Mapping_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_61",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_49_OpenAPI_Swagger_Schema_Generation_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_62",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_50_Session_ID_UUID4_Generation_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_63",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_51_Sentiment_Classification_Threshold_Mapping_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_64",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_52_User_Profile_Persistence_And_Tone_Detection_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_65",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_53_Dynamic_System_Prompt_Composition_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_66",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_54_Ambiguity_Detection_And_Clarification_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_67",
+      "fromNode": "node_07_Thinking_Skills_Thinking_Skills_MOC_md",
+      "fromSide": "right",
+      "toNode": "node_07_Thinking_Skills_55_Empathetic_Response_Wrapping_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_68",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_AI_ML_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_69",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_API_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_70",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_Blockchain_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_71",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_Conversational_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_72",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_Database_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_73",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_Debugger_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_74",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_DevOps_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_75",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_Fullstack_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_76",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_Mobile_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_77",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_Performance_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_78",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_QA_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_79",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_Security_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_80",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_UI_UX_Guild_md",
+      "toSide": "left"
+    },
+    {
+      "id": "edge_81",
+      "fromNode": "node_02_Guilds_Guild_Overview_md",
+      "fromSide": "right",
+      "toNode": "node_02_Guilds_WebGL_Guild_md",
+      "toSide": "left"
+    }
+  ]
+}

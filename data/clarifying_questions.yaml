@@ -1,0 +1,11 @@
+patterns:
+  - keywords: ["fix this", "fix it", "make it work"]
+    question: "Could you specify which function, line, or error trace needs to be fixed?"
+  - keywords: ["add authentication", "add auth"]
+    question: "Which authentication strategy would you prefer (e.g. JWT, OAuth2, Session-based, or Firebase Auth)?"
+  - keywords: ["make it faster", "optimize", "optimize code"]
+    question: "Which target area would you like to optimize (e.g. database query performance, memory consumption, or execution latency)?"
+  - keywords: ["build API", "create API"]
+    question: "Which web framework and data schema would you like to use for this API?"
+  - keywords: ["add tests", "write test"]
+    question: "What testing framework should be used (e.g. Pytest, Jest, or unittest) and which components should be covered?"

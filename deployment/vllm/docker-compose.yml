@@ -1,0 +1,22 @@
+services:
+  vllm:
+    image: vllm/vllm-openai:latest
+    restart: unless-stopped
+    runtime: nvidia
+    ipc: host
+    command:
+      - --model
+      - ${VLLM_MODEL_ID:?Set VLLM_MODEL_ID in deployment/vllm/.env}
+      - --served-model-name
+      - concode-coder
+      - --api-key
+      - ${VLLM_API_KEY:?Set VLLM_API_KEY in deployment/vllm/.env}
+    environment:
+      HF_TOKEN: ${HF_TOKEN:-}
+    volumes:
+      - hf-cache:/root/.cache/huggingface
+    ports:
+      - "127.0.0.1:8000:8000"
+
+volumes:
+  hf-cache:

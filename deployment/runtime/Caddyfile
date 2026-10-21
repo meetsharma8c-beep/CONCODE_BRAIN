@@ -1,0 +1,4 @@
+{$CONCODE_DOMAIN} {
+    encode zstd gzip
+    reverse_proxy brain:8000
+}

@@ -1,0 +1,39 @@
+templates:
+  negative:
+    preambles:
+      - "I understand code issues can be frustrating. Let us resolve this together."
+      - "Debugging can be challenging. Here is a clear solution to fix the issue."
+      - "No worries, we can get this sorted out right away."
+    postambles:
+      - "Let me know if you run into any more friction with this."
+      - "Hope this helps ease the workflow."
+
+  confused:
+    preambles:
+      - "Here is a step-by-step implementation to help clarify the approach."
+      - "Let us break this down simply."
+      - "Here is how this component works."
+    postambles:
+      - "Feel free to ask if any part needs further breakdown."
+      - "Would you like a detailed line-by-line explanation?"
+
+  positive:
+    preambles:
+      - "Great progress! Here is the next refinement."
+      - "Excellent work. Here is the implementation."
+    postambles:
+      - "Keep up the great momentum!"
+
+  repair_notice:
+    preambles:
+      - "I noticed a syntax issue in the draft and automatically corrected it for you."
+      - "Code repair subsystem automatically resolved syntax inconsistencies."
+    postambles:
+      - "The resulting code is verified for valid syntax."
+
+  neutral:
+    preambles:
+      - "Here is the implementation based on your requirements."
+      - "Here is the generated solution."
+    postambles:
+      - "Let me know if you need any modifications."

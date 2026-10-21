@@ -1,0 +1,68 @@
+services:
+  brain:
+    build:
+      context: ../..
+      dockerfile: deployment/runtime/Dockerfile
+    restart: unless-stopped
+    init: true
+    environment:
+      CONCODE_API_KEY: ${CONCODE_API_KEY:?Set CONCODE_API_KEY in deployment/runtime/.env}
+      CONCODE_REQUIRE_API_KEY: "1"
+      CONCODE_INFERENCE_BACKEND: local
+      CONCODE_CORS_ORIGINS: ${CONCODE_CORS_ORIGINS:-}
+      CONCODE_MODEL_DIR: /app/models
+      CONCODE_USER_PROFILES_PATH: /var/lib/concode/user_profiles.json
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+    volumes:
+      - ${CONCODE_MODEL_HOST_DIR:-../../models}:/app/models:ro
+      - brain-profiles:/var/lib/concode
+    expose:
+      - "8000"
+    healthcheck:
+      test:
+        - CMD
+        - curl
+        - --fail
+        - --silent
+        - http://127.0.0.1:8000/ready
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20m
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - brain-private
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      brain:
+        condition: service_healthy
+    environment:
+      CONCODE_DOMAIN: ${CONCODE_DOMAIN:?Set CONCODE_DOMAIN in deployment/runtime/.env}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    networks:
+      - brain-private
+
+volumes:
+  brain-profiles:
+  caddy-data:
+  caddy-config:
+
+networks:
+  brain-private:
