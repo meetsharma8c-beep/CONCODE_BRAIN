@@ -322,7 +322,7 @@ The main endpoint. Runs the full neural pipeline.
 {
   "code": "function login(user) {\n  if (!user) return null;\n  return user.name;\n}",
   "guild": "debugger",
-  "guild_icon": "🩺",
+  "guild_icon": "[DEBUG]",
   "confidence": 0.95,
   "repair_applied": false,
   "session_id": "abc-123",
@@ -385,7 +385,7 @@ const result = await ConcodeBrain.agent('Add a health endpoint', {
 
 ---
 
-## 🌐 Website Integration
+## Website Integration
 
 Add this to your Antigravity-built website:
 
@@ -394,7 +394,7 @@ Add this to your Antigravity-built website:
 <script>
   // Check if brain is online
   ConcodeBrain.isOnline().then(online => {
-    console.log('Brain status:', online ? '🟢 Online' : '🔴 Offline');
+    console.log('Brain status:', online ? 'Online' : 'Offline');
   });
 
   // Query the brain
@@ -412,7 +412,7 @@ Add this to your Antigravity-built website:
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 All settings are in `src/config.py`:
 
@@ -427,7 +427,7 @@ All settings are in `src/config.py`:
 
 ---
 
-## 📋 Training Details
+## Training Details
 
 ### QLoRA Configuration
 
@@ -465,7 +465,7 @@ All settings are in `src/config.py`:
 
 ---
 
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 ### Server won't start
 ```bash
@@ -503,7 +503,7 @@ make clean && make GGML_METAL=1 -j$(sysctl -n hw.ncpu)
 
 ---
 
-## 📜 License
+## License
 
 All tools used are free and open-source:
 - **CodeLlama**: Meta AI (Llama 2 Community License)

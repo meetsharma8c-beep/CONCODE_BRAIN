@@ -1,6 +1,5 @@
 ---
 title: ConCode Trip Planner API
-emoji: 🧭
 colorFrom: green
 colorTo: blue
 sdk: docker
