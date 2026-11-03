@@ -78,6 +78,13 @@ skills_count: 55
 | **53** | **Dynamic System Prompt Composition** | Social Intelligence | Multi-layer context-aware prompt assembly within 450-token budget | [[07-Thinking-Skills/53-Dynamic-System-Prompt-Composition\|53-Dynamic-System-Prompt-Composition]] |
 | **54** | **Ambiguity Detection And Clarification** | Social Intelligence | Two-layer vague query interception with domain-specific clarifying questions | [[07-Thinking-Skills/54-Ambiguity-Detection-And-Clarification\|54-Ambiguity-Detection-And-Clarification]] |
 | **55** | **Empathetic Response Wrapping** | Social Intelligence | Sentiment-keyed template selection with random variation for natural interaction | [[07-Thinking-Skills/55-Empathetic-Response-Wrapping\|55-Empathetic-Response-Wrapping]] |
+| **56** | **Executive DAG Goal Decomposition** | Executive Meta-Planner | Topological Kahn validation and backtracking state machine | [[07-Thinking-Skills/56-Executive-DAG-Goal-Decomposition\|56-Executive-DAG-Goal-Decomposition]] |
+| **57** | **Sandboxed Runtime Test Verification** | Sandboxed Executor | Isolated temporary directory test execution with resource quotas | [[07-Thinking-Skills/57-Sandboxed-Runtime-Test-Verification\|57-Sandboxed-Runtime-Test-Verification]] |
+| **58** | **Capability-Gated MCP Tool Routing** | Universal Tool Bus | Permission-gated AST, math, git, web, and MCP tool execution | [[07-Thinking-Skills/58-Capability-Gated-MCP-Tool-Routing\|58-Capability-Gated-MCP-Tool-Routing]] |
+| **59** | **Multi-Guild Swarm Prompt Synthesis** | Multi-Guild Swarm | Multi-label neural + keyword guild activation and prompt fusion | [[07-Thinking-Skills/59-Multi-Guild-Swarm-Prompt-Synthesis\|59-Multi-Guild-Swarm-Prompt-Synthesis]] |
+| **60** | **Adversarial Critic Verification Gate** | Multi-Guild Swarm | Security, Performance, and QA penalty scoring gate | [[07-Thinking-Skills/60-Adversarial-Critic-Verification-Gate\|60-Adversarial-Critic-Verification-Gate]] |
+| **61** | **Episodic Experience Replay & Caching** | Cognitive Memory | Jaccard experience replay and SHA-256 workspace digest cache | [[07-Thinking-Skills/61-Episodic-Experience-Replay-And-SHA256-Caching\|61-Episodic-Experience-Replay-And-SHA256-Caching]] |
+| **62** | **Hybrid Compute Routing & DPO Harvesting** | Router & Evolution | 3-tier complexity routing and continual QLoRA/DPO harvesting | [[07-Thinking-Skills/62-Hybrid-Compute-Routing-And-DPO-Harvesting\|62-Hybrid-Compute-Routing-And-DPO-Harvesting]] |
 
 ---
 

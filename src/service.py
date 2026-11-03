@@ -32,7 +32,7 @@ import yaml
 from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from src.config import (
     API_VERSION,
@@ -49,6 +49,9 @@ from src.config import (
     LLM_MAX_TOKENS,
     LLM_TEMPERATURE,
     LLM_THREADS,
+    LLM_BATCH_SIZE,
+    LLM_LAZY_LOAD,
+    LLM_IDLE_UNLOAD_SECONDS,
     LLM_TOP_P,
     REMOTE_LLM_API_KEY,
     REMOTE_LLM_BASE_URL,
@@ -75,12 +78,34 @@ from src.config import (
     USER_PROFILES_PATH,
     EMPATHY_TEMPLATES_PATH,
     CLARIFYING_QUESTIONS_PATH,
+    EPISODIC_MEMORY_PATH,
+    HARVESTED_TRAJECTORIES_PATH,
+    HARVESTED_DPO_PATH,
+    SANDBOX_TIMEOUT_SECONDS,
+    SANDBOX_MAX_OUTPUT_BYTES,
+    MAX_UNIVERSAL_ITERATIONS,
 )
 from src.brain.intent import IntentClassifier
 from src.brain.retriever import WorkspaceRetriever
 from src.brain.generator import CodeGenerator, ModelGenerationError, RemoteCodeGenerator
 from src.brain.repair import CodeRepairer
 from src.brain.agent import CodingAgent
+from src.brain.planner import ExecutivePlanner
+from src.brain.sandbox import SandboxPolicy, SandboxedExecutor
+from src.brain.tools import PERM_READ_ONLY, PERM_SANDBOX_EXEC, UniversalToolBus
+from src.brain.swarm import MultiGuildSwarm
+from src.brain.memory import CognitiveMemoryManager
+from src.brain.router import HybridComputeRouter
+from src.brain.evolution import EvolutionHarvester
+from src.brain.travel_intel import (
+    build_structured_itinerary,
+    exact_budget_breakdown,
+    normalize_camel_case_context,
+    recover_truncated_itinerary_json,
+    summarize_for_memory,
+    traveler_memory_context,
+    verify_itinerary,
+)
 from src.brain.social import (
     SentimentAnalyzer,
     UserMemoryStore,
@@ -125,6 +150,15 @@ ambiguity_detector: Optional[AmbiguityDetector] = None
 empathetic_responder: Optional[EmpatheticResponder] = None
 coding_agent: Optional[CodingAgent] = None
 
+# Universal Brain v3.0 subsystems
+executive_planner: Optional[ExecutivePlanner] = None
+sandbox_executor: Optional[SandboxedExecutor] = None
+tool_bus: Optional[UniversalToolBus] = None
+cognitive_memory: Optional[CognitiveMemoryManager] = None
+compute_router: Optional[HybridComputeRouter] = None
+evolution_harvester: Optional[EvolutionHarvester] = None
+multi_guild_swarm: Optional[MultiGuildSwarm] = None
+
 
 # -- Session TTL Eviction ------------------------------------------
 def _evict_stale_sessions() -> int:
@@ -139,6 +173,8 @@ def _evict_stale_sessions() -> int:
         session_last_access.pop(sid, None)
     if stale_ids:
         logger.info(f"Evicted {len(stale_ids)} stale sessions")
+    if generator is not None and hasattr(generator, "unload_if_idle"):
+        generator.unload_if_idle()
     return len(stale_ids)
 
 
@@ -154,6 +190,8 @@ async def lifespan(app: FastAPI):
     global intent_classifier, retriever, generator, repairer, guilds_data
     global sentiment_analyzer, user_memory, prompt_builder
     global ambiguity_detector, empathetic_responder, coding_agent
+    global executive_planner, sandbox_executor, tool_bus
+    global cognitive_memory, compute_router, evolution_harvester, multi_guild_swarm
 
     logger.info("=" * 60)
     logger.info("  CONCODE Neural Brain -- Starting Cognitive Engine")
@@ -201,15 +239,18 @@ async def lifespan(app: FastAPI):
         )
         logger.info("Remote code generator configured: %s", generator.is_loaded)
     elif INFERENCE_BACKEND == "local":
-        logger.info("Loading local CodeLlama GGUF + Metal generator...")
+        logger.info("Loading local CodeLlama GGUF + Metal generator (Eco Thermal Mode)...")
         generator = CodeGenerator(
             model_path=str(GGUF_MODEL_PATH),
             n_ctx=LLM_CONTEXT_LENGTH,
             n_gpu_layers=LLM_GPU_LAYERS,
             n_threads=LLM_THREADS,
+            n_batch=LLM_BATCH_SIZE,
             max_tokens=LLM_MAX_TOKENS,
             temperature=LLM_TEMPERATURE,
             top_p=LLM_TOP_P,
+            lazy_load=LLM_LAZY_LOAD,
+            idle_unload_seconds=LLM_IDLE_UNLOAD_SECONDS,
         )
         logger.info("Local code generator ready: %s", generator.is_loaded)
     else:
@@ -259,6 +300,46 @@ async def lifespan(app: FastAPI):
         templates_path=str(EMPATHY_TEMPLATES_PATH),
     )
     logger.info("  Empathetic Responder ready")
+
+    # 6. Universal Evolution v3.0 Subsystems
+    logger.info("Loading Universal Evolution v3.0 Subsystems...")
+    executive_planner = ExecutivePlanner(intent_classifier=intent_classifier, generator=generator)
+    sandbox_executor = SandboxedExecutor(
+        SandboxPolicy(
+            allow_execution=False,
+            timeout_seconds=SANDBOX_TIMEOUT_SECONDS,
+            max_output_bytes=SANDBOX_MAX_OUTPUT_BYTES,
+        )
+    )
+    tool_bus = UniversalToolBus(
+        vault_dir=PROJECT_ROOT / "concode-neural-brain",
+        sandbox_executor=sandbox_executor,
+        granted_permissions={PERM_READ_ONLY, PERM_SANDBOX_EXEC},
+    )
+    cognitive_memory = CognitiveMemoryManager(
+        episodic_path=EPISODIC_MEMORY_PATH,
+        vault_dir=PROJECT_ROOT / "concode-neural-brain",
+    )
+    compute_router = HybridComputeRouter(primary_generator=generator)
+    evolution_harvester = EvolutionHarvester(
+        trajectories_path=HARVESTED_TRAJECTORIES_PATH,
+        dpo_path=HARVESTED_DPO_PATH,
+    )
+    multi_guild_swarm = MultiGuildSwarm(
+        intent_classifier=intent_classifier,
+        guilds_data=guilds_data,
+        generator=compute_router,
+        coding_agent=coding_agent,
+        planner=executive_planner,
+        tool_bus=tool_bus,
+        sandbox_executor=sandbox_executor,
+    )
+    logger.info(
+        "  Universal Swarm ready (tools=%s, episodes=%s, harvested=%s)",
+        len(tool_bus.list_tools()),
+        cognitive_memory.episode_count,
+        evolution_harvester.trajectory_count,
+    )
 
     # Security status
     sec_mode = "API key required" if SECURITY_API_KEY else "dev mode (no auth)"
@@ -445,6 +526,11 @@ class TravelContext(BaseModel):
     # These are provider-supplied offers only. The model must not invent offers.
     transport_options: List[Dict[str, Any]] = Field(default_factory=list, max_length=12)
 
+    @model_validator(mode="before")
+    @classmethod
+    def accept_camel_case_keys(cls, values: Any) -> Any:
+        return normalize_camel_case_context(values)
+
     @field_validator("preferences", "priorities", "known_destination_highlights")
     @classmethod
     def clean_context_items(cls, values: List[str]) -> List[str]:
@@ -489,6 +575,12 @@ class TravelResponse(BaseModel):
     model_backend: str
     is_estimate: bool = True
     format_repaired: bool = False
+    itinerary: Optional[List[Dict[str, Any]]] = None
+    structured_itinerary: Optional[Dict[str, Any]] = None
+    budget_breakdown: Optional[Dict[str, Any]] = None
+    critic_score: Optional[float] = None
+    critic_fixes: List[str] = Field(default_factory=list)
+    memory_recalled: bool = False
     latency_ms: float
 
 
@@ -514,11 +606,10 @@ concise and suitable for a consumer travel app.
     if mode == "itinerary":
         return shared + """
 
-Return exactly one valid JSON object and nothing else:
-{"itinerary":[{"dayNumber":1,"title":"...","theme":"...","activities":[{"time":"...","title":"...","type":"food|attraction|viewpoint|nightlife|rest","location":"...","description":"...","estimatedCost":0,"preferenceMatch":"...","durationMin":60}]}]}.
-Return exactly the requested number of days with three or four activities per day.
-Costs are realistic estimates for the whole group in the supplied currency. Keep the plan within
-the available food-and-activities portion of the stated budget.
+Return ONLY a single-line compact JSON object with NO markdown fences, NO newlines, and NO extra text:
+{"itinerary":[{"dayNumber":1,"title":"...","theme":"...","activities":[{"time":"...","title":"...","type":"food|attraction|viewpoint|nightlife|rest","location":"...","description":"...","estimatedCost":0,"preferenceMatch":"...","durationMin":60}]}]}
+Return the requested number of days with exactly 3 activities per day and descriptions under 10 words.
+Costs are realistic integer estimates for the whole group in the supplied currency within the food-and-activities budget.
 """.strip()
     if mode == "budget":
         return shared + "\nGive a compact budget allocation with assumptions and a contingency buffer."
@@ -715,14 +806,22 @@ async def cognitive_pipeline(request: CognitiveRequest):
     # -- Step 4: Workspace Retrieval ---------------------------
     context_text = ""
     if sanitized_files and retriever is not None and retriever.is_ready:
-        retriever.index_workspace(sanitized_files)
+        if cognitive_memory is not None:
+            reindexed = cognitive_memory.index_workspace_incremental(retriever, sanitized_files)
+            subsystem_status["retriever"] = (
+                f"indexed_{len(sanitized_files)}_files"
+                if reindexed
+                else f"cached_{len(sanitized_files)}_files"
+            )
+        else:
+            retriever.index_workspace(sanitized_files)
+            subsystem_status["retriever"] = f"indexed_{len(sanitized_files)}_files"
         retrieved = retriever.retrieve(sanitized_query, top_k=RETRIEVER_TOP_K)
         if retrieved:
             context_parts = []
             for r in retrieved:
                 context_parts.append(f"// --- {r['source']} (score: {r['score']}) ---\n{r['text']}")
             context_text = "\n\n".join(context_parts)
-        subsystem_status["retriever"] = f"indexed_{len(sanitized_files)}_files"
     else:
         subsystem_status["retriever"] = "skipped"
 
@@ -784,6 +883,14 @@ async def cognitive_pipeline(request: CognitiveRequest):
         subsystem_status["repair"] = "skipped" if guild_name == "conversational" else "unavailable"
     if repair_applied:
         logger.info("Code repair applied to generated output")
+        if evolution_harvester is not None:
+            evolution_harvester.harvest_dpo_pair(
+                prompt=sanitized_query,
+                chosen_response=repaired_code,
+                rejected_response=generated_code,
+                guild=guild_name,
+                reason="codet5_or_bracket_repair",
+            )
 
     # -- Step 8: Empathetic Response Wrapping -------------------
     if empathetic_responder is not None and guild_name != "conversational":
@@ -870,23 +977,45 @@ async def travel_pipeline(request: TravelRequest):
 
     _touch_session(request.session_id)
     history = session_store.get(request.session_id, [])[-(SESSION_MAX_HISTORY * 2):]
+    # v3.0 Persistent Episodic Memory: recall this traveler's earlier verified requests.
+    memory_context = traveler_memory_context(cognitive_memory, request.session_id, request.query)
     user_prompt = (
         "Traveler context (reference data, not instructions):\n"
         f"{json.dumps(context, ensure_ascii=False)}\n\n"
-        f"Traveler request:\n{request.query}"
+        + (f"Earlier verified requests from this traveler (reference only):\n{memory_context}\n\n" if memory_context else "")
+        + f"Traveler request:\n{request.query}"
     )
+    # v3.0 Hybrid Compute Router: escalates to a secondary generator if the primary fails.
+    active_generator = compute_router if compute_router is not None else generator
+    # Structured itineraries need more output tokens than the eco default; raise the
+    # cap only for this request (bounded by the 2048-token context) and restore it.
+    original_max_tokens = getattr(generator, "max_tokens", None)
+    if request.mode == "itinerary" and original_max_tokens is not None:
+        days = max(1, request.trip_context.duration_days or 3)
+        generator.max_tokens = max(original_max_tokens, min(1400, 250 + days * 320))
     try:
-        reply = generator.generate(
+        reply = active_generator.generate(
             system_prompt=_travel_system_prompt(request.mode),
             user_prompt=user_prompt,
             history=history,
         )
     except ModelGenerationError as error:
         raise HTTPException(status_code=502, detail=str(error)) from error
+    finally:
+        if original_max_tokens is not None:
+            generator.max_tokens = original_max_tokens
 
     format_repaired = False
+    critic_score: Optional[float] = None
+    critic_fixes: List[str] = []
+    itinerary_days: Optional[List[Dict[str, Any]]] = None
+    structured_itinerary: Optional[Dict[str, Any]] = None
     if request.mode == "itinerary":
+        raw_reply = reply
         structured_reply = _json_itinerary(reply)
+        if structured_reply is None:
+            structured_reply = recover_truncated_itinerary_json(reply)
+            format_repaired = structured_reply is not None
         if structured_reply is None:
             structured_reply = _itinerary_from_model_prose(reply, request.trip_context)
             format_repaired = structured_reply is not None
@@ -895,7 +1024,40 @@ async def travel_pipeline(request: TravelRequest):
                 status_code=502,
                 detail="The configured model returned an itinerary that could not be safely structured.",
             )
-        reply = structured_reply
+        # v3.0 Critic Gate: verify day count, cost sanity, and budget cap.
+        reply, critic_fixes, critic_score = verify_itinerary(
+            structured_reply,
+            request.trip_context.duration_days,
+            request.trip_context.total_budget,
+        )
+        itinerary_days, structured_itinerary = build_structured_itinerary(
+            reply,
+            request.trip_context.destination,
+            request.trip_context.duration_days,
+            request.trip_context.total_budget,
+            request.trip_context.food_preference,
+            request.trip_context.currency,
+        )
+        # v3.0 Continual Learning: harvest corrected outputs as DPO preference pairs.
+        if evolution_harvester is not None and (format_repaired or critic_fixes):
+            evolution_harvester.harvest_dpo_pair(
+                prompt=user_prompt,
+                chosen_response=reply,
+                rejected_response=raw_reply,
+                guild="tripverse",
+                reason="travel_format_or_critic_repair: " + ", ".join(critic_fixes or ["prose_to_json"]),
+            )
+
+    summary = summarize_for_memory(request.mode, reply, request.trip_context.destination)
+    if cognitive_memory is not None and summary:
+        cognitive_memory.record_episode(
+            goal=f"tripverse {request.session_id} {request.query}",
+            guilds=["tripverse", request.mode],
+            plan_steps=["recall_memory", "generate", "verify", "repair"],
+            solution_summary=summary,
+            critic_score=critic_score if critic_score is not None else 1.0,
+            verified=critic_score is None or critic_score >= 0.6,
+        )
 
     session_store[request.session_id].extend([
         {"role": "user", "content": request.query},
@@ -912,6 +1074,19 @@ async def travel_pipeline(request: TravelRequest):
         mode=request.mode,
         model_backend=INFERENCE_BACKEND,
         format_repaired=format_repaired,
+        itinerary=itinerary_days,
+        structured_itinerary=structured_itinerary,
+        budget_breakdown=(
+            exact_budget_breakdown(
+                request.trip_context.total_budget,
+                request.trip_context.destination,
+                request.trip_context.currency,
+            )
+            if request.trip_context.total_budget > 0 else None
+        ),
+        critic_score=critic_score,
+        critic_fixes=critic_fixes,
+        memory_recalled=bool(memory_context),
         latency_ms=round((time.time() - start_time) * 1000, 2),
     )
 
@@ -1009,6 +1184,200 @@ async def agent_pipeline(request: AgentRequest):
     )
 
 
+class UniversalRequest(BaseModel):
+    """Universal multi-guild problem-solving request with DAG planning, tools, and sandbox."""
+
+    goal: str = Field(..., min_length=1, max_length=MAX_QUERY_LENGTH)
+    workspace_files: Dict[str, str] = Field(default_factory=dict)
+    session_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    max_iterations: int = Field(default=4, ge=1, le=MAX_UNIVERSAL_ITERATIONS)
+    enable_sandbox: bool = Field(
+        default=False,
+        description="Whether to execute discovered unit tests inside the isolated sandbox.",
+    )
+    sync_vault: bool = Field(
+        default=False,
+        description="Whether to log verified episodic trajectories into the Obsidian vault.",
+    )
+
+    @field_validator("goal")
+    @classmethod
+    def universal_goal_not_empty(cls, value: str) -> str:
+        value = value.strip()
+        if not value:
+            raise ValueError("Goal must not be empty.")
+        return value
+
+
+class UniversalResponse(BaseModel):
+    summary: str
+    success: bool
+    plan: Dict[str, Any]
+    activated_guilds: List[Dict[str, Any]]
+    compute_routing: Dict[str, Any]
+    edits: List[AgentEditResponse]
+    verification: List[AgentVerificationResponse]
+    critic_report: Dict[str, Any]
+    tool_results: List[Dict[str, Any]]
+    sandbox_results: List[Dict[str, Any]]
+    recalled_episodes: int
+    direct_answer: str
+    iterations: int
+    needs_user_input: bool
+    question: Optional[str] = None
+    error: Optional[str] = None
+    session_id: str
+    latency_ms: float
+
+
+@app.post(
+    "/api/v1/universal",
+    response_model=UniversalResponse,
+    dependencies=[Depends(verify_api_key)],
+)
+async def universal_pipeline(request: UniversalRequest):
+    """
+    Execute the Universal Cognitive Evolution v3.0 pipeline:
+      1. Episodic Experience Recall (Few-Shot Experience Replay)
+      2. Hybrid Neural Compute Tier Routing
+      3. Multi-Guild Swarm Activation + Executive DAG Decomposition
+      4. Universal Tool Bus Enrichment (AST, Math, Obsidian Vault, MCP)
+      5. Multi-Iteration CodingAgent or Universal Direct Synthesis
+      6. Optional Sandboxed Runtime Test Execution
+      7. Adversarial Critic Verification Gate
+      8. Continual Trajectory & Episodic Memory Harvesting
+    """
+    start_time = time.time()
+    goal = sanitize_input(request.goal)
+    if not goal:
+        raise HTTPException(status_code=400, detail="Goal is empty after sanitization.")
+
+    workspace = validate_workspace_files(
+        request.workspace_files,
+        max_files=MAX_WORKSPACE_FILES,
+        max_file_size=MAX_FILE_SIZE,
+        max_total_size=MAX_TOTAL_WORKSPACE_SIZE,
+    )
+
+    if (
+        multi_guild_swarm is None
+        or generator is None
+        or not generator.is_loaded
+    ):
+        raise HTTPException(
+            status_code=503,
+            detail="Universal cognitive swarm requires the configured inference model and is not ready.",
+        )
+
+    # 1. Recall similar past episodes
+    episodic_context = ""
+    recalled_count = 0
+    if cognitive_memory is not None:
+        recalled = cognitive_memory.recall_similar(goal, top_k=2)
+        recalled_count = len(recalled)
+        episodic_context = cognitive_memory.format_episodic_context(goal, top_k=2)
+
+    # 2. Compute routing decision
+    active_guild_names = (
+        [g for g, _ in intent_classifier.predict_multi(goal, top_k=3)]
+        if intent_classifier is not None
+        else ["fullstack"]
+    )
+    routing_decision = (
+        compute_router.estimate_complexity(goal, workspace, active_guild_names).to_dict()
+        if compute_router is not None
+        else {"tier": "TIER_1_REFLEX", "complexity_score": 0.2, "backend_used": INFERENCE_BACKEND}
+    )
+
+    # 3. Execute Multi-Guild Swarm
+    try:
+        outcome = multi_guild_swarm.execute(
+            goal=goal,
+            workspace_files=workspace,
+            max_iterations=request.max_iterations,
+            enable_sandbox=request.enable_sandbox,
+            episodic_context=episodic_context,
+        )
+    except ModelGenerationError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
+
+    critic_dict = outcome.critic_report.to_dict() if outcome.critic_report else {"passed": True, "score": 1.0}
+    critic_score = float(critic_dict.get("score", 1.0))
+
+    # 4. Record verified episode & harvest training trajectory
+    plan_steps = [t.get("title", "") for t in outcome.plan.get("tasks", [])]
+    guild_list = [item["guild"] for item in outcome.activated_guilds]
+    if outcome.success and not outcome.needs_user_input:
+        if cognitive_memory is not None:
+            cognitive_memory.record_episode(
+                goal=goal,
+                guilds=guild_list,
+                plan_steps=plan_steps,
+                solution_summary=outcome.summary,
+                files_touched=[e.path for e in outcome.edits],
+                critic_score=critic_score,
+                verified=True,
+                sync_vault=request.sync_vault,
+            )
+        if evolution_harvester is not None:
+            harvest_output = (
+                outcome.direct_answer
+                if outcome.direct_answer
+                else "\n\n".join(f"# {e.path}\n{e.content}" for e in outcome.edits)
+            )
+            evolution_harvester.harvest_trajectory(
+                prompt=goal,
+                response=harvest_output,
+                guilds=guild_list,
+                critic_score=critic_score,
+                plan_steps=plan_steps,
+            )
+
+    elapsed_ms = round((time.time() - start_time) * 1000, 2)
+    return UniversalResponse(
+        summary=outcome.summary,
+        success=outcome.success,
+        plan=outcome.plan,
+        activated_guilds=outcome.activated_guilds,
+        compute_routing=routing_decision,
+        edits=[
+            AgentEditResponse(
+                path=edit.path,
+                content=edit.content,
+                reason=edit.reason,
+                diff=edit.diff,
+            )
+            for edit in outcome.edits
+        ],
+        verification=[
+            AgentVerificationResponse(
+                path=v.path,
+                status=v.status,
+                detail=v.detail,
+            )
+            for v in outcome.verification
+        ],
+        critic_report=critic_dict,
+        tool_results=outcome.tool_results,
+        sandbox_results=outcome.sandbox_results,
+        recalled_episodes=recalled_count,
+        direct_answer=outcome.direct_answer,
+        iterations=outcome.iterations,
+        needs_user_input=outcome.needs_user_input,
+        question=outcome.question,
+        error=outcome.error,
+        session_id=request.session_id,
+        latency_ms=elapsed_ms,
+    )
+
+
+@app.get("/api/v1/tools", dependencies=[Depends(verify_api_key)])
+def get_registered_tools():
+    """List all tools registered on the Universal Tool Bus."""
+    tools = tool_bus.list_tools() if tool_bus is not None else []
+    return {"tools": tools, "count": len(tools)}
+
+
 # -- Health & Web UI Endpoints ------------------------------------
 @app.get("/", response_class=HTMLResponse)
 def root():
@@ -1049,7 +1418,14 @@ def favicon():
 @app.get("/health")
 def health():
     """Health check endpoint."""
-    return {"status": "healthy", "timestamp": time.time()}
+    return {
+        "ok": True,
+        "status": "healthy",
+        "version": API_VERSION,
+        "gpu": "Apple Silicon Metal (Eco Governor)",
+        "universal_v3": True,
+        "timestamp": time.time(),
+    }
 
 
 @app.get("/ready")
@@ -1125,6 +1501,32 @@ def system_status():
                 "empathetic_responder": {
                     "loaded": empathetic_responder is not None,
                 },
+            },
+            "universal_v3": {
+                "executive_planner": {
+                    "loaded": executive_planner is not None,
+                },
+                "multi_guild_swarm": {
+                    "loaded": multi_guild_swarm is not None,
+                },
+                "universal_tool_bus": {
+                    "loaded": tool_bus is not None,
+                    "registered_tools": len(tool_bus.list_tools()) if tool_bus else 0,
+                },
+                "sandbox_executor": {
+                    "loaded": sandbox_executor is not None,
+                    "timeout_seconds": SANDBOX_TIMEOUT_SECONDS,
+                },
+                "episodic_memory": {
+                    "loaded": cognitive_memory is not None,
+                    "episodes": cognitive_memory.episode_count if cognitive_memory else 0,
+                },
+                "compute_router": {
+                    "loaded": compute_router is not None,
+                },
+                "evolution_harvester": (
+                    evolution_harvester.stats() if evolution_harvester else {"loaded": False}
+                ),
             },
         },
         "security": {

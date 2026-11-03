@@ -60,6 +60,14 @@ graph TD
 | **4** | **Code Repairer** | CodeT5-small | 60M | Self-heals syntax errors and typos | [[01-Brain-Architecture/04-Code-Repairer|04-Code-Repairer]] |
 | **5** | **Session Memory** | In-Memory Store | -- | Maintains multi-turn conversation context | [[01-Brain-Architecture/05-Session-Memory|05-Session-Memory]] |
 | **6** | **Social Intelligence** | DistilBERT SST-2 + JSON Store | 66M | Sentiment, user memory, dynamic prompts, ambiguity, empathy | [[01-Brain-Architecture/09-Social-Intelligence|09-Social-Intelligence]] |
+| **7** | **Universal Evolution Plan** | DAG Planner + Tool Bus + Swarm | Hybrid | Roadmap to universal problem-solving & autonomous action | [[01-Brain-Architecture/10-Universal-Evolution-Plan|10-Universal-Evolution-Plan]] |
+| **8** | **Executive Meta-Planner** | System-2 DAG State Machine | -- | Hierarchical goal decomposition and backtracking | [[01-Brain-Architecture/11-Executive-Meta-Planner|11-Executive-Meta-Planner]] |
+| **9** | **Sandboxed Runtime Executor** | Isolated Subprocess Verifier | -- | Safe runtime code and unit test verification | [[01-Brain-Architecture/12-Sandboxed-Runtime-Executor|12-Sandboxed-Runtime-Executor]] |
+| **10** | **Universal Tool Bus** | Capability-Gated + MCP Bridge | -- | AST inspection, math evaluator, vault search, MCP tools | [[01-Brain-Architecture/13-Universal-Tool-Bus|13-Universal-Tool-Bus]] |
+| **11** | **Multi-Guild Swarm & Critic** | Collaborative MoE + Critic Gate | -- | Multi-guild synthesis and adversarial quality audit | [[01-Brain-Architecture/14-Multi-Guild-Swarm|14-Multi-Guild-Swarm]] |
+| **12** | **Cognitive Memory Manager** | Episodic Store + SHA-256 Cache | -- | Long-term experience replay and live Obsidian vault sync | [[01-Brain-Architecture/15-Cognitive-Memory-Manager|15-Cognitive-Memory-Manager]] |
+| **13** | **Hybrid Compute Router** | 3-Tier Complexity Router | -- | Routes between fast reflex, deep local Metal, and frontier | [[01-Brain-Architecture/16-Hybrid-Compute-Router|16-Hybrid-Compute-Router]] |
+| **14** | **Continual Learning Harvester** | Trajectory + DPO Collector | -- | Harvests verified outputs and repair pairs for QLoRA/DPO | [[01-Brain-Architecture/17-Evolution-Harvester|17-Evolution-Harvester]] |
 
 ---
 

@@ -838,7 +838,12 @@ const CONFIG = {
     { id: 'api',        name: 'API',        keywords: ['api','rest','graphql','endpoint','fastapi'] },
     { id: 'fullstack',  name: 'Fullstack',  keywords: ['fullstack','architecture','monorepo','websocket'] },
     { id: 'blockchain', name: 'Blockchain', keywords: ['solana','ethereum','web3','smart-contract'] },
-    { id: 'mobile',     name: 'Mobile',     keywords: ['mobile','ios','android','flutter'] }
+    { id: 'mobile',     name: 'Mobile',     keywords: ['mobile','ios','android','flutter'] },
+    { id: 'conversational', name: 'Conversational', keywords: ['hello','status','help'] },
+    { id: 'system_architect', name: 'System Architect', keywords: ['cap theorem','event sourcing','cqrs','raft'] },
+    { id: 'research_scientist', name: 'Research Scientist', keywords: ['hypothesis test','differential equation','monte carlo'] },
+    { id: 'automation_operator', name: 'Automation Operator', keywords: ['cron job','rpa workflow','web scraping','etl pipeline'] },
+    { id: 'critic_verifier', name: 'Critic Verifier', keywords: ['formal verification','invariant check','red team'] }
   ],
   
   // Pipeline stages (from 00-Brain-Overview.md cognitive execution flow)
@@ -1354,10 +1359,10 @@ function initThreeJS() {
   camera.position.set(0, 15, 55);
   camera.lookAt(0, 0, 0);
   
-  // Renderer with high DPR for Metal
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  // Renderer with Eco Thermal Mode (low-power GPU profile, 1x DPR)
+  renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false, powerPreference: 'low-power' });
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setPixelRatio(1);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.2;
   container.appendChild(renderer.domElement);
@@ -1712,21 +1717,23 @@ function buildInterSubsystemConnections() {
   });
 }
 
+let SHARED_NEURON_GEOM = null;
+const TEMP_COLOR = new THREE.Color();
+
 /**
- * Create a single neuron (sphere) with metadata.
+ * Create a single neuron (sphere) with shared geometry and low-thermal material.
  */
 function createNeuron(x, y, z, name, subsystem, layer, color) {
-  const geometry = new THREE.SphereGeometry(0.15, 8, 6);
-  const material = new THREE.MeshPhongMaterial({
+  if (!SHARED_NEURON_GEOM) {
+    SHARED_NEURON_GEOM = new THREE.SphereGeometry(0.15, 6, 4);
+  }
+  const material = new THREE.MeshBasicMaterial({
     color: CONFIG.colors.neuronBase,
-    emissive: CONFIG.colors.neuronBase,
-    emissiveIntensity: 0.1,
     transparent: true,
-    opacity: 0.7,
-    shininess: 80
+    opacity: 0.7
   });
   
-  const mesh = new THREE.Mesh(geometry, material);
+  const mesh = new THREE.Mesh(SHARED_NEURON_GEOM, material);
   mesh.position.set(x, y, z);
   
   const neuron = {
@@ -2225,11 +2232,21 @@ function waitForStep() {
 
 
 // ═══════════════════════════════════════════
-// ANIMATION LOOP
+// ANIMATION LOOP (Eco Thermal Governor: 24 FPS active / 8 FPS idle / 0 FPS hidden)
 // ═══════════════════════════════════════════
 
-function animate() {
+let lastFrameTimestamp = 0;
+let lastRaycastTimestamp = 0;
+
+function animate(now = 0) {
   requestAnimationFrame(animate);
+  
+  // Zero GPU/CPU draw when browser tab is hidden
+  if (document.hidden) return;
+  
+  const targetInterval = (STATE.running || orbitState.isDragging || pulses.length > 0) ? (1000 / 24) : (1000 / 8);
+  if (now - lastFrameTimestamp < targetInterval) return;
+  lastFrameTimestamp = now;
   
   const delta = clock.getDelta();
   const time = clock.getElapsedTime();
@@ -2251,38 +2268,27 @@ function animate() {
     group.visible = STATE.visibleLayers[name] !== false;
   });
   
-  // Update neuron activations (smooth lerp)
+  // Update neuron activations (smooth lerp, zero per-frame allocations)
   neurons.forEach(n => {
-    n.activation += (n.targetActivation - n.activation) * 0.08;
+    if (n.activation < 0.005 && n.targetActivation < 0.005) return;
+    n.activation += (n.targetActivation - n.activation) * 0.12;
     
     const intensity = n.activation * STATE.glowMult;
     const mat = n.mesh.material;
     
-    // Scale neuron by activation
     const s = 0.15 + intensity * 0.25;
     n.mesh.scale.setScalar(s / 0.15);
-    
-    // Glow
-    mat.emissiveIntensity = 0.1 + intensity * 1.5;
     mat.opacity = 0.4 + intensity * 0.6;
     
     if (intensity > 0.3) {
-      const c = new THREE.Color(n.signalColor);
-      mat.emissive.lerp(c, intensity * 0.7);
-      mat.color.lerp(c, intensity * 0.5);
+      TEMP_COLOR.set(n.signalColor);
+      mat.color.lerp(TEMP_COLOR, intensity * 0.5);
     } else {
-      mat.emissive.set(CONFIG.colors.neuronBase);
       mat.color.set(CONFIG.colors.neuronBase);
     }
     
-    // Gentle idle breathing
-    if (n.activation < 0.1) {
-      const breathe = Math.sin(time * 1.5 + n.mesh.position.x * 0.5) * 0.02;
-      n.mesh.position.y = n.basePosition.y + breathe;
-    }
-    
     // Decay activation
-    n.targetActivation *= 0.998;
+    n.targetActivation *= 0.96;
   });
   
   // Update synapses
@@ -2353,6 +2359,10 @@ function animate() {
 // ═══════════════════════════════════════════
 
 function onMouseMove(event) {
+  const now = performance.now();
+  if (now - lastRaycastTimestamp < 120) return;
+  lastRaycastTimestamp = now;
+
   // Update mouse for raycaster
   const rect = renderer.domElement.getBoundingClientRect();
   mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -2630,10 +2640,11 @@ function init() {
   // Init 3D
   initThreeJS();
   
-  // Auto-run demo after short delay
-  setTimeout(() => {
-    runSimulation();
-  }, 1500);
+  // Eco Thermal Mode: do not auto-trigger LLM inference on page load
+  const stageLabel = document.getElementById('stage-label');
+  if (stageLabel) {
+    stageLabel.textContent = 'Eco Thermal Mode Active -- Click INITIATE COGNITION to run';
+  }
 }
 
 // Start

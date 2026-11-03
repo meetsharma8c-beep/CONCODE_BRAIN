@@ -44,6 +44,7 @@ class CanvasGraphBuilder:
             "01-Brain-Architecture/03-Core-LLM-Generator.md",
             "01-Brain-Architecture/04-Code-Repairer.md",
             "01-Brain-Architecture/05-Session-Memory.md",
+            "01-Brain-Architecture/10-Universal-Evolution-Plan.md",
         ]
 
         c3_files = [

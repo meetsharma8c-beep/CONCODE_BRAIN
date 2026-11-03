@@ -7,7 +7,7 @@ or for guilds not present in the neural model's label space.
 
 import logging
 from pathlib import Path
-from typing import Tuple, Optional, Set
+from typing import Dict, List, Optional, Set, Tuple
 
 import yaml
 
@@ -163,6 +163,63 @@ class IntentClassifier:
         confidence = min(0.5 + (best_score * 0.1), 0.85) if best_score > 0 else 0.3
         return best_guild, round(confidence, 4)
 
+    def predict_multi(
+        self, text: str, top_k: int = 3, min_confidence: float = 0.35
+    ) -> List[Tuple[str, float]]:
+        """
+        Identify multiple relevant expert guilds for complex multi-domain goals.
+
+        Combines primary prediction with keyword match scores and neural
+        distribution probabilities to return up to top_k (guild, confidence) pairs.
+        """
+        import re
+
+        top_k = max(1, min(top_k, 6))
+        primary_guild, primary_conf = self.predict(text)
+        scores: Dict[str, float] = {primary_guild: primary_conf}
+
+        # Gather keyword scores across all guilds
+        text_lower = text.lower()
+        for guild_name, guild_info in self.guilds.items():
+            if guild_name == "conversational" and primary_guild != "conversational":
+                continue
+            keywords = guild_info.get("keywords", [])
+            matches = 0
+            for kw in keywords:
+                kw_clean = kw.lower()
+                if re.search(rf"\b{re.escape(kw_clean)}\b", text_lower):
+                    matches += 1
+            if matches > 0:
+                kw_conf = round(min(0.45 + (matches * 0.12), 0.88), 4)
+                scores[guild_name] = max(scores.get(guild_name, 0.0), kw_conf)
+
+        # Blend neural top-k probabilities when available
+        if self.model is not None and self.tokenizer is not None:
+            try:
+                import torch
+
+                inputs = self.tokenizer(
+                    text,
+                    return_tensors="pt",
+                    truncation=True,
+                    max_length=128,
+                    padding=True,
+                )
+                with torch.no_grad():
+                    outputs = self.model(**inputs)
+                    probs = torch.softmax(outputs.logits, dim=-1)[0]
+                for idx, prob in enumerate(probs.tolist()):
+                    g_name = self.id_to_label.get(idx)
+                    if g_name and prob >= min_confidence:
+                        scores[g_name] = max(scores.get(g_name, 0.0), round(prob, 4))
+            except Exception as e:
+                logger.debug(f"Multi-guild neural scoring skipped: {e}")
+
+        ranked = sorted(scores.items(), key=lambda item: item[1], reverse=True)
+        filtered = [(g, c) for g, c in ranked if c >= min_confidence][:top_k]
+        if not filtered:
+            return [(primary_guild, primary_conf)]
+        return filtered
 
     @property
     def is_neural(self) -> bool:

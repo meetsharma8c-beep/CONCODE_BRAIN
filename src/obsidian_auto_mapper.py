@@ -131,10 +131,17 @@ status: ready
         arch_dir.mkdir(parents=True, exist_ok=True)
 
         subsystem_mapping = {
-            "intent.py": ("01-Intent-Classifier.md", "Intent Classifier", "DistilBERT 66M classifier routing requests to 13 expert guilds."),
+            "intent.py": ("01-Intent-Classifier.md", "Intent Classifier", "DistilBERT 66M classifier routing requests across single or multi-guild swarms."),
             "retriever.py": ("02-Workspace-Retriever.md", "Workspace Retriever", "MiniLM-L6-v2 + FAISS vector store indexing workspace files."),
             "generator.py": ("03-Core-LLM-Generator.md", "Core LLM Generator", "CodeLlama-7B GGUF Q4_K_M model running on Metal GPU."),
             "repair.py": ("04-Code-Repairer.md", "Code Repairer", "CodeT5 sequence-to-sequence neural repairer and bracket balancer."),
+            "planner.py": ("11-Executive-Meta-Planner.md", "Executive Meta-Planner", "System-2 Directed Acyclic Graph (DAG) task decomposition and backtracking state machine."),
+            "sandbox.py": ("12-Sandboxed-Runtime-Executor.md", "Sandboxed Runtime Executor", "Isolated subprocess and unit-test runtime verifier with resource quotas."),
+            "tools.py": ("13-Universal-Tool-Bus.md", "Universal Tool Bus", "Capability-gated tool execution bus supporting AST inspection, math evaluation, vault queries, sandbox execution, and MCP bridges."),
+            "swarm.py": ("14-Multi-Guild-Swarm.md", "Multi-Guild Swarm & Critic", "Collaborative multi-guild orchestrator with adversarial Security, Performance, and QA Critic gate."),
+            "memory.py": ("15-Cognitive-Memory-Manager.md", "Cognitive Memory Manager", "Persistent episodic experience replay store, SHA-256 incremental indexing cache, and live Obsidian vault sync."),
+            "router.py": ("16-Hybrid-Compute-Router.md", "Hybrid Compute Router", "Complexity-aware 3-tier neural compute router across fast reflex, deep local Metal, and frontier endpoints."),
+            "evolution.py": ("17-Evolution-Harvester.md", "Continual Learning Harvester", "Automated harvester of verified trajectories and DPO repair pairs for continual LoRA fine-tuning."),
         }
 
         created = 0

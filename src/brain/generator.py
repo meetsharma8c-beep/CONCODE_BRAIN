@@ -6,6 +6,7 @@ Billions of parameters with deep transformer layers and dense attention.
 
 import logging
 import json
+import time
 from pathlib import Path
 from typing import List, Dict, Optional
 from urllib.error import HTTPError, URLError
@@ -133,22 +134,49 @@ class CodeGenerator:
     def __init__(
         self,
         model_path: str,
-        n_ctx: int = 4096,
-        n_gpu_layers: int = 99,
-        n_threads: int = 6,
-        max_tokens: int = 2048,
+        n_ctx: int = 2048,
+        n_gpu_layers: int = 32,
+        n_threads: int = 2,
+        n_batch: int = 128,
+        max_tokens: int = 512,
         temperature: float = 0.3,
         top_p: float = 0.9,
+        lazy_load: bool = True,
+        idle_unload_seconds: int = 300,
     ):
         self.model_path = Path(model_path)
         self.n_ctx = n_ctx
         self.n_gpu_layers = n_gpu_layers
         self.n_threads = n_threads
+        self.n_batch = n_batch
         self.max_tokens = max_tokens
         self.temperature = temperature
         self.top_p = top_p
+        self.lazy_load = lazy_load
+        self.idle_unload_seconds = idle_unload_seconds
         self.llm = None
-        self._load_model()
+        self._last_used: float = 0.0
+        self._can_lazy_load: bool = False
+        if self.lazy_load:
+            self._check_lazy_readiness()
+        else:
+            self._load_model()
+
+    def _check_lazy_readiness(self) -> None:
+        """Verify model file and llama_cpp availability without pinning 4.5GB GPU RAM at idle."""
+        if not self.model_path.exists():
+            logger.warning(f"GGUF model not found at {self.model_path}.")
+            self._can_lazy_load = False
+            return
+        try:
+            import llama_cpp  # noqa: F401
+            self._can_lazy_load = True
+            logger.info(
+                "Eco Thermal Mode: GGUF verified for lazy on-demand loading "
+                f"(threads={self.n_threads}, n_ctx={self.n_ctx}, n_batch={self.n_batch})"
+            )
+        except ImportError:
+            self._can_lazy_load = False
 
     def _load_model(self):
         """Load the GGUF model via llama-cpp-python."""
@@ -166,7 +194,7 @@ class CodeGenerator:
             logger.info(f"Loading GGUF model from {self.model_path} ...")
             logger.info(
                 f"Config: n_ctx={self.n_ctx}, n_gpu_layers={self.n_gpu_layers}, "
-                f"n_threads={self.n_threads}"
+                f"n_threads={self.n_threads}, n_batch={self.n_batch}"
             )
 
             self.llm = Llama(
@@ -174,8 +202,10 @@ class CodeGenerator:
                 n_ctx=self.n_ctx,
                 n_gpu_layers=self.n_gpu_layers,
                 n_threads=self.n_threads,
+                n_batch=self.n_batch,
                 verbose=False,
             )
+            self._last_used = time.time()
 
             logger.info("GGUF model loaded successfully with Metal GPU acceleration")
         except ImportError:
@@ -186,6 +216,16 @@ class CodeGenerator:
         except Exception as e:
             logger.error(f"Failed to load GGUF model: {e}")
             self.llm = None
+            self._can_lazy_load = False
+
+    def unload_if_idle(self) -> bool:
+        """Release Metal GPU memory when the LLM has been idle beyond idle_unload_seconds."""
+        if self.llm is not None and self.idle_unload_seconds > 0:
+            if (time.time() - self._last_used) > self.idle_unload_seconds:
+                logger.info("Eco Thermal Mode: Unloading idle GGUF model from Metal GPU memory")
+                self.close()
+                return True
+        return False
 
     def generate(
         self,
@@ -206,10 +246,15 @@ class CodeGenerator:
         Returns:
             Generated code/text response
         """
+        if self.llm is None and self._can_lazy_load:
+            self._load_model()
+
         if self.llm is None:
             raise ModelGenerationError(
                 "The local GGUF model is unavailable; no generated substitute is returned."
             )
+
+        self._last_used = time.time()
 
         # Build the full prompt in CodeLlama instruct format
         prompt = self._build_prompt(system_prompt, user_prompt, context, history)
@@ -683,5 +728,5 @@ class CodeGenerator:
 
     @property
     def is_loaded(self) -> bool:
-        """Whether the GGUF model is loaded."""
-        return self.llm is not None
+        """Whether the GGUF model is loaded or verified ready for on-demand lazy load."""
+        return self.llm is not None or self._can_lazy_load

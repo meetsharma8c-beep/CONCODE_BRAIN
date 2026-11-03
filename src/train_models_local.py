@@ -29,7 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 
-def train_intent_classifier():
+def train_intent_classifier(force: bool = False):
     print("=" * 60)
     print("  Training DistilBERT Intent Classifier (66M params)")
     print("=" * 60)
@@ -37,9 +37,6 @@ def train_intent_classifier():
     output_dir = os.path.join(MODELS_DIR, "intent_classifier")
     config_file = os.path.join(output_dir, "config.json")
     safetensor_file = os.path.join(output_dir, "model.safetensors")
-    if os.path.exists(config_file) and os.path.exists(safetensor_file):
-        print(f"  DistilBERT intent classifier already deployed at {output_dir}\n")
-        return
 
     intent_data_path = os.path.join(DATA_DIR, "intent_dataset.jsonl")
     if not os.path.exists(intent_data_path):
@@ -50,11 +47,40 @@ def train_intent_classifier():
         for line in f:
             if line.strip():
                 data.append(json.loads(line))
+
+    # Continual learning: merge harvested verified trajectories if available
+    harvested_path = os.path.join(DATA_DIR, "harvested_trajectories.jsonl")
+    if os.path.exists(harvested_path):
+        with open(harvested_path, "r", encoding="utf-8") as hf:
+            for line in hf:
+                if line.strip():
+                    try:
+                        rec = json.loads(line)
+                        if rec.get("instruction") and rec.get("guild"):
+                            data.append({"text": rec["instruction"], "label": rec["guild"]})
+                    except Exception:
+                        continue
                 
     le = LabelEncoder()
     labels = le.fit_transform([d["label"] for d in data])
     label_names = list(le.classes_)
     num_labels = len(label_names)
+
+    if not force and os.path.exists(config_file) and os.path.exists(safetensor_file):
+        try:
+            with open(config_file, "r", encoding="utf-8") as cf:
+                existing_cfg = json.load(cf)
+            existing_labels = len(existing_cfg.get("id2label", {}))
+            if existing_labels == num_labels:
+                print(
+                    f"  DistilBERT intent classifier already deployed with {existing_labels} classes at {output_dir}\n"
+                )
+                return
+            print(
+                f"  Upgrading DistilBERT intent classifier from {existing_labels} -> {num_labels} guild classes..."
+            )
+        except Exception:
+            pass
     
     print(f"Total intent training examples: {len(data)}")
     print(f"Number of Guild Classes ({num_labels}): {label_names}")
@@ -68,11 +94,12 @@ def train_intent_classifier():
     train_ds = split["train"]
     eval_ds = split["test"]
     
-    model_name = "distilbert-base-uncased"
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    base_source = output_dir if os.path.exists(config_file) else "distilbert-base-uncased"
+    tokenizer = AutoTokenizer.from_pretrained(base_source)
     model = AutoModelForSequenceClassification.from_pretrained(
-        model_name,
+        base_source,
         num_labels=num_labels,
+        ignore_mismatched_sizes=True,
     )
     
     model.config.id2label = {i: name for i, name in enumerate(label_names)}
@@ -99,20 +126,26 @@ def train_intent_classifier():
     device_arg = "mps" if use_mps else "cpu"
     print(f"Training on device: {device_arg}")
     
+    import inspect
+    eval_kw = (
+        {"eval_strategy": "epoch"}
+        if "eval_strategy" in inspect.signature(TrainingArguments.__init__).parameters
+        else {"evaluation_strategy": "epoch"}
+    )
     training_args = TrainingArguments(
         output_dir=os.path.join(BASE_DIR, "outputs_intent"),
-        num_train_epochs=3,
+        num_train_epochs=2,
         per_device_train_batch_size=32,
         per_device_eval_batch_size=64,
         warmup_steps=30,
         weight_decay=0.01,
         learning_rate=5e-5,
         logging_steps=50,
-        eval_strategy="epoch",
         save_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="accuracy",
         seed=42,
+        **eval_kw,
     )
     
     trainer = Trainer(
@@ -241,6 +274,8 @@ def deploy_gguf_model():
         print(f"Successfully deployed CodeLlama GGUF model to: {target_path}")
 
 if __name__ == "__main__":
-    train_intent_classifier()
+    import sys
+    force_intent = "--force-intent" in sys.argv
+    train_intent_classifier(force=force_intent)
     train_code_repair()
     deploy_gguf_model()

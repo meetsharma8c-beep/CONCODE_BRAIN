@@ -11,6 +11,7 @@ from pathlib import Path
 # rather than an implicit model download.
 os.environ.setdefault("HF_HUB_OFFLINE", "1")
 os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
 
 # ── Load .env file if present ─────────────────────────────────
 try:
@@ -42,12 +43,15 @@ REMOTE_LLM_BASE_URL = os.environ.get("CONCODE_REMOTE_LLM_BASE_URL", "").strip()
 REMOTE_LLM_MODEL = os.environ.get("CONCODE_REMOTE_LLM_MODEL", "").strip()
 REMOTE_LLM_API_KEY = os.environ.get("CONCODE_REMOTE_LLM_API_KEY", "").strip()
 REMOTE_LLM_TIMEOUT_SECONDS = int(os.environ.get("CONCODE_REMOTE_LLM_TIMEOUT_SECONDS", "120"))
-LLM_CONTEXT_LENGTH = 4096
-LLM_MAX_TOKENS = 2048
+LLM_CONTEXT_LENGTH = int(os.environ.get("CONCODE_LLM_CTX", "2048"))
+LLM_MAX_TOKENS = int(os.environ.get("CONCODE_LLM_MAX_TOKENS", "512"))
 LLM_TEMPERATURE = 0.3
 LLM_TOP_P = 0.9
-LLM_GPU_LAYERS = 99  # Offload all layers to Metal GPU
-LLM_THREADS = 6      # Apple Silicon optimal thread count
+LLM_GPU_LAYERS = int(os.environ.get("CONCODE_LLM_GPU_LAYERS", "32"))
+LLM_THREADS = int(os.environ.get("CONCODE_LLM_THREADS", "2"))      # Eco thermal governor: 2 threads prevents CPU overheating
+LLM_BATCH_SIZE = int(os.environ.get("CONCODE_LLM_BATCH_SIZE", "128"))  # Lower batch size reduces peak Metal GPU wattage
+LLM_LAZY_LOAD = os.environ.get("CONCODE_LLM_LAZY_LOAD", "1").strip() == "1"
+LLM_IDLE_UNLOAD_SECONDS = int(os.environ.get("CONCODE_LLM_IDLE_UNLOAD_SECONDS", "300"))
 
 # ── Intent Classifier Settings ────────────────────────────────
 INTENT_MAX_LENGTH = 128
@@ -122,4 +126,22 @@ GUILD_ICONS = {
     "mobile": "[MOBILE]",
     "blockchain": "[CHAIN]",
     "conversational": "[CHAT]",
+    "system_architect": "[ARCH]",
+    "research_scientist": "[SCI]",
+    "automation_operator": "[AUTO]",
+    "critic_verifier": "[CRITIC]",
 }
+
+# ── Universal Brain v3.0 Evolution Settings ───────────────────
+EPISODIC_MEMORY_PATH = Path(
+    os.environ.get("CONCODE_EPISODIC_MEMORY_PATH", DATA_DIR / "episodic_memory.jsonl")
+)
+HARVESTED_TRAJECTORIES_PATH = Path(
+    os.environ.get("CONCODE_HARVESTED_TRAJECTORIES_PATH", DATA_DIR / "harvested_trajectories.jsonl")
+)
+HARVESTED_DPO_PATH = Path(
+    os.environ.get("CONCODE_HARVESTED_DPO_PATH", DATA_DIR / "harvested_dpo_pairs.jsonl")
+)
+SANDBOX_TIMEOUT_SECONDS = float(os.environ.get("CONCODE_SANDBOX_TIMEOUT_SECONDS", "5.0"))
+SANDBOX_MAX_OUTPUT_BYTES = int(os.environ.get("CONCODE_SANDBOX_MAX_OUTPUT_BYTES", "32768"))
+MAX_UNIVERSAL_ITERATIONS = int(os.environ.get("CONCODE_MAX_UNIVERSAL_ITERATIONS", "6"))

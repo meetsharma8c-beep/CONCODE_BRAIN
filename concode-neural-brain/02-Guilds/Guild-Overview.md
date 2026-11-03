@@ -70,6 +70,11 @@ Rather than relying on a single generic prompt, the CONCODE Neural Brain divides
 | **API** | REST, GraphQL, FastAPI, OpenAPI, WebSockets | `api`, `rest`, `graphql`, `endpoint`, `fastapi` | [[02-Guilds/API-Guild|API-Guild]] |
 | **Fullstack** | System architecture, monorepos (Default) | `fullstack`, `architecture`, `monorepo`, `websocket` | [[02-Guilds/Fullstack-Guild|Fullstack-Guild]] |
 | **Mobile** | Mobile iOS/Android development | `mobile`, `ios`, `android`, `flutter` | [[02-Guilds/Mobile-Guild|Mobile-Guild]] |
+| **Conversational** | Natural dialogue, status, general assistance | `hello`, `status`, `help` | [[02-Guilds/Conversational-Guild|Conversational-Guild]] |
+| **System Architect** | Distributed systems, DAG decomposition, consensus | `cap theorem`, `event sourcing`, `cqrs`, `raft` | [[02-Guilds/System-Architect-Guild|System-Architect-Guild]] |
+| **Research Scientist** | Mathematical modeling, numerical solvers, statistics | `hypothesis test`, `differential equation`, `monte carlo` | [[02-Guilds/Research-Scientist-Guild|Research-Scientist-Guild]] |
+| **Automation Operator** | Workflows, scraping, CLI/OS scripting, ETL | `cron job`, `rpa workflow`, `web scraping`, `etl pipeline` | [[02-Guilds/Automation-Operator-Guild|Automation-Operator-Guild]] |
+| **Critic Verifier** | Adversarial audit, formal verification, red-teaming | `formal verification`, `invariant check`, `red team` | [[02-Guilds/Critic-Verifier-Guild|Critic-Verifier-Guild]] |
 
 ---
 

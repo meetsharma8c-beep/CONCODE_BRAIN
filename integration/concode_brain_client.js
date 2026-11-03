@@ -15,6 +15,8 @@ const ConcodeBrain = (() => {
   const API_BASE = 'http://localhost:8000';
   const COGNITIVE_ENDPOINT = `${API_BASE}/api/v1/cognitive`;
   const AGENT_ENDPOINT = `${API_BASE}/api/v1/agent`;
+  const UNIVERSAL_ENDPOINT = `${API_BASE}/api/v1/universal`;
+  const TOOLS_ENDPOINT = `${API_BASE}/api/v1/tools`;
   const GUILDS_ENDPOINT = `${API_BASE}/api/v1/guilds`;
   const STATUS_ENDPOINT = `${API_BASE}/api/v1/status`;
 
@@ -24,11 +26,14 @@ const ConcodeBrain = (() => {
       return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
 
-  // ── Guild Icons ────────────────────────────────────────────
+  // ── Guild Icons (18 Universal Guilds) ──────────────────────
   const GUILD_ICONS = {
     debugger: '[DEBUG]', webgl: '[WEBGL]', ai_ml: '[AI_ML]', qa: '[QA]',
     security: '[SEC]', performance: '[PERF]', database: '[DB]',
-    ui_ux: '[UIUX]', devops: '[DEVOPS]', api: '[API]', fullstack: '[FULLSTACK]'
+    ui_ux: '[UIUX]', devops: '[DEVOPS]', api: '[API]', fullstack: '[FULLSTACK]',
+    mobile: '[MOBILE]', blockchain: '[CHAIN]', conversational: '[CHAT]',
+    system_architect: '[ARCH]', research_scientist: '[SCI]',
+    automation_operator: '[AUTO]', critic_verifier: '[CRITIC]'
   };
 
   // ── Collect Open Editor Files ──────────────────────────────
@@ -214,6 +219,53 @@ const ConcodeBrain = (() => {
     return result;
   }
 
+  // ── Universal Cognitive Engine v3.0 ────────────────────────
+  async function solveUniversal(goal, options = {}) {
+    const {
+      workspaceFiles = collectWorkspaceFiles(),
+      maxIterations = 4,
+      enableSandbox = false,
+      syncVault = false,
+      onPlan = null,
+      onCriticReport = null,
+      onEdits = null,
+    } = options;
+
+    const response = await fetch(UNIVERSAL_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        goal,
+        workspace_files: workspaceFiles,
+        session_id: sessionId,
+        max_iterations: maxIterations,
+        enable_sandbox: enableSandbox,
+        sync_vault: syncVault,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Brain universal API error: ${response.status} ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    if (onPlan && result.plan) {
+      onPlan(result.plan, result.activated_guilds);
+    }
+    if (onCriticReport && result.critic_report) {
+      onCriticReport(result.critic_report);
+    }
+    if (result.success && result.edits && result.edits.length && onEdits) {
+      await onEdits(result.edits, result);
+    }
+    return result;
+  }
+
+  async function getTools() {
+    const response = await fetch(TOOLS_ENDPOINT);
+    return response.json();
+  }
+
   // ── Status & Health ────────────────────────────────────────
   async function getStatus() {
     const response = await fetch(STATUS_ENDPOINT);
@@ -245,6 +297,8 @@ const ConcodeBrain = (() => {
   return {
     query,
     agent,
+    solveUniversal,
+    getTools,
     insertCode,
     queryAndInsert,
     getStatus,

@@ -84,8 +84,9 @@ class CodingAgent:
     complete file replacements and choose whether to apply them to a project.
     """
 
-    def __init__(self, generator: Any):
+    def __init__(self, generator: Any, repairer: Any = None):
         self.generator = generator
+        self.repairer = repairer
 
     def run(
         self,
@@ -96,7 +97,7 @@ class CodingAgent:
     ) -> AgentOutcome:
         """Plan, edit, verify, and repair a supplied workspace snapshot."""
         workspace = dict(workspace_files)
-        max_iterations = max(1, min(max_iterations, 3))
+        max_iterations = max(1, min(max_iterations, 10))
         all_edits: List[AgentEdit] = []
         plan: List[str] = []
         verification: List[VerificationResult] = []

@@ -225,6 +225,59 @@ def generate_intent_dataset():
             "Design file upload pipeline for {app_type}",
             "Build search functionality for {app_type}",
         ],
+        "mobile": [
+            "Build a native {mobile_platform} screen for {mobile_feature}",
+            "Create a Flutter widget for {mobile_feature} with state management",
+            "Implement SwiftUI navigation stack for {mobile_feature}",
+            "Write a Kotlin Jetpack Compose view for {mobile_feature}",
+            "Set up React Native offline storage for {mobile_feature}",
+            "Configure push notifications on {mobile_platform} for {mobile_feature}",
+        ],
+        "blockchain": [
+            "Write a Solidity smart contract for {web3_feature} on {chain_name}",
+            "Build a Solana Anchor Rust program for {web3_feature}",
+            "Audit ERC-20 token contract for reentrancy in {web3_feature}",
+            "Integrate Ethers.js wallet connection for {web3_feature} on {chain_name}",
+            "Create Hardhat deployment script for {web3_feature} on {chain_name}",
+            "Optimize gas usage in Solidity {web3_feature} smart contract",
+        ],
+        "conversational": [
+            "Hello {greeting_target}, how are you doing today?",
+            "Good morning {greeting_target}, what is your current status?",
+            "Hey there, who are you and what can {greeting_target} help me with?",
+            "Thank you so much for the help, {greeting_target}!",
+            "Good evening {greeting_target}, are all systems online?",
+        ],
+        "system_architect": [
+            "Apply CAP theorem trade-offs to {arch_pattern} for {arch_domain}",
+            "Design an event sourcing and CQRS topology for {arch_domain}",
+            "Model Raft distributed consensus state machine for {arch_domain}",
+            "Create a domain driven design bounded context map for {arch_domain}",
+            "Architect a high availability fault-tolerant {arch_pattern} for {arch_domain}",
+            "Define Kafka message broker partitioning and service mesh for {arch_domain}",
+        ],
+        "research_scientist": [
+            "Formulate a statistical hypothesis test and p-value analysis for {sci_topic}",
+            "Run a Monte Carlo simulation in NumPy for {sci_topic}",
+            "Solve the differential equation system governing {sci_topic} using SciPy",
+            "Build a Bayesian regression analysis model for {sci_topic}",
+            "Derive the linear algebra eigendecomposition proof for {sci_topic}",
+            "Implement a numerical solver for {sci_topic} in scientific computing",
+        ],
+        "automation_operator": [
+            "Schedule an idempotent cron job and shell script for {auto_task}",
+            "Build a headless browser automation and web scraping pipeline for {auto_task}",
+            "Create an ETL pipeline and batch processing worker for {auto_task}",
+            "Implement a filesystem file watcher daemon to automate {auto_task}",
+            "Write an OS automation CLI tool and webhook trigger for {auto_task}",
+        ],
+        "critic_verifier": [
+            "Perform formal verification and invariant check on {audit_target}",
+            "Run an adversarial red team edge case audit on {audit_target}",
+            "Create a property-based fuzzing harness to falsify {audit_target}",
+            "Conduct a static analysis root cause audit and postmortem on {audit_target}",
+            "Verify pre-condition and post-condition contract invariants for {audit_target}",
+        ],
     }
 
     fillers = {
@@ -326,6 +379,40 @@ def generate_intent_dataset():
                               "Angular", "Solid.js"],
             "backend_tech": ["FastAPI", "Node.js", "Django", "Go Fiber",
                              "NestJS", "Express", "Spring Boot"],
+        },
+        "mobile": {
+            "mobile_platform": ["iOS SwiftUI", "Android Kotlin", "Flutter", "React Native", "iOS UIKit"],
+            "mobile_feature": ["biometric login", "camera QR scanner", "offline SQLite sync",
+                               "bottom tab navigation", "push notification handler", "in-app purchase flow"],
+        },
+        "blockchain": {
+            "web3_feature": ["ERC-721 NFT staking", "DEX liquidity pool", "multi-sig treasury wallet",
+                             "token vesting vault", "DAO governance voting", "escrow smart contract"],
+            "chain_name": ["Ethereum", "Solana", "Polygon", "Arbitrum", "Base"],
+        },
+        "conversational": {
+            "greeting_target": ["CONCODE", "CONCODE Neural Brain", "friend", "assistant", "team"],
+        },
+        "system_architect": {
+            "arch_pattern": ["event sourcing pipeline", "CQRS read/write split", "Raft consensus cluster",
+                             "Kafka mesh topology", "active-active multi-region replication"],
+            "arch_domain": ["global payment ledger", "high-frequency trading engine", "distributed IoT telemetry",
+                            "multi-region inventory core", "real-time billing settlement"],
+        },
+        "research_scientist": {
+            "sci_topic": ["stochastic volatility pricing", "Lotka-Volterra predator-prey dynamics",
+                          "Markov chain convergence", "protein folding free energy", "A/B conversion significance",
+                          "heat diffusion PDE boundary conditions"],
+        },
+        "automation_operator": {
+            "auto_task": ["nightly database backup rotation", "competitor price monitoring",
+                          "CSV invoice ingestion", "log archive compression", "SSL certificate renewal",
+                          "automated Git release tagging"],
+        },
+        "critic_verifier": {
+            "audit_target": ["concurrent bank transfer mutex", "JWT token parser",
+                             "distributed lock state machine", "SQL pagination cursor",
+                             "Merkle proof verifier", "rate limiter sliding window"],
         },
     }
 
@@ -521,6 +608,28 @@ def generate_scaled_multi_guild_train(target_per_guild=500):
             ("Architect full-stack monorepo layout for {system_name}", "// System Architecture Blueprint: {system_name}\n// Frontend: React + Vite + Tailwind CSS\n// Backend: FastAPI + PostgreSQL\n// State: Redux Toolkit / Zustand\n// Infra: Docker + Nginx"),
             ("Create fetch API client wrapper for {system_name}", "async function apiCall(url, method = 'GET', data = null) {{\n  const options = {{ method, headers: {{ 'Content-Type': 'application/json' }} }};\n  if (data) options.body = JSON.stringify(data);\n  const res = await fetch(url, options);\n  if (!res.ok) throw new Error(`API Error: ${{res.status}}`);\n  return await res.json();\n}}"),
             ("Create WebSocket real-time handler for {system_name}", "const ws = new WebSocket('ws://localhost:8080');\nws.onopen = () => console.log('Connected');\nws.onmessage = (event) => {{\n  const data = JSON.parse(event.data);\n  handleUpdate(data);\n}};\nws.onerror = (err) => console.error('WS Error:', err);\nws.onclose = () => setTimeout(connect, 3000);"),
+        ],
+        "mobile": [
+            ("Create Flutter stateless widget for {element_name}", "import 'package:flutter/material.dart';\nclass {element_name}Card extends StatelessWidget {{\n  final String title;\n  const {element_name}Card({{super.key, required this.title}});\n  @override\n  Widget build(BuildContext context) {{\n    return Card(child: Padding(padding: const EdgeInsets.all(16), child: Text(title)));\n  }}\n}}"),
+            ("Write SwiftUI view for {element_name}", "import SwiftUI\nstruct {element_name}View: View {{\n  @State private var isActive = false\n  var body: some View {{\n    VStack {{\n      Toggle(\"Enable {element_name}\", isOn: $isActive)\n    }}.padding()\n  }}\n}}"),
+        ],
+        "blockchain": [
+            ("Write Solidity smart contract for {endpoint_name} vault", "// SPDX-License-Identifier: MIT\npragma solidity ^0.8.20;\ncontract {endpoint_name}Vault {{\n  mapping(address => uint256) public balances;\n  function deposit() external payable {{\n    require(msg.value > 0, 'Zero deposit');\n    balances[msg.sender] += msg.value;\n  }}\n}}"),
+        ],
+        "conversational": [
+            ("Hello CONCODE, what is the status of {system_name}?", "Hello! {system_name} is online and operating normally across all expert guilds. How can I help you solve a problem today?"),
+        ],
+        "system_architect": [
+            ("Design event sourcing and CQRS architecture for {system_name}", "# Architectural Blueprint: {system_name}\n# 1. Command Bus -> Write Store (Append-Only Event Log)\n# 2. Event Broker (Kafka) -> Projection Workers\n# 3. Read Store (Materialized Views with Eventual Consistency)\n# 4. Consensus: Raft Quorum (N=3, f=1 fault tolerance)"),
+        ],
+        "research_scientist": [
+            ("Run Monte Carlo simulation and hypothesis test for {task_name}", "import numpy as np\nfrom scipy import stats\nrng = np.random.default_rng(42)\nsamples = rng.normal(loc=1.05, scale=0.2, size=10_000)\nt_stat, p_val = stats.ttest_1samp(samples, popmean=1.0)\nprint(f't={{t_stat:.4f}}, p={{p_val:.4e}}')"),
+        ],
+        "automation_operator": [
+            ("Create automated ETL batch script for {app_name}", "import logging\nfrom pathlib import Path\nlogging.basicConfig(level=logging.INFO)\ndef run_etl(source_dir: str) -> int:\n    files = list(Path(source_dir).glob('*.json'))\n    logging.info('Processed %d files for {app_name}', len(files))\n    return len(files)"),
+        ],
+        "critic_verifier": [
+            ("Perform formal invariant verification on {fn}", "def verify_{fn}_invariants(pre_balance: int, delta: int, post_balance: int) -> None:\n    assert delta >= 0, 'Invariant violated: negative transfer delta'\n    assert post_balance == pre_balance - delta, 'Conservation of balance invariant violated'\n    assert post_balance >= 0, 'Overdraft invariant violated'"),
         ],
     }
 
