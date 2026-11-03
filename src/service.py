@@ -573,6 +573,8 @@ class TravelResponse(BaseModel):
     session_id: str
     mode: str
     model_backend: str
+    guild: str = "critic_verifier"
+    guild_icon: str = "🏛️"
     is_estimate: bool = True
     format_repaired: bool = False
     itinerary: Optional[List[Dict[str, Any]]] = None
@@ -587,21 +589,16 @@ class TravelResponse(BaseModel):
 def _travel_system_prompt(mode: str) -> str:
     """Dedicated TripVerse instructions, kept separate from CONCODE coding guilds."""
     shared = """
-You are CONCODE, TripVerse's intelligent travel-planning co-pilot. Create realistic, personalized
-travel plans using the supplied traveler context and request. Respect total budget, group size,
-duration, pacing, interests, food preferences, transport mode, and accommodation tier. Never write source code.
+You are CONCODE, TripVerse's intelligent travel-planning co-pilot. Create realistic, personalized,
+and geographically accurate travel plans using the supplied traveler context and request.
+Respect total budget, group size, duration, pacing, interests, food preferences, transport mode, and accommodation tier.
+Never write source code.
 
-Provide genuine, specific hotel recommendations, authentic local eatery suggestions, realistic meal
-costs, accurate monument ticket fees, and natural day-to-day schedule pacing:
-- Morning (8:00 AM - 11:00 AM): Dawn viewpoints, peaceful temples, and heritage walks before peak heat.
-- Midday & Lunch (12:30 PM - 2:30 PM): Authentic local dining honoring food preference + shaded/indoor museums.
-- Afternoon (3:30 PM - 5:00 PM): Cultural discovery, artisan markets, or scenic garden strolls.
-- Golden Hour (5:30 PM - 6:45 PM): Elevated fort ramparts, sunset viewpoints, or lakeside ghats.
-- Evening (8:00 PM - 9:30 PM): Regional culinary feasts, folk performances, or night promenades.
-
-Prices and schedules should reflect real destination costs. Avoid generic placeholders like "Artisan Kitchen"
-or "Scenic Overlook"; use real, well-known locations and landmark names in the destination. Keep advice
-concise and suitable for a consumer travel app.
+CRITICAL FACTUAL AND GEOGRAPHIC RULES:
+1. GEOGRAPHIC ACCURACY: Every recommended sight, cafe, and activity MUST be genuinely located within 25 km of the specified destination. Never suggest attractions from other cities, states, or distant districts (e.g. for Manali, do NOT mention Nalagarh Fort or distant plains; for Jaipur, do NOT invent non-existent palaces like 'Sawai Mahal').
+2. AUTHENTIC REGIONAL CUISINE: Recommend real, authentic regional food matching the local destination culture and state (e.g., Siddu, Kullu Trout, Thukpa, Madra for Himachal/Manali; Dal Baati Churma, Pyaaz Kachori, Ker Sangri, Ghevar for Rajasthan/Jaipur). Do not suggest south Indian staples like dosas/idlis as traditional Himalayan mountain food.
+3. VERIFIED LANDMARKS ONLY: Reference only real, world-renowned attractions (e.g., Solang Valley, Hadimba Temple, Old Manali, Jogini Falls for Manali; Amber Palace, Hawa Mahal, City Palace, Jantar Mantar, Nahargarh Fort for Jaipur).
+4. COMPLETE EVERY SENTENCE: Always conclude every sentence cleanly and concisely before stopping. Never cut off mid-sentence.
 """.strip()
     if mode == "itinerary":
         return shared + """
@@ -990,9 +987,9 @@ async def travel_pipeline(request: TravelRequest):
     # Structured itineraries need more output tokens than the eco default; raise the
     # cap only for this request (bounded by the 2048-token context) and restore it.
     original_max_tokens = getattr(generator, "max_tokens", None)
-    if request.mode == "itinerary" and original_max_tokens is not None:
+    if original_max_tokens is not None:
         days = max(1, request.trip_context.duration_days or 3)
-        generator.max_tokens = max(original_max_tokens, min(1400, 250 + days * 320))
+        generator.max_tokens = max(original_max_tokens, min(1600, 450 + days * 350))
     try:
         reply = active_generator.generate(
             system_prompt=_travel_system_prompt(request.mode),
@@ -1068,11 +1065,34 @@ async def travel_pipeline(request: TravelRequest):
             -(SESSION_MAX_HISTORY * 2):
         ]
 
+    # If mode was text but contains day-by-day itinerary plans, synthesize structured itinerary
+    if structured_itinerary is None and ("Day 1" in reply or "day 1" in reply.lower()):
+        prose_struct = _itinerary_from_model_prose(reply, request.trip_context)
+        if prose_struct:
+            rep_v, c_fixes, c_score = verify_itinerary(prose_struct, request.trip_context.duration_days, request.trip_context.total_budget)
+            i_days, s_itin = build_structured_itinerary(rep_v, request.trip_context.destination, request.trip_context.duration_days, request.trip_context.total_budget, request.trip_context.food_preference, request.trip_context.currency)
+            if i_days and s_itin:
+                itinerary_days, structured_itinerary = i_days, s_itin
+                critic_fixes = c_fixes
+                critic_score = c_score
+
+    # Active Guild Assignment
+    if request.mode == "budget":
+        active_guild, active_icon = "database", "💰"
+    elif request.mode == "safety":
+        active_guild, active_icon = "security", "🛡️"
+    elif request.mode == "itinerary" or structured_itinerary is not None:
+        active_guild, active_icon = "critic_verifier", "🏛️"
+    else:
+        active_guild, active_icon = "research_scientist", "🔬"
+
     return TravelResponse(
         reply=reply,
         session_id=request.session_id,
         mode=request.mode,
         model_backend=INFERENCE_BACKEND,
+        guild=active_guild,
+        guild_icon=active_icon,
         format_repaired=format_repaired,
         itinerary=itinerary_days,
         structured_itinerary=structured_itinerary,
@@ -1417,12 +1437,22 @@ def favicon():
 
 @app.get("/health")
 def health():
-    """Health check endpoint."""
+    """Health check endpoint with dynamic hardware detection."""
+    gpu_desc = "CPU (Eco Governor)"
+    try:
+        import torch
+        if torch.cuda.is_available():
+            gpu_desc = f"Nvidia CUDA ({torch.cuda.get_device_name(0)})"
+        elif hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
+            gpu_desc = "Apple Silicon Metal (MPS)"
+    except Exception:
+        pass
+
     return {
         "ok": True,
         "status": "healthy",
         "version": API_VERSION,
-        "gpu": "Apple Silicon Metal (Eco Governor)",
+        "gpu": gpu_desc,
         "universal_v3": True,
         "timestamp": time.time(),
     }
