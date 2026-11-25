@@ -10,6 +10,7 @@ RUN python -m pip install --upgrade pip \
     && python -m pip install -r /app/requirements.txt
 
 COPY deployment/huggingface/app.py /app/app.py
+COPY src/brain/formal_verifier.py /app/formal_verifier.py
 
 EXPOSE 7860
 CMD ["sh", "-c", "uvicorn app:app --host 0.0.0.0 --port ${PORT:-7860} --workers 1"]

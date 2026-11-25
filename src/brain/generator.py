@@ -6,6 +6,8 @@ Billions of parameters with deep transformer layers and dense attention.
 
 import logging
 import json
+import shutil
+import subprocess
 import time
 from pathlib import Path
 from typing import List, Dict, Optional
@@ -155,6 +157,9 @@ class CodeGenerator:
         self.lazy_load = lazy_load
         self.idle_unload_seconds = idle_unload_seconds
         self.llm = None
+        self._llama_server_bin: Optional[str] = shutil.which("llama-server")
+        self._llama_server_proc: Optional[subprocess.Popen] = None
+        self._llama_server_port: int = 8089
         self._last_used: float = 0.0
         self._can_lazy_load: bool = False
         if self.lazy_load:
@@ -163,7 +168,7 @@ class CodeGenerator:
             self._load_model()
 
     def _check_lazy_readiness(self) -> None:
-        """Verify model file and llama_cpp availability without pinning 4.5GB GPU RAM at idle."""
+        """Verify model file and llama_cpp or native llama-server availability without pinning GPU RAM at idle."""
         if not self.model_path.exists():
             logger.warning(f"GGUF model not found at {self.model_path}.")
             self._can_lazy_load = False
@@ -172,11 +177,107 @@ class CodeGenerator:
             import llama_cpp  # noqa: F401
             self._can_lazy_load = True
             logger.info(
-                "Eco Thermal Mode: GGUF verified for lazy on-demand loading "
+                "Eco Thermal Mode: GGUF verified for lazy on-demand loading via llama_cpp "
                 f"(threads={self.n_threads}, n_ctx={self.n_ctx}, n_batch={self.n_batch})"
             )
+            return
         except ImportError:
+            pass
+
+        self._llama_server_bin = shutil.which("llama-server")
+        if self._llama_server_bin:
+            self._can_lazy_load = True
+            logger.info(
+                "Eco Thermal Mode: GGUF verified for lazy on-demand Metal loading via native llama-server "
+                f"(threads={self.n_threads}, n_ctx={self.n_ctx}, n_batch={self.n_batch})"
+            )
+        else:
             self._can_lazy_load = False
+
+    def _ensure_llama_server_running(self) -> bool:
+        """Lazily boot local Metal llama-server on loopback when Python llama_cpp is absent."""
+        if not self._llama_server_bin:
+            self._llama_server_bin = shutil.which("llama-server")
+        if not self._llama_server_bin or not self.model_path.exists():
+            return False
+
+        if self._llama_server_proc is not None and self._llama_server_proc.poll() is None:
+            return True
+
+        cmd = [
+            self._llama_server_bin,
+            "--model", str(self.model_path),
+            "--host", "127.0.0.1",
+            "--port", str(self._llama_server_port),
+            "--ctx-size", str(self.n_ctx),
+            "--n-gpu-layers", str(self.n_gpu_layers),
+            "--threads", str(self.n_threads),
+            "--batch-size", str(self.n_batch),
+        ]
+        logger.info("Eco Thermal Mode: Booting native Metal llama-server on 127.0.0.1:%d ...", self._llama_server_port)
+        self._llama_server_proc = subprocess.Popen(
+            cmd,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        health_url = f"http://127.0.0.1:{self._llama_server_port}/health"
+        deadline = time.time() + 45.0
+        while time.time() < deadline:
+            if self._llama_server_proc.poll() is not None:
+                logger.error("Native llama-server exited prematurely with code %s", self._llama_server_proc.returncode)
+                return False
+            try:
+                with urlopen(health_url, timeout=1.5) as resp:
+                    if resp.status == 200:
+                        logger.info("Native Metal llama-server is READY.")
+                        self._last_used = time.time()
+                        return True
+            except Exception:
+                time.sleep(0.4)
+        logger.error("Timed out waiting for native Metal llama-server to become ready.")
+        self.close()
+        return False
+
+    def _generate_via_llama_server(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        context: str = "",
+        history: List[Dict[str, str]] = None,
+    ) -> str:
+        if not self._ensure_llama_server_running():
+            raise ModelGenerationError("Native llama-server failed to start for local GGUF inference.")
+        self._last_used = time.time()
+        sys_content = system_prompt.strip()
+        if context:
+            sys_content += f"\n\nRelevant workspace context:\n{context}"
+        messages: List[Dict[str, str]] = [{"role": "system", "content": sys_content}]
+        for turn in history or []:
+            if turn.get("role") in ("user", "assistant") and isinstance(turn.get("content"), str):
+                messages.append({"role": turn["role"], "content": turn["content"]})
+        messages.append({"role": "user", "content": user_prompt})
+        payload = {
+            "model": self.model_path.name,
+            "messages": messages,
+            "max_tokens": self.max_tokens,
+            "temperature": self.temperature,
+            "top_p": self.top_p,
+            "stop": ["<|im_end|>", "<|im_start|>", "</s>", "[INST]"],
+        }
+        req = Request(
+            f"http://127.0.0.1:{self._llama_server_port}/v1/chat/completions",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urlopen(req, timeout=180) as resp:
+                body = json.loads(resp.read().decode("utf-8"))
+            text = body["choices"][0]["message"]["content"]
+            return str(text).strip()
+        except Exception as exc:
+            logger.error("Native llama-server inference failed: %s", exc)
+            raise ModelGenerationError(f"Local Metal llama-server inference failed: {exc}") from exc
 
     def _load_model(self):
         """Load the GGUF model via llama-cpp-python."""
@@ -209,10 +310,11 @@ class CodeGenerator:
 
             logger.info("GGUF model loaded successfully with Metal GPU acceleration")
         except ImportError:
-            logger.error(
-                "llama-cpp-python not installed. "
-                "Run: CMAKE_ARGS='-DGGML_METAL=on' pip install llama-cpp-python"
-            )
+            if not (self._llama_server_bin or shutil.which("llama-server")):
+                logger.error(
+                    "llama-cpp-python not installed and llama-server binary not found. "
+                    "Install llama.cpp (brew install llama.cpp) or llama-cpp-python."
+                )
         except Exception as e:
             logger.error(f"Failed to load GGUF model: {e}")
             self.llm = None
@@ -220,7 +322,10 @@ class CodeGenerator:
 
     def unload_if_idle(self) -> bool:
         """Release Metal GPU memory when the LLM has been idle beyond idle_unload_seconds."""
-        if self.llm is not None and self.idle_unload_seconds > 0:
+        has_active = self.llm is not None or (
+            self._llama_server_proc is not None and self._llama_server_proc.poll() is None
+        )
+        if has_active and self.idle_unload_seconds > 0:
             if (time.time() - self._last_used) > self.idle_unload_seconds:
                 logger.info("Eco Thermal Mode: Unloading idle GGUF model from Metal GPU memory")
                 self.close()
@@ -235,21 +340,19 @@ class CodeGenerator:
         history: List[Dict[str, str]] = None,
     ) -> str:
         """
-        Generate code using the loaded LLM.
-
-        Args:
-            system_prompt: Guild-specific system prompt
-            user_prompt: The user's request
-            context: Retrieved workspace code context
-            history: Previous conversation turns [{"role": "user/assistant", "content": "..."}]
-
-        Returns:
-            Generated code/text response
+        Generate code using the loaded LLM (llama-cpp-python or native Metal llama-server).
         """
         if self.llm is None and self._can_lazy_load:
             self._load_model()
 
         if self.llm is None:
+            if self._llama_server_bin or shutil.which("llama-server"):
+                return self._generate_via_llama_server(
+                    system_prompt=system_prompt,
+                    user_prompt=user_prompt,
+                    context=context,
+                    history=history,
+                )
             raise ModelGenerationError(
                 "The local GGUF model is unavailable; no generated substitute is returned."
             )
@@ -280,6 +383,20 @@ class CodeGenerator:
 
     def close(self) -> None:
         """Release native llama.cpp resources before Python process shutdown."""
+        if self._llama_server_proc is not None:
+            try:
+                if self._llama_server_proc.poll() is None:
+                    self._llama_server_proc.terminate()
+                    self._llama_server_proc.wait(timeout=5)
+                logger.info("Native Metal llama-server process stopped")
+            except Exception as e:
+                logger.warning(f"Failed to terminate llama-server cleanly: {e}")
+                try:
+                    self._llama_server_proc.kill()
+                except Exception:
+                    pass
+            finally:
+                self._llama_server_proc = None
         if self.llm is None:
             return
         try:

@@ -6,7 +6,10 @@ Sentence-transformers (MiniLM) + FAISS for context-aware code retrieval.
 import logging
 from typing import Dict, List, Optional
 
-import numpy as np
+try:
+    import numpy as np
+except ImportError:
+    np = None  # type: ignore
 
 logger = logging.getLogger("concode.retriever")
 

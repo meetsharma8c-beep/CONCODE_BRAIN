@@ -79,7 +79,7 @@ SESSION_TTL_SECONDS = 3600  # Evict sessions after 1 hour of inactivity
 # ── Server Settings ───────────────────────────────────────────
 API_HOST = "0.0.0.0"
 API_PORT = 8000
-API_VERSION = "2.1.0"
+API_VERSION = "4.0.0-apex"
 
 # ── Security Settings ────────────────────────────────────────
 # API Key: set CONCODE_API_KEY env var to enable auth (unset = dev mode)
@@ -145,3 +145,12 @@ HARVESTED_DPO_PATH = Path(
 SANDBOX_TIMEOUT_SECONDS = float(os.environ.get("CONCODE_SANDBOX_TIMEOUT_SECONDS", "5.0"))
 SANDBOX_MAX_OUTPUT_BYTES = int(os.environ.get("CONCODE_SANDBOX_MAX_OUTPUT_BYTES", "32768"))
 MAX_UNIVERSAL_ITERATIONS = int(os.environ.get("CONCODE_MAX_UNIVERSAL_ITERATIONS", "6"))
+
+# ── CONCODE v4.0 APEX Frontier Settings ───────────────────────
+PROJECT_MANIFESTS_PATH = Path(
+    os.environ.get("CONCODE_PROJECT_MANIFESTS_PATH", DATA_DIR / "project_manifests.json")
+)
+KNOWLEDGE_GRAPH_PATH = Path(
+    os.environ.get("CONCODE_KNOWLEDGE_GRAPH_PATH", DATA_DIR / "knowledge_graph.json")
+)
+APEX_MAX_MCTS_ROLLOUTS = int(os.environ.get("CONCODE_APEX_MAX_MCTS_ROLLOUTS", "4"))

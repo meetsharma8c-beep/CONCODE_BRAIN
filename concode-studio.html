@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CONCODE Studio -- v4.0 APEX Agentic Interpreter</title>
+  <style>
+    :root {
+      --bg-void: #000000;
+      --bg-chrome: #070707;
+      --bg-panel: #0b0b0b;
+      --bg-surface: #101010;
+      --bg-elevated: #161616;
+      --bg-hover: #1f1f1f;
+      --border-subtle: #1c1c1c;
+      --border-mid: #2a2a2a;
+      --border-strong: #484848;
+      --ink-primary: #ffffff;
+      --ink-secondary: #d4d4d4;
+      --ink-muted: #888888;
+      --ink-dim: #525252;
+      --inv-bg: #ffffff;
+      --inv-ink: #000000;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Text", "Segoe UI", sans-serif;
+      --font-mono: "SF Mono", "JetBrains Mono", "Menlo", "Fira Code", monospace;
+      --left-w: 248px;
+      --right-w: 448px;
+      --console-h: 250px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: var(--bg-void);
+      color: var(--ink-primary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input, select, textarea {
+      font-family: inherit;
+      color: inherit;
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+    button { cursor: pointer; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #262626; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #404040; }
+
+    /* ---- SHELL ---- */
+    .studio-shell {
+      display: grid;
+      grid-template-rows: 44px 1fr 24px;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ---- TOPBAR ---- */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      background: var(--bg-chrome);
+      border-bottom: 1px solid var(--border-subtle);
+      gap: 10px;
+      user-select: none;
+    }
+    .topbar-left, .topbar-center, .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      font-size: 11.5px;
+    }
+    .version-pill {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 6px;
+      border: 1px solid var(--border-mid);
+      border-radius: 3px;
+      color: var(--ink-secondary);
+    }
+    .divider-v { width: 1px; height: 18px; background: var(--border-mid); margin: 0 2px; }
+    .ctrl-select {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-mid);
+      border-radius: 5px;
+      padding: 4px 8px;
+      font-size: 11.5px;
+      color: var(--ink-secondary);
+      cursor: pointer;
+    }
+    .ctrl-select:hover { border-color: var(--border-strong); color: var(--ink-primary); }
+
+    .cmd-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-mid);
+      background: var(--bg-surface);
+      color: var(--ink-muted);
+      font-size: 11px;
+      min-width: 170px;
+      justify-content: space-between;
+    }
+    .cmd-trigger:hover { border-color: var(--border-strong); color: var(--ink-secondary); }
+    .kbd {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      padding: 1px 4px;
+      border: 1px solid var(--border-mid);
+      border-radius: 3px;
+      color: var(--ink-muted);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 9px;
+      border-radius: 5px;
+      border: 1px solid var(--border-mid);
+      background: var(--bg-surface);
+      color: var(--ink-secondary);
+      font-size: 11.5px;
+      font-weight: 500;
+      transition: background 110ms, border-color 110ms, color 110ms;
+    }
+    .btn-ghost:hover { background: var(--bg-hover); border-color: var(--border-strong); color: var(--ink-primary); }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 11px;
+      border-radius: 5px;
+      border: 1px solid var(--inv-bg);
+      background: var(--inv-bg);
+      color: var(--inv-ink);
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-mid);
+      background: var(--bg-surface);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-secondary);
+    }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-dim); }
+    .status-dot.online { background: #ffffff; box-shadow: 0 0 7px rgba(255,255,255,0.7); }
+
+    /* ---- RESIZABLE 3-PANE WORKBENCH ---- */
+    .workbench {
+      display: grid;
+      grid-template-columns: var(--left-w) 4px minmax(280px, 1fr) 4px var(--right-w);
+      min-height: 0;
+      height: 100%;
+    }
+    .resizer-v {
+      background: var(--border-subtle);
+      cursor: col-resize;
+      transition: background 120ms;
+    }
+    .resizer-v:hover, .resizer-v.dragging { background: #5a5a5a; }
+    .resizer-h {
+      height: 4px;
+      background: var(--border-subtle);
+      cursor: row-resize;
+      transition: background 120ms;
+    }
+    .resizer-h:hover, .resizer-h.dragging { background: #5a5a5a; }
+
+    /* ---- LEFT SIDEBAR ---- */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-panel);
+      min-height: 0;
+      min-width: 0;
+    }
+    .sidebar-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-chrome);
+      height: 34px;
+    }
+    .sidebar-tab {
+      flex: 1;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      border-bottom: 2px solid transparent;
+    }
+    .sidebar-tab.active { color: var(--ink-primary); border-bottom-color: var(--ink-primary); background: var(--bg-panel); }
+
+    .sidebar-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 8px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .sidebar-search {
+      flex: 1;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-mid);
+      border-radius: 4px;
+      padding: 4px 7px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-primary);
+    }
+    .sidebar-search::placeholder { color: var(--ink-dim); }
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      color: var(--ink-muted);
+      border: 1px solid transparent;
+      flex-shrink: 0;
+    }
+    .icon-btn:hover { background: var(--bg-hover); color: var(--ink-primary); border-color: var(--border-mid); }
+
+    .inline-newfile {
+      display: none;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
+      gap: 6px;
+    }
+    .inline-newfile.open { display: flex; }
+
+    .file-list { flex: 1; overflow-y: auto; padding: 6px; }
+    .file-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 8px;
+      border-radius: 5px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      margin-bottom: 2px;
+      border: 1px solid transparent;
+      gap: 6px;
+    }
+    .file-item:hover { background: var(--bg-elevated); color: var(--ink-primary); }
+    .file-item.active { background: var(--bg-elevated); border-color: var(--border-mid); color: var(--ink-primary); }
+    .file-item-left { display: flex; align-items: center; gap: 7px; min-width: 0; overflow: hidden; }
+    .file-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .file-ext {
+      font-size: 9px;
+      padding: 1px 4px;
+      border: 1px solid var(--border-mid);
+      border-radius: 3px;
+      color: var(--ink-muted);
+      flex-shrink: 0;
+    }
+
+    .invariants-box {
+      border-top: 1px solid var(--border-subtle);
+      max-height: 35%;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-chrome);
+    }
+    .pane-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 11px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .invariants-list { overflow-y: auto; padding: 8px; display: flex; flex-direction: column; gap: 5px; }
+    .invariant-item {
+      font-size: 10.5px;
+      line-height: 1.45;
+      color: var(--ink-muted);
+      padding: 5px 8px;
+      border-left: 2px solid var(--border-strong);
+      background: var(--bg-panel);
+      border-radius: 0 4px 4px 0;
+    }
+
+    /* ---- CENTER PANE: EDITOR / DIFF / ARTIFACT + CONSOLE ---- */
+    .center-pane {
+      display: grid;
+      grid-template-rows: 34px minmax(140px, 1fr) 4px var(--console-h);
+      background: var(--bg-void);
+      min-height: 0;
+      min-width: 0;
+    }
+    .editor-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-chrome);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0 8px;
+      gap: 8px;
+    }
+    .tab-strip { display: flex; align-items: center; gap: 2px; height: 100%; overflow-x: auto; }
+    .editor-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      height: 100%;
+      padding: 0 11px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .editor-tab.active { color: var(--ink-primary); border-bottom-color: var(--ink-primary); background: var(--bg-surface); }
+    .editor-tab.special-tab { color: var(--ink-secondary); }
+    .editor-tools { display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+
+    .center-stage {
+      position: relative;
+      min-height: 0;
+      overflow: hidden;
+      background: var(--bg-surface);
+    }
+    .stage-view { display: none; width: 100%; height: 100%; }
+    .stage-view.active { display: grid; }
+
+    /* Syntax-highlighted layered editor */
+    .editor-stage {
+      grid-template-columns: 46px 1fr;
+      overflow: hidden;
+    }
+    .line-gutter {
+      background: var(--bg-panel);
+      border-right: 1px solid var(--border-subtle);
+      padding: 12px 8px 12px 4px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--ink-dim);
+      text-align: right;
+      user-select: none;
+      overflow: hidden;
+      white-space: pre;
+    }
+    .editor-layer-box {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg-surface);
+    }
+    .editor-highlight, .code-textarea {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      padding: 12px 14px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.6;
+      tab-size: 4;
+      white-space: pre;
+      overflow: auto;
+      border: none;
+      margin: 0;
+    }
+    .editor-highlight {
+      pointer-events: none;
+      color: #c8c8c8;
+      z-index: 1;
+    }
+    .code-textarea {
+      z-index: 2;
+      color: transparent;
+      background: transparent;
+      caret-color: #ffffff;
+      resize: none;
+    }
+    .code-textarea::selection { background: rgba(255, 255, 255, 0.22); }
+
+    /* Monochrome token classes */
+    .tok-kw { color: #ffffff; font-weight: 700; }
+    .tok-str { color: #e2e2e2; text-decoration: underline; text-decoration-color: #363636; text-underline-offset: 2px; }
+    .tok-com { color: #636363; font-style: italic; }
+    .tok-num { color: #f0f0f0; }
+    .tok-fn { color: #ffffff; }
+    .tok-dec { color: #a8a8a8; font-weight: 600; }
+
+    /* Diff Review Stage */
+    .diff-stage {
+      grid-template-rows: 40px 1fr;
+      background: var(--bg-panel);
+    }
+    .diff-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      background: var(--bg-chrome);
+      border-bottom: 1px solid var(--border-mid);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+    .diff-lines {
+      overflow: auto;
+      padding: 10px 0;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+    .diff-row { padding: 1px 14px; white-space: pre; }
+    .diff-row.add { background: rgba(255, 255, 255, 0.09); border-left: 3px solid #ffffff; color: #ffffff; }
+    .diff-row.del { background: rgba(255, 255, 255, 0.025); border-left: 3px solid #444444; color: #6e6e6e; text-decoration: line-through; }
+    .diff-row.ctx { color: #9a9a9a; border-left: 3px solid transparent; }
+
+    /* Artifacts Stage */
+    .artifact-stage {
+      grid-template-rows: 38px 1fr;
+      background: var(--bg-panel);
+    }
+    .artifact-body {
+      overflow: auto;
+      padding: 16px 20px;
+      font-size: 12.5px;
+      line-height: 1.6;
+      color: var(--ink-secondary);
+      white-space: pre-wrap;
+      font-family: var(--font-mono);
+    }
+
+    /* ---- BOTTOM CONSOLE ---- */
+    .console-pane { display: flex; flex-direction: column; background: var(--bg-panel); min-height: 0; }
+    .console-tabs {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      height: 31px;
+      background: var(--bg-chrome);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .console-tab-group { display: flex; gap: 4px; height: 100%; }
+    .console-tab {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0 10px;
+      color: var(--ink-muted);
+      border-bottom: 2px solid transparent;
+      height: 100%;
+    }
+    .console-tab.active { color: var(--ink-primary); border-bottom-color: var(--ink-primary); }
+    .console-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 9px 12px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+    }
+    .console-view { display: none; height: 100%; }
+    .console-view.active { display: flex; flex-direction: column; gap: 7px; }
+    .terminal-out { flex: 1; overflow-y: auto; white-space: pre-wrap; word-break: break-word; }
+    .term-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 10.5px;
+      color: var(--ink-muted);
+    }
+    .badge-inv { background: var(--inv-bg); color: var(--inv-ink); padding: 1px 6px; border-radius: 3px; font-weight: 700; font-size: 10px; }
+    .badge-out { border: 1px solid var(--border-strong); color: var(--ink-primary); padding: 1px 6px; border-radius: 3px; font-weight: 600; font-size: 10px; }
+    .repl-bar { display: flex; align-items: center; gap: 8px; border-top: 1px solid var(--border-subtle); padding-top: 6px; }
+    .repl-prompt { color: var(--ink-muted); font-weight: 700; }
+    .repl-input { flex: 1; font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-primary); }
+
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+    .metric-card { border: 1px solid var(--border-mid); background: var(--bg-surface); border-radius: 5px; padding: 7px 9px; }
+    .metric-label { font-size: 9px; color: var(--ink-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .metric-val { font-size: 15px; font-weight: 600; color: var(--ink-primary); margin-top: 2px; }
+
+    /* ---- RIGHT PANE: ANTIGRAVITY AGENT ---- */
+    .agent-pane { display: flex; flex-direction: column; background: var(--bg-panel); min-height: 0; min-width: 0; }
+    .agent-stream {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .welcome-card {
+      border: 1px solid var(--border-mid);
+      background: var(--bg-surface);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .welcome-title { font-size: 14px; font-weight: 600; }
+    .welcome-sub { font-size: 11.5px; color: var(--ink-muted); line-height: 1.5; }
+    .starter-grid { display: grid; grid-template-columns: 1fr; gap: 6px; }
+    .starter-btn {
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border-mid);
+      background: var(--bg-panel);
+      color: var(--ink-secondary);
+      font-size: 11.5px;
+      line-height: 1.4;
+    }
+    .starter-btn:hover { border-color: var(--border-strong); background: var(--bg-elevated); color: var(--ink-primary); }
+
+    .msg-user {
+      align-self: flex-end;
+      max-width: 92%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-mid);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: var(--ink-primary);
+      line-height: 1.5;
+      font-size: 12.5px;
+      white-space: pre-wrap;
+    }
+    .msg-agent { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+    .agent-meta-bar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      color: var(--ink-muted);
+    }
+    .meta-pill { padding: 2px 6px; border: 1px solid var(--border-mid); border-radius: 3px; background: var(--bg-surface); color: var(--ink-secondary); }
+    .meta-pill.solid { background: var(--inv-bg); color: var(--inv-ink); border-color: var(--inv-bg); font-weight: 700; }
+
+    /* Live SSE Step Timeline (Antigravity Progress Cards) */
+    .step-timeline {
+      border: 1px solid var(--border-mid);
+      border-radius: 6px;
+      background: var(--bg-chrome);
+      padding: 7px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--ink-secondary);
+    }
+    .step-tag {
+      font-size: 9px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      border: 1px solid var(--border-strong);
+      color: var(--ink-primary);
+      flex-shrink: 0;
+      min-width: 46px;
+      text-align: center;
+    }
+    .step-tag.done { background: var(--inv-bg); color: var(--inv-ink); border-color: var(--inv-bg); font-weight: 700; }
+    .step-sub { color: var(--ink-muted); font-size: 10px; margin-top: 1px; }
+
+    details.thought-accordion {
+      border: 1px solid var(--border-mid);
+      border-radius: 6px;
+      background: var(--bg-chrome);
+      overflow: hidden;
+    }
+    details.thought-accordion summary {
+      padding: 7px 10px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      color: var(--ink-muted);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    details.thought-accordion summary:hover { color: var(--ink-primary); }
+    .thought-content {
+      padding: 8px 10px 10px 10px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--ink-secondary);
+    }
+    .think-tag-row {
+      padding: 6px 8px;
+      border-left: 2px solid var(--border-strong);
+      background: var(--bg-panel);
+      border-radius: 0 4px 4px 0;
+    }
+    .think-tag-label { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 2px; }
+
+    .agent-body { font-size: 12.5px; line-height: 1.6; color: var(--ink-secondary); display: flex; flex-direction: column; gap: 8px; }
+    .agent-body p { white-space: pre-wrap; }
+    .code-card { border: 1px solid var(--border-mid); border-radius: 6px; overflow: hidden; background: var(--bg-void); }
+    .code-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 9px;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-muted);
+    }
+    .code-card-actions { display: flex; gap: 4px; }
+    .code-act-btn {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid var(--border-mid);
+      color: var(--ink-secondary);
+    }
+    .code-act-btn:hover { background: var(--inv-bg); color: var(--inv-ink); border-color: var(--inv-bg); }
+    .code-card pre { padding: 10px 12px; overflow-x: auto; font-family: var(--font-mono); font-size: 11.5px; line-height: 1.5; color: var(--ink-primary); }
+
+    /* ---- COMPOSER ---- */
+    .composer-wrap { padding: 10px 12px 12px 12px; border-top: 1px solid var(--border-subtle); background: var(--bg-chrome); }
+    .composer-box {
+      border: 1px solid var(--border-mid);
+      border-radius: 10px;
+      background: var(--bg-surface);
+      padding: 10px 10px 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .composer-box:focus-within { border-color: var(--border-strong); }
+    .composer-input { width: 100%; min-height: 44px; max-height: 150px; resize: none; font-size: 12.5px; line-height: 1.5; color: var(--ink-primary); }
+    .composer-input::placeholder { color: var(--ink-dim); }
+    .formal-spec-drawer { display: none; border-top: 1px solid var(--border-subtle); padding-top: 7px; }
+    .formal-spec-drawer.open { display: block; }
+    .formal-spec-input {
+      width: 100%; min-height: 52px; font-family: var(--font-mono); font-size: 10.5px;
+      background: var(--bg-chrome); border: 1px solid var(--border-mid); border-radius: 5px;
+      padding: 6px 8px; color: var(--ink-secondary); resize: vertical;
+    }
+    .composer-footer { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+    .composer-left { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+    .model-select {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-mid);
+      border-radius: 6px;
+      padding: 4px 7px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--ink-primary);
+      max-width: 215px;
+    }
+    .toggle-pill { font-size: 10.5px; padding: 4px 7px; border-radius: 6px; border: 1px solid var(--border-mid); color: var(--ink-muted); }
+    .toggle-pill.active { background: var(--bg-elevated); border-color: var(--border-strong); color: var(--ink-primary); }
+    .send-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--inv-bg); color: var(--inv-ink);
+      display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .send-circle:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    /* ---- STATUSBAR ---- */
+    .statusbar {
+      display: flex; align-items: center; justify-content: space-between; padding: 0 12px;
+      background: var(--bg-void); border-top: 1px solid var(--border-subtle);
+      font-family: var(--font-mono); font-size: 10px; color: var(--ink-muted); user-select: none;
+    }
+    .statusbar-group { display: flex; align-items: center; gap: 14px; }
+
+    /* ---- COMMAND PALETTE & MODALS ---- */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.78);
+      display: none; align-items: center; justify-content: center; z-index: 100;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      width: 520px; max-width: 92vw; background: var(--bg-panel);
+      border: 1px solid var(--border-strong); border-radius: 8px; padding: 18px;
+      display: flex; flex-direction: column; gap: 11px;
+    }
+    .modal-head { display: flex; align-items: center; justify-content: space-between; font-weight: 600; font-size: 12.5px; letter-spacing: 0.05em; text-transform: uppercase; }
+    .field-group { display: flex; flex-direction: column; gap: 4px; }
+    .field-label { font-size: 11px; color: var(--ink-muted); }
+    .field-input, .field-textarea {
+      width: 100%; background: var(--bg-surface); border: 1px solid var(--border-mid);
+      border-radius: 5px; padding: 7px 9px; font-size: 12px; color: var(--ink-primary);
+    }
+    .field-textarea { font-family: var(--font-mono); min-height: 70px; resize: vertical; }
+    .preset-row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 4px; }
+
+    .palette-card {
+      width: 540px; max-width: 92vw; background: var(--bg-panel);
+      border: 1px solid var(--border-strong); border-radius: 8px; overflow: hidden;
+      margin-bottom: 18vh;
+    }
+    .palette-input {
+      width: 100%; padding: 12px 14px; font-size: 13px; border-bottom: 1px solid var(--border-mid);
+      background: var(--bg-surface); color: var(--ink-primary);
+    }
+    .palette-list { max-height: 300px; overflow-y: auto; padding: 6px; }
+    .palette-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 10px; border-radius: 5px; cursor: pointer; font-size: 12px; color: var(--ink-secondary);
+    }
+    .palette-item:hover { background: var(--bg-elevated); color: var(--ink-primary); }
+
+    /* ---- TOASTS ---- */
+    .toast-stack {
+      position: fixed; bottom: 34px; right: 16px; z-index: 200;
+      display: flex; flex-direction: column; gap: 6px; pointer-events: none;
+    }
+    .toast {
+      background: var(--inv-bg); color: var(--inv-ink); padding: 7px 12px;
+      border-radius: 5px; font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="studio-shell">
+    <!-- TOP BAR -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <div class="brand">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 22 7 22 17 12 22 2 17 2 7 12 2"></polygon>
+            <polyline points="2 7 12 12 22 7"></polyline>
+            <line x1="12" y1="22" x2="12" y2="12"></line>
+          </svg>
+          <span>CONCODE STUDIO</span>
+        </div>
+        <span class="version-pill" id="verPill">v4.0.0-apex</span>
+        <div class="divider-v"></div>
+        <select id="projectSelect" class="ctrl-select" title="Active Project Manifest"></select>
+        <button class="btn-ghost" id="btnNewProject">+ Project</button>
+      </div>
+
+      <div class="topbar-center">
+        <button class="cmd-trigger" id="btnCmdPalette">
+          <span>Command Palette...</span>
+          <span class="kbd">Cmd+K</span>
+        </button>
+        <div class="status-chip">
+          <span class="status-dot" id="healthDot"></span>
+          <span id="healthText">CONNECTING</span>
+        </div>
+        <div class="status-chip" id="meshCapacityChip">MESH: DETECTING</div>
+      </div>
+
+      <div class="topbar-right">
+        <button class="btn-ghost" id="btnAttachMoE">+ Attach 1T MoE</button>
+        <button class="btn-ghost" id="btnApiKey">Key</button>
+        <button class="btn-ghost" onclick="window.open('/3d', '_blank')">3D Brain</button>
+        <button class="btn-primary" id="btnRunTop">
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          Run
+        </button>
+      </div>
+    </header>
+
+    <!-- RESIZABLE 3-PANE WORKBENCH -->
+    <main class="workbench" id="workbench">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-tabs">
+          <button class="sidebar-tab active" data-side="workspace">Workspace</button>
+          <button class="sidebar-tab" data-side="repo">CONCODE Repo</button>
+        </div>
+
+        <div class="sidebar-toolbar">
+          <input id="fileFilterInput" class="sidebar-search" placeholder="Filter files..." />
+          <button class="icon-btn" id="btnNewFile" title="Create New File">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </div>
+
+        <div class="inline-newfile" id="inlineNewFile">
+          <input id="newFileNameInput" class="sidebar-search" placeholder="filename.py or app.js" />
+          <button class="btn-primary" id="btnConfirmNewFile" style="padding:3px 8px;font-size:10.5px;">Add</button>
+        </div>
+
+        <div class="file-list" id="fileList"></div>
+
+        <div class="invariants-box">
+          <div class="pane-header">
+            <span>Pinned Invariants</span>
+            <span id="invariantCount" style="font-family:var(--font-mono)">0</span>
+          </div>
+          <div class="invariants-list" id="invariantsList"></div>
+        </div>
+      </aside>
+
+      <div class="resizer-v" id="resizerLeft"></div>
+
+      <!-- CENTER PANE -->
+      <section class="center-pane" id="centerPane">
+        <div class="editor-tabs">
+          <div class="tab-strip" id="tabStrip"></div>
+          <div class="editor-tools">
+            <button class="btn-ghost" id="btnVerifyCode">Formal Verify</button>
+            <button class="btn-ghost" id="btnRunTests">Tests</button>
+            <button class="btn-ghost" id="btnAskFix">Audit File</button>
+          </div>
+        </div>
+
+        <div class="center-stage">
+          <!-- CODE EDITOR VIEW -->
+          <div class="stage-view editor-stage active" id="stage-editor">
+            <div class="line-gutter" id="lineGutter">1</div>
+            <div class="editor-layer-box">
+              <pre class="editor-highlight" id="editorHighlight" aria-hidden="true"></pre>
+              <textarea id="codeEditor" class="code-textarea" spellcheck="false"></textarea>
+            </div>
+          </div>
+
+          <!-- DIFF REVIEW VIEW -->
+          <div class="stage-view diff-stage" id="stage-diff">
+            <div class="diff-bar">
+              <span id="diffTitle">DIFF REVIEW -- Proposed Patch</span>
+              <div style="display:flex;gap:6px;">
+                <button class="btn-ghost" id="btnRejectDiff">Reject</button>
+                <button class="btn-primary" id="btnAcceptDiff">Accept Patch</button>
+              </div>
+            </div>
+            <div class="diff-lines" id="diffLines"></div>
+          </div>
+
+          <!-- ARTIFACT VIEWER -->
+          <div class="stage-view artifact-stage" id="stage-artifact">
+            <div class="diff-bar">
+              <span id="artifactTitle">APEX ARTIFACT -- Verification &amp; Formal Proof Report</span>
+              <button class="btn-ghost" onclick="setCenterStage('editor')">Back to Editor</button>
+            </div>
+            <div class="artifact-body" id="artifactBody">No APEX verification artifact generated yet. Send a prompt or click Formal Verify.</div>
+          </div>
+        </div>
+
+        <div class="resizer-h" id="resizerConsole"></div>
+
+        <!-- BOTTOM CONSOLE -->
+        <div class="console-pane">
+          <div class="console-tabs">
+            <div class="console-tab-group">
+              <button class="console-tab active" data-tab="interpreter">Interpreter</button>
+              <button class="console-tab" data-tab="verifier">Formal Verifier</button>
+              <button class="console-tab" data-tab="telemetry">System-3 Telemetry</button>
+            </div>
+            <button class="btn-ghost" id="btnClearConsole" style="padding:2px 7px;font-size:10px;">Clear</button>
+          </div>
+
+          <div class="console-body">
+            <div class="console-view active" id="view-interpreter">
+              <div class="term-meta" id="termMeta">
+                <span class="badge-out">READY</span>
+                <span>Press Run or Cmd+Enter to execute active file in isolated sandbox.</span>
+              </div>
+              <div class="terminal-out" id="termOutput">CONCODE Sandboxed Interpreter ready.</div>
+              <div class="repl-bar">
+                <span class="repl-prompt">&gt;&gt;&gt;</span>
+                <input id="replInput" class="repl-input" placeholder="Evaluate Python expression in sandbox (Enter)..." />
+              </div>
+            </div>
+
+            <div class="console-view" id="view-verifier">
+              <div class="term-meta" id="verMeta">
+                <span class="badge-out">NEURAL-SYMBOLIC JUDGE</span>
+                <span>Z3 SMT / Deadlock Cycle Prover / AST CWE Taint</span>
+              </div>
+              <div class="terminal-out" id="verOutput">Click "Formal Verify" to audit the active file or attach SMT constraints in the composer.</div>
+            </div>
+
+            <div class="console-view" id="view-telemetry">
+              <div class="metrics-grid">
+                <div class="metric-card"><div class="metric-label">Compute Mode</div><div class="metric-val" id="telMode">--</div></div>
+                <div class="metric-card"><div class="metric-label">GRPO Reward</div><div class="metric-val" id="telReward">--</div></div>
+                <div class="metric-card"><div class="metric-label">Epistemic U_ep</div><div class="metric-val" id="telEpistemic">0.00</div></div>
+                <div class="metric-card"><div class="metric-label">GraphRAG Nodes</div><div class="metric-val" id="telGraph">0</div></div>
+              </div>
+              <div class="terminal-out" id="telDetails">Send a prompt to CONCODE APEX to inspect live MoD routing, MoA proposals, and System-3 Lyapunov telemetry.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="resizer-v" id="resizerRight"></div>
+
+      <!-- RIGHT PANE: CONCODE APEX AGENT -->
+      <aside class="agent-pane">
+        <div class="pane-header">
+          <span>CONCODE APEX Agent</span>
+          <div style="display:flex;gap:4px;">
+            <button class="icon-btn" id="btnOpenArtifact" title="Inspect Last Verification Artifact">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            </button>
+            <button class="icon-btn" id="btnResetChat" title="New Session">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="agent-stream" id="agentStream">
+          <div class="welcome-card" id="welcomeCard">
+            <div class="welcome-title">CONCODE v4.0 APEX Agentic Interpreter</div>
+            <div class="welcome-sub">
+              CONCODE is the native foundation model powering this IDE. Ask it to architect systems,
+              audit security flaws, prove constraints, or patch files with interactive Diff Review.
+            </div>
+            <div class="starter-grid">
+              <button class="starter-btn" data-prompt="Audit security_auth.py for CWE-208 timing leaks and rewrite verify_webhook_signature safely using hmac.compare_digest.">
+                Audit security_auth.py for CWE-208 timing leaks and rewrite safely
+              </button>
+              <button class="starter-btn" data-prompt="Write a deadlock-free distributed lock manager in Python with monotonic fencing tokens and Option A vs Option B trade-offs.">
+                Architect a deadlock-free distributed lock with fencing tokens
+              </button>
+              <button class="starter-btn" data-prompt="Expand test_suite.py with edge-case unit tests for compute_split and verify_webhook_signature.">
+                Generate edge-case unit tests in test_suite.py
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="composer-wrap">
+          <div class="composer-box">
+            <textarea
+              id="promptInput"
+              class="composer-input"
+              placeholder="Ask CONCODE v4.0 APEX... (Enter to send, Shift+Enter for newline)"
+            ></textarea>
+
+            <div class="formal-spec-drawer" id="formalDrawer">
+              <div class="field-label" style="margin-bottom:4px;">Formal Constraints JSON (Z3 SMT allocations / deadlock lock_edges):</div>
+              <textarea id="formalSpecInput" class="formal-spec-input">{"total_ceiling": 25000, "allocations": [["stay", 8000, 14000], ["transport", 9000, 15000]], "lock_edges": [["ThreadA", "Lock1"], ["ThreadB", "Lock2"]]}</textarea>
+            </div>
+
+            <div class="composer-footer">
+              <div class="composer-left">
+                <select id="modelModeSelect" class="model-select" title="CONCODE Model & Compute Depth">
+                  <option value="auto">CONCODE v4.0 APEX · Auto MoD</option>
+                  <option value="apex_moa">CONCODE APEX · MoA Swarm (1T+)</option>
+                  <option value="mcts">CONCODE APEX · Live MCTS</option>
+                  <option value="deep">CONCODE v4.0 · Deep Single</option>
+                  <option value="reflex">CONCODE v4.0 · Eco Reflex (7B)</option>
+                </select>
+                <button class="toggle-pill active" id="btnToggleCtx">Workspace</button>
+                <button class="toggle-pill" id="btnToggleFormal">SMT Proof</button>
+              </div>
+              <button class="send-circle" id="btnSend" title="Send to CONCODE APEX">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="19" x2="12" y2="5"></line>
+                  <polyline points="5 12 12 5 19 12"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- STATUS BAR -->
+    <footer class="statusbar">
+      <div class="statusbar-group">
+        <span>MODEL: CONCODE-v4.0-APEX</span>
+        <span id="sbProject">PROJECT: universal</span>
+        <span id="sbFile">FILE: main.py</span>
+      </div>
+      <div class="statusbar-group">
+        <span id="sbHardware">HARDWARE: DETECTING</span>
+        <span>THERMAL: ECO-GOVERNOR</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- COMMAND PALETTE (Cmd+K) -->
+  <div class="modal-backdrop" id="modalPalette">
+    <div class="palette-card">
+      <input id="paletteInput" class="palette-input" placeholder="Type a command (Run, Verify, Attach MoE, New Project, New File)..." />
+      <div class="palette-list" id="paletteList"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: REGISTER FUTURE PROJECT -->
+  <div class="modal-backdrop" id="modalProject">
+    <div class="modal-card">
+      <div class="modal-head"><span>Register Future Project Manifest</span><button class="icon-btn" onclick="closeModals()">X</button></div>
+      <div class="field-group"><label class="field-label">Project ID</label><input id="pmId" class="field-input" placeholder="e.g. carepulse_ai" /></div>
+      <div class="field-group"><label class="field-label">Project Name</label><input id="pmName" class="field-input" placeholder="e.g. CarePulse Clinical AI" /></div>
+      <div class="field-group"><label class="field-label">Domain Type</label><input id="pmDomain" class="field-input" placeholder="healthtech, fintech-saas, robotics" /></div>
+      <div class="field-group"><label class="field-label">Tech Stack (comma separated)</label><input id="pmStack" class="field-input" placeholder="Python FastAPI, TypeScript, PostgreSQL" /></div>
+      <div class="field-group"><label class="field-label">Critical Pinned Invariants (one per line)</label><textarea id="pmInvariants" class="field-textarea" placeholder="Scrub PHI before logging.&#10;Enforce tenant_id on all SQL queries."></textarea></div>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeModals()">Cancel</button>
+        <button class="btn-primary" id="btnSaveProject">Register &amp; Bind</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ATTACH 480B - 1T+ FRONTIER MOE NODE -->
+  <div class="modal-backdrop" id="modalMesh">
+    <div class="modal-card">
+      <div class="modal-head"><span>Attach Frontier Sparse MoE Node (480B - 1T+)</span><button class="icon-btn" onclick="closeModals()">X</button></div>
+      <div class="preset-row">
+        <button class="btn-ghost" onclick="fillMeshPreset('kimi')">Kimi-K2 (1T MoE)</button>
+        <button class="btn-ghost" onclick="fillMeshPreset('deepseek')">DeepSeek-R1 (671B)</button>
+        <button class="btn-ghost" onclick="fillMeshPreset('qwen')">Qwen3-Coder (480B)</button>
+        <button class="btn-ghost" onclick="fillMeshPreset('local_vllm')">Local vLLM / Ollama</button>
+      </div>
+      <div class="field-group"><label class="field-label">Node ID</label><input id="mnId" class="field-input" value="kimi_k2_1t" /></div>
+      <div class="field-group"><label class="field-label">OpenAI-Compatible Base URL (ends in /v1)</label><input id="mnUrl" class="field-input" placeholder="https://api.provider.com/v1 or http://127.0.0.1:11434/v1" /></div>
+      <div class="field-group"><label class="field-label">Model ID</label><input id="mnModel" class="field-input" value="moonshotai/Kimi-K2-Instruct" /></div>
+      <div class="field-group"><label class="field-label">API Key</label><input id="mnKey" type="password" class="field-input" placeholder="Bearer token" /></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div class="field-group"><label class="field-label">Total Params (B)</label><input id="mnTotalB" type="number" class="field-input" value="1000" /></div>
+        <div class="field-group"><label class="field-label">Active Params (B)</label><input id="mnActiveB" type="number" class="field-input" value="32" /></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeModals()">Cancel</button>
+        <button class="btn-primary" id="btnSaveMesh">Connect Node</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: API KEY -->
+  <div class="modal-backdrop" id="modalApiKey">
+    <div class="modal-card">
+      <div class="modal-head"><span>CONCODE Server API Key</span><button class="icon-btn" onclick="closeModals()">X</button></div>
+      <div class="field-group"><label class="field-label">X-API-Key Header</label><input id="apiKeyInput" type="password" class="field-input" placeholder="Paste CONCODE_API_KEY" /></div>
+      <div class="modal-actions">
+        <button class="btn-ghost" onclick="closeModals()">Cancel</button>
+        <button class="btn-primary" id="btnSaveApiKey">Save Key</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toastStack"></div>
+
+  <script>
+    const API_BASE = window.location.origin.startsWith('http') ? window.location.origin : 'http://localhost:8000';
+    let sessionId = (crypto.randomUUID ? crypto.randomUUID() : 'sess-' + Date.now());
+    let includeWorkspace = true;
+    let includeFormal = false;
+    let projectsMap = {};
+    let activeProjectId = 'universal';
+    let sidebarMode = 'workspace';
+    let repoFileList = [];
+    let pendingDiff = null;
+    let activeStage = 'editor';
+
+    const workspaceFiles = {
+      'main.py': [
+        '"""CONCODE Studio Starter -- Multi-File Sandbox."""',
+        'from security_auth import verify_webhook_signature',
+        '',
+        'def compute_split(total_inr: int, travelers: int) -> dict:',
+        '    base, rem = divmod(total_inr, travelers)',
+        '    shares = [base + (1 if i < rem else 0) for i in range(travelers)]',
+        '    return {"total": total_inr, "shares": shares, "exact": sum(shares) == total_inr}',
+        '',
+        'if __name__ == "__main__":',
+        '    print("Split check:", compute_split(25000, 3))',
+        '    print("Signature valid:", verify_webhook_signature("sig_abc", "sig_abc"))',
+      ].join('\n'),
+      'security_auth.py': [
+        '"""Sample file with deliberate CWE-208 timing vulnerability."""',
+        '',
+        'def verify_webhook_signature(signature: str, expected: str) -> bool:',
+        '    # Direct equality leaks timing side-channel (CWE-208)',
+        '    return signature == expected',
+      ].join('\n'),
+      'test_suite.py': [
+        'import unittest',
+        'from main import compute_split',
+        '',
+        'class TestWorkspace(unittest.TestCase):',
+        '    def test_exact_integer_split(self):',
+        '        res = compute_split(10000, 3)',
+        '        self.assertTrue(res["exact"])',
+        '        self.assertEqual(sum(res["shares"]), 10000)',
+        '',
+        'if __name__ == "__main__":',
+        '    unittest.main()',
+      ].join('\n'),
+      'app.js': [
+        '// Sandboxed JavaScript Module',
+        'const allocations = [3360, 4200, 2400, 1200, 840];',
+        'const total = allocations.reduce((a, b) => a + b, 0);',
+        'console.log("JS Sandbox Exact Budget Total:", total);',
+      ].join('\n'),
+    };
+    let activeFile = 'main.py';
+
+    function getApiKey() {
+      return localStorage.getItem('concode_studio_api_key') || window.__CONCODE_LOCAL_KEY__ || '';
+    }
+    function authHeaders(extra = {}) {
+      const h = { 'Content-Type': 'application/json', ...extra };
+      const k = getApiKey();
+      if (k) h['X-API-Key'] = k;
+      return h;
+    }
+    function toast(msg) {
+      const stack = document.getElementById('toastStack');
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = msg;
+      stack.appendChild(el);
+      setTimeout(() => el.remove(), 2600);
+    }
+    function escapeHtml(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function fileExtLabel(name) { return ((name.split('.').pop() || 'TXT').toUpperCase()).slice(0, 4); }
+    function detectLanguage(name) { return (name.endsWith('.js') || name.endsWith('.mjs')) ? 'javascript' : 'python'; }
+
+    // ---- MONOCHROME SYNTAX HIGHLIGHTER ----
+    function highlightCode(src) {
+      const escaped = escapeHtml(src);
+      const tokenRe = /(#[^\n]*|\/\/[^\n]*|"""[\s\S]*?"""|'''[\s\S]*?'''|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|@[A-Za-z_][A-Za-z0-9_]*|\b(?:def|class|return|import|from|as|if|elif|else|for|while|try|except|finally|with|async|await|yield|pass|break|continue|lambda|True|False|None|const|let|var|function|export|default|interface|type|new|throw|switch|case|func|package|struct|impl|pub|fn)\b|\b\d+(?:\.\d+)?\b)/g;
+      return escaped.replace(tokenRe, (m) => {
+        if (m.startsWith('#') || m.startsWith('//')) return '<span class="tok-com">' + m + '</span>';
+        if (m.startsWith('"') || m.startsWith("'")) return '<span class="tok-str">' + m + '</span>';
+        if (m.startsWith('@')) return '<span class="tok-dec">' + m + '</span>';
+        if (/^\d/.test(m)) return '<span class="tok-num">' + m + '</span>';
+        return '<span class="tok-kw">' + m + '</span>';
+      }) + '\n';
+    }
+
+    function syncEditorVisuals() {
+      const ed = document.getElementById('codeEditor');
+      const hl = document.getElementById('editorHighlight');
+      const gutter = document.getElementById('lineGutter');
+      hl.innerHTML = highlightCode(ed.value);
+      const count = ed.value.split('\n').length;
+      let lines = '';
+      for (let i = 1; i <= count; i++) lines += i + (i < count ? '\n' : '');
+      gutter.textContent = lines;
+    }
+
+    function setCenterStage(stage) {
+      activeStage = stage;
+      document.querySelectorAll('.stage-view').forEach((v) => v.classList.remove('active'));
+      document.getElementById('stage-' + stage).classList.add('active');
+      renderTabs();
+    }
+    window.setCenterStage = setCenterStage;
+
+    // ---- DIFF ENGINE ----
+    function openDiffReview(targetFile, proposedCode) {
+      const oldLines = (workspaceFiles[targetFile] || '').split('\n');
+      const newLines = proposedCode.split('\n');
+      pendingDiff = { targetFile, proposedCode };
+      document.getElementById('diffTitle').textContent = `DIFF REVIEW -- ${targetFile}`;
+      const container = document.getElementById('diffLines');
+      container.innerHTML = '';
+
+      const maxLen = Math.max(oldLines.length, newLines.length);
+      for (let i = 0; i < maxLen; i++) {
+        const o = oldLines[i];
+        const n = newLines[i];
+        if (o === n) {
+          const row = document.createElement('div');
+          row.className = 'diff-row ctx';
+          row.textContent = '  ' + (o || '');
+          container.appendChild(row);
+        } else {
+          if (o !== undefined) {
+            const rDel = document.createElement('div');
+            rDel.className = 'diff-row del';
+            rDel.textContent = '- ' + o;
+            container.appendChild(rDel);
+          }
+          if (n !== undefined) {
+            const rAdd = document.createElement('div');
+            rAdd.className = 'diff-row add';
+            rAdd.textContent = '+ ' + n;
+            container.appendChild(rAdd);
+          }
+        }
+      }
+      setCenterStage('diff');
+    }
+
+    // ---- SIDEBAR & TABS ----
+    function renderTabs() {
+      const tabsEl = document.getElementById('tabStrip');
+      tabsEl.innerHTML = '';
+      Object.keys(workspaceFiles).forEach((name) => {
+        const tab = document.createElement('div');
+        tab.className = 'editor-tab' + (activeStage === 'editor' && name === activeFile ? ' active' : '');
+        tab.textContent = name;
+        tab.onclick = () => {
+          workspaceFiles[activeFile] = document.getElementById('codeEditor').value;
+          activeFile = name;
+          setCenterStage('editor');
+          renderWorkspace();
+        };
+        tabsEl.appendChild(tab);
+      });
+      if (pendingDiff) {
+        const dt = document.createElement('div');
+        dt.className = 'editor-tab special-tab' + (activeStage === 'diff' ? ' active' : '');
+        dt.textContent = 'DIFF: ' + pendingDiff.targetFile;
+        dt.onclick = () => setCenterStage('diff');
+        tabsEl.appendChild(dt);
+      }
+      const at = document.createElement('div');
+      at.className = 'editor-tab special-tab' + (activeStage === 'artifact' ? ' active' : '');
+      at.textContent = 'ARTIFACT';
+      at.onclick = () => setCenterStage('artifact');
+      tabsEl.appendChild(at);
+    }
+
+    function renderFileList() {
+      const filter = (document.getElementById('fileFilterInput').value || '').trim().toLowerCase();
+      const listEl = document.getElementById('fileList');
+      listEl.innerHTML = '';
+
+      if (sidebarMode === 'workspace') {
+        Object.keys(workspaceFiles)
+          .filter((n) => !filter || n.toLowerCase().includes(filter))
+          .forEach((name) => {
+            const item = document.createElement('div');
+            item.className = 'file-item' + (name === activeFile ? ' active' : '');
+            item.innerHTML =
+              '<div class="file-item-left"><span class="file-ext">' + fileExtLabel(name) + '</span>' +
+              '<span class="file-name">' + escapeHtml(name) + '</span></div>';
+            item.onclick = () => {
+              workspaceFiles[activeFile] = document.getElementById('codeEditor').value;
+              activeFile = name;
+              setCenterStage('editor');
+              renderWorkspace();
+            };
+            listEl.appendChild(item);
+          });
+      } else {
+        const filtered = repoFileList.filter((n) => !filter || n.toLowerCase().includes(filter));
+        if (!filtered.length) {
+          listEl.innerHTML = '<div style="padding:10px;color:var(--ink-muted);font-size:11px;">No matching repo files.</div>';
+          return;
+        }
+        filtered.forEach((relPath) => {
+          const item = document.createElement('div');
+          item.className = 'file-item';
+          item.innerHTML =
+            '<div class="file-item-left"><span class="file-ext">' + fileExtLabel(relPath) + '</span>' +
+            '<span class="file-name" title="' + escapeHtml(relPath) + '">' + escapeHtml(relPath) + '</span></div>';
+          item.onclick = async () => {
+            try {
+              const res = await fetch(`${API_BASE}/api/v1/interpreter/workspace?file=${encodeURIComponent(relPath)}`, { headers: authHeaders() });
+              if (!res.ok) { toast('Failed to load ' + relPath); return; }
+              const data = await res.json();
+              workspaceFiles[data.path] = data.content;
+              activeFile = data.path;
+              sidebarMode = 'workspace';
+              document.querySelectorAll('.sidebar-tab').forEach((b) => b.classList.toggle('active', b.dataset.side === 'workspace'));
+              setCenterStage('editor');
+              renderWorkspace();
+              toast('Opened ' + data.path);
+            } catch (e) { toast('Repo read error'); }
+          };
+          listEl.appendChild(item);
+        });
+      }
+    }
+
+    function renderWorkspace() {
+      renderFileList();
+      renderTabs();
+      const ed = document.getElementById('codeEditor');
+      ed.value = workspaceFiles[activeFile] || '';
+      document.getElementById('sbFile').textContent = 'FILE: ' + activeFile;
+      syncEditorVisuals();
+    }
+
+    // ---- SYSTEM SYNC ----
+    async function refreshSystemState() {
+      try {
+        const res = await fetch(`${API_BASE}/health`);
+        const data = await res.json();
+        document.getElementById('healthDot').classList.add('online');
+        document.getElementById('healthText').textContent = 'ONLINE';
+        document.getElementById('verPill').textContent = 'v' + (data.version || '4.0.0-apex');
+        document.getElementById('sbHardware').textContent = 'HARDWARE: ' + (data.gpu || 'LOCAL');
+        const capB = data.mesh_total_params_b || 0;
+        const label = capB >= 1000 ? (capB / 1000).toFixed(2) + 'T MOE MESH' : (capB > 0 ? capB + 'B ACTIVE' : 'ATTACH MODEL');
+        document.getElementById('meshCapacityChip').textContent = 'MESH: ' + label;
+      } catch {
+        document.getElementById('healthDot').classList.remove('online');
+        document.getElementById('healthText').textContent = 'OFFLINE';
+      }
+
+      try {
+        const [pRes, rRes] = await Promise.all([
+          fetch(`${API_BASE}/api/v1/projects`, { headers: authHeaders() }),
+          fetch(`${API_BASE}/api/v1/interpreter/workspace`, { headers: authHeaders() }),
+        ]);
+        if (pRes.status === 401) {
+          toast('API Key required -- click Key in top bar');
+          return;
+        }
+        const pData = await pRes.json();
+        const select = document.getElementById('projectSelect');
+        select.innerHTML = '';
+        projectsMap = {};
+        (pData.projects || []).forEach((p) => {
+          projectsMap[p.project_id] = p;
+          const opt = document.createElement('option');
+          opt.value = p.project_id;
+          opt.textContent = p.project_name;
+          if (p.project_id === activeProjectId) opt.selected = true;
+          select.appendChild(opt);
+        });
+        renderInvariants();
+
+        if (rRes.ok) {
+          const rData = await rRes.json();
+          repoFileList = rData.files || [];
+        }
+      } catch {}
+    }
+
+    function renderInvariants() {
+      const p = projectsMap[activeProjectId];
+      const list = document.getElementById('invariantsList');
+      list.innerHTML = '';
+      const invs = (p && p.critical_invariants) || [];
+      document.getElementById('invariantCount').textContent = String(invs.length);
+      document.getElementById('sbProject').textContent = 'PROJECT: ' + activeProjectId;
+      invs.forEach((txt) => {
+        const div = document.createElement('div');
+        div.className = 'invariant-item';
+        div.textContent = txt;
+        list.appendChild(div);
+      });
+    }
+
+    // ---- CONSOLE & INTERPRETER ----
+    function switchConsoleTab(tabName) {
+      document.querySelectorAll('.console-tab').forEach((b) => b.classList.toggle('active', b.dataset.tab === tabName));
+      document.querySelectorAll('.console-view').forEach((v) => v.classList.toggle('active', v.id === 'view-' + tabName));
+    }
+
+    async function runInInterpreter(codeOverride = null, langOverride = null, runTests = false) {
+      workspaceFiles[activeFile] = document.getElementById('codeEditor').value;
+      const code = codeOverride !== null ? codeOverride : workspaceFiles[activeFile];
+      const language = langOverride || detectLanguage(activeFile);
+
+      switchConsoleTab('interpreter');
+      document.getElementById('termMeta').innerHTML = '<span class="badge-out">RUNNING</span><span>Executing in isolated sandbox...</span>';
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/interpreter/exec`, {
+          method: 'POST',
+          headers: authHeaders(),
+          body: JSON.stringify({ code, language, workspace_files: workspaceFiles, run_tests: runTests }),
+        });
+        if (res.status === 401) { openModal('modalApiKey'); return; }
+        const data = await res.json();
+        const ex = data.execution || {};
+        const badgeCls = ex.exit_code === 0 ? 'badge-inv' : 'badge-out';
+        const secCount = (data.security_findings || []).length;
+        document.getElementById('termMeta').innerHTML =
+          `<span class="${badgeCls}">EXIT ${ex.exit_code}</span><span>${ex.language || language}</span><span>${ex.duration_ms || 0} ms</span><span class="badge-out">CWE: ${secCount}</span>`;
+        let out = '';
+        if (ex.stdout) out += ex.stdout + '\n';
+        if (ex.stderr) out += '[STDERR]\n' + ex.stderr + '\n';
+        if (runTests && data.test_results && data.test_results.length) {
+          out += '\n--- WORKSPACE UNIT TESTS ---\n';
+          data.test_results.forEach((tr) => {
+            out += `[${tr.passed ? 'PASS' : 'FAIL'}] ${tr.target} (${tr.duration_ms}ms)\n${tr.stdout || ''}${tr.stderr || ''}\n`;
+          });
+        }
+        if (secCount > 0) {
+          out += '\n--- SECURITY AUDIT ---\n';
+          data.security_findings.forEach((f) => { out += `[${f.cwe_id} | ${f.severity}] ${f.detail}\n`; });
+        }
+        document.getElementById('termOutput').textContent = out.trim() || '(No output)';
+      } catch (err) {
+        document.getElementById('termMeta').innerHTML = '<span class="badge-out">ERROR</span>';
+        document.getElementById('termOutput').textContent = String(err);
+      }
+    }
+
+    async function runFormalVerify() {
+      workspaceFiles[activeFile] = document.getElementById('codeEditor').value;
+      const lang = detectLanguage(activeFile) === 'javascript' ? 'typescript' : 'python';
+      const wrapped = '```' + lang + '\n' + workspaceFiles[activeFile] + '\n```';
+      let formalConstraints = null;
+      if (includeFormal) {
+        try { formalConstraints = JSON.parse(document.getElementById('formalSpecInput').value); } catch {}
+      }
+      switchConsoleTab('verifier');
+      document.getElementById('verOutput').textContent = 'Running Neural-Symbolic Formal Verifier...';
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/verify`, {
+          method: 'POST',
+          headers: authHeaders(),
+          body: JSON.stringify({ response_text: wrapped, formal_constraints: formalConstraints }),
+        });
+        if (res.status === 401) { openModal('modalApiKey'); return; }
+        const data = await res.json();
+        document.getElementById('verMeta').innerHTML =
+          `<span class="${data.passed ? 'badge-inv' : 'badge-out'}">${data.passed ? 'VERIFIED PASS' : 'AUDIT FAILED'}</span>` +
+          `<span>R=${data.r_total}</span><span>Correctness=${data.r_correctness}</span><span>Security=${data.r_security}</span>`;
+        const pretty = JSON.stringify(data, null, 2);
+        document.getElementById('verOutput').textContent = pretty;
+        document.getElementById('artifactBody').textContent = '=== FORMAL VERIFIER REPORT (' + activeFile + ') ===\n\n' + pretty;
+      } catch (err) {
+        document.getElementById('verOutput').textContent = String(err);
+      }
+    }
+
+    // ---- LIVE SSE ANTIGRAVITY AGENT ----
+    function parseConcodeThink(rawText) {
+      const thinkMatch = rawText.match(/<concode_think>([\s\S]*?)<\/concode_think>/i);
+      const thinkBody = thinkMatch ? thinkMatch[1].trim() : '';
+      let visible = thinkMatch ? rawText.replace(thinkMatch[0], '').trim() : rawText.trim();
+      visible = visible.replace(/^\[STATE:[^\]]+\]\[ACTION:[^\]]+\]\s*/i, '');
+      return { thinkBody, visible };
+    }
+
+    function renderThoughtAccordion(thinkBody, latencyMs) {
+      if (!thinkBody) return '';
+      const tagRegex = /<(step|verify|backtrack)>([\s\S]*?)<\/\1>/gi;
+      const rows = [];
+      let m;
+      while ((m = tagRegex.exec(thinkBody)) !== null) {
+        rows.push(`<div class="think-tag-row"><div class="think-tag-label">${m[1].toUpperCase()}</div><div>${escapeHtml(m[2].trim())}</div></div>`);
+      }
+      const inner = rows.length ? rows.join('') : `<div class="think-tag-row">${escapeHtml(thinkBody)}</div>`;
+      const sec = ((latencyMs || 0) / 1000).toFixed(2);
+      return `<details class="thought-accordion"><summary><span>Thought for ${sec}s (&lt;concode_think&gt;)</span><span>Expand</span></summary><div class="thought-content">${inner}</div></details>`;
+    }
+
+    function renderMarkdownBlocks(container, text) {
+      const regex = /```([a-zA-Z0-9_+-]*)\n([\s\S]*?)```/g;
+      let lastIdx = 0;
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        const before = text.slice(lastIdx, match.index).trim();
+        if (before) { const p = document.createElement('p'); p.textContent = before; container.appendChild(p); }
+        const lang = (match[1] || 'python').trim().toLowerCase();
+        const code = match[2].trim();
+
+        const card = document.createElement('div');
+        card.className = 'code-card';
+        const head = document.createElement('div');
+        head.className = 'code-card-head';
+        head.innerHTML = `<span>${escapeHtml(lang.toUpperCase())}</span>`;
+        const acts = document.createElement('div');
+        acts.className = 'code-card-actions';
+
+        const btnDiff = document.createElement('button');
+        btnDiff.className = 'code-act-btn';
+        btnDiff.textContent = 'DIFF';
+        btnDiff.onclick = () => openDiffReview(activeFile, code);
+
+        const btnInsert = document.createElement('button');
+        btnInsert.className = 'code-act-btn';
+        btnInsert.textContent = 'APPLY';
+        btnInsert.onclick = () => { workspaceFiles[activeFile] = code; setCenterStage('editor'); renderWorkspace(); toast('Applied to ' + activeFile); };
+
+        const btnRun = document.createElement('button');
+        btnRun.className = 'code-act-btn';
+        btnRun.textContent = 'RUN';
+        btnRun.onclick = () => {
+          const runLang = (lang === 'js' || lang === 'javascript' || lang === 'ts' || lang === 'typescript') ? 'javascript' : 'python';
+          runInInterpreter(code, runLang, false);
+        };
+
+        const btnCopy = document.createElement('button');
+        btnCopy.className = 'code-act-btn';
+        btnCopy.textContent = 'COPY';
+        btnCopy.onclick = () => { navigator.clipboard && navigator.clipboard.writeText(code); toast('Copied code'); };
+
+        acts.appendChild(btnDiff);
+        acts.appendChild(btnInsert);
+        acts.appendChild(btnRun);
+        acts.appendChild(btnCopy);
+        head.appendChild(acts);
+
+        const pre = document.createElement('pre');
+        pre.textContent = code;
+        card.appendChild(head);
+        card.appendChild(pre);
+        container.appendChild(card);
+        lastIdx = regex.lastIndex;
+      }
+      const tail = text.slice(lastIdx).trim();
+      if (tail) { const p = document.createElement('p'); p.textContent = tail; container.appendChild(p); }
+    }
+
+    function upsertStepRow(timelineEl, stepData) {
+      let row = timelineEl.querySelector(`[data-phase="${stepData.phase}"]`);
+      if (!row) {
+        row = document.createElement('div');
+        row.className = 'step-row';
+        row.dataset.phase = stepData.phase;
+        timelineEl.appendChild(row);
+      }
+      const isDone = stepData.status === 'done';
+      row.innerHTML =
+        `<span class="step-tag ${isDone ? 'done' : ''}">${isDone ? 'DONE' : 'RUN'}</span>` +
+        `<div><div>${escapeHtml(stepData.label || '')}</div><div class="step-sub">${escapeHtml(stepData.detail || '')}</div></div>`;
+    }
+
+    async function sendToConcodeApex(promptOverride = null) {
+      const inputEl = document.getElementById('promptInput');
+      const goal = (promptOverride !== null ? promptOverride : inputEl.value).trim();
+      if (!goal) return;
+
+      const welcome = document.getElementById('welcomeCard');
+      if (welcome) welcome.remove();
+
+      const stream = document.getElementById('agentStream');
+      const userDiv = document.createElement('div');
+      userDiv.className = 'msg-user';
+      userDiv.textContent = goal;
+      stream.appendChild(userDiv);
+      if (promptOverride === null) inputEl.value = '';
+
+      const msgDiv = document.createElement('div');
+      msgDiv.className = 'msg-agent';
+      const timeline = document.createElement('div');
+      timeline.className = 'step-timeline';
+      upsertStepRow(timeline, { phase: 'init', status: 'running', label: 'Connecting to CONCODE v4.0 APEX...', detail: 'Mode: ' + document.getElementById('modelModeSelect').value });
+      msgDiv.appendChild(timeline);
+      stream.appendChild(msgDiv);
+      stream.scrollTop = stream.scrollHeight;
+
+      workspaceFiles[activeFile] = document.getElementById('codeEditor').value;
+      let formalConstraints = null;
+      if (includeFormal) {
+        try { formalConstraints = JSON.parse(document.getElementById('formalSpecInput').value); } catch {}
+      }
+      document.getElementById('btnSend').disabled = true;
+
+      try {
+        const res = await fetch(`${API_BASE}/api/v1/apex/stream`, {
+          method: 'POST',
+          headers: authHeaders(),
+          body: JSON.stringify({
+            goal,
+            project_id: activeProjectId,
+            workspace_files: includeWorkspace ? workspaceFiles : {},
+            session_id: sessionId,
+            compute_mode: document.getElementById('modelModeSelect').value,
+            formal_constraints: formalConstraints,
+            max_mcts_rollouts: 3,
+          }),
+        });
+
+        if (res.status === 401) { openModal('modalApiKey'); return; }
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          upsertStepRow(timeline, { phase: 'init', status: 'done', label: `HTTP ${res.status}`, detail: errData.detail || 'Attach a Frontier MoE or local model via + Attach 1T MoE' });
+          return;
+        }
+
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+        let finalPayload = null;
+
+        while (true) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buffer += decoder.decode(value, { stream: true });
+          const frames = buffer.split('\n\n');
+          buffer = frames.pop() || '';
+          for (const frame of frames) {
+            const evMatch = frame.match(/^event:\s*(.+)$/m);
+            const dataMatch = frame.match(/^data:\s*(.+)$/m);
+            if (!evMatch || !dataMatch) continue;
+            const evName = evMatch[1].trim();
+            const payload = JSON.parse(dataMatch[1]);
+            if (evName === 'step') {
+              const initRow = timeline.querySelector('[data-phase="init"]');
+              if (initRow) initRow.remove();
+              upsertStepRow(timeline, payload);
+              stream.scrollTop = stream.scrollHeight;
+            } else if (evName === 'error') {
+              upsertStepRow(timeline, { phase: 'inference', status: 'done', label: 'Inference Error', detail: payload.detail || 'Model failed' });
+            } else if (evName === 'complete') {
+              upsertStepRow(timeline, { phase: 'inference', status: 'done', label: 'CONCODE v4.0 APEX Inference Complete', detail: `${Math.round(payload.latency_ms || 0)} ms` });
+              finalPayload = payload;
+            }
+          }
+        }
+
+        if (finalPayload) {
+          const routing = finalPayload.compute_routing || {};
+          const ver = finalPayload.verification || {};
+          const meta = finalPayload.metacognition || {};
+          const topGuild = (finalPayload.activated_guilds && finalPayload.activated_guilds[0]) ? finalPayload.activated_guilds[0].guild : 'system_architect';
+
+          document.getElementById('telMode').textContent = routing.compute_mode || '--';
+          document.getElementById('telReward').textContent = ver.r_total != null ? ver.r_total.toFixed(2) : '--';
+          document.getElementById('telEpistemic').textContent = meta.epistemic_uncertainty != null ? meta.epistemic_uncertainty.toFixed(2) : '0.00';
+          document.getElementById('telGraph').textContent = String(finalPayload.graph_rag_nodes_used || 0);
+          const artifactJson = JSON.stringify({
+            compute_routing: routing,
+            activated_guilds: finalPayload.activated_guilds,
+            verification: ver,
+            metacognition: meta,
+            formal_proofs: finalPayload.formal_proofs,
+            moa_proposals: finalPayload.moa_proposals,
+            grpo_advantages: finalPayload.grpo_advantages,
+          }, null, 2);
+          document.getElementById('telDetails').textContent = artifactJson;
+          document.getElementById('artifactBody').textContent = '=== CONCODE v4.0 APEX RUN ARTIFACT ===\n\n' + artifactJson;
+
+          const metaBar = document.createElement('div');
+          metaBar.className = 'agent-meta-bar';
+          metaBar.innerHTML =
+            `<span class="meta-pill solid">${escapeHtml(routing.compute_mode || 'APEX')} · ${routing.effective_total_params_b || 7}B</span>` +
+            `<span class="meta-pill">GUILD: ${escapeHtml(topGuild)}</span>` +
+            `<span class="meta-pill">R=${ver.r_total ?? '--'} ${ver.passed ? 'PASS' : 'AUDIT'}</span>` +
+            `<span class="meta-pill">${Math.round(finalPayload.latency_ms || 0)}ms</span>`;
+          msgDiv.appendChild(metaBar);
+
+          const { thinkBody, visible } = parseConcodeThink(finalPayload.response || '');
+          if (thinkBody) {
+            const wrap = document.createElement('div');
+            wrap.innerHTML = renderThoughtAccordion(thinkBody, finalPayload.latency_ms);
+            msgDiv.appendChild(wrap.firstElementChild);
+          }
+
+          const bodyEl = document.createElement('div');
+          bodyEl.className = 'agent-body';
+          renderMarkdownBlocks(bodyEl, visible || finalPayload.response || '(Empty response)');
+          msgDiv.appendChild(bodyEl);
+        }
+      } catch (err) {
+        upsertStepRow(timeline, { phase: 'err', status: 'done', label: 'Network Error', detail: String(err) });
+      } finally {
+        document.getElementById('btnSend').disabled = false;
+        stream.scrollTop = stream.scrollHeight;
+      }
+    }
+
+    // ---- DRAGGABLE RESIZERS ----
+    function initResizers() {
+      const root = document.documentElement;
+      const bindDrag = (el, onMove) => {
+        el.addEventListener('mousedown', (e) => {
+          e.preventDefault();
+          el.classList.add('dragging');
+          const move = (ev) => onMove(ev);
+          const up = () => {
+            el.classList.remove('dragging');
+            window.removeEventListener('mousemove', move);
+            window.removeEventListener('mouseup', up);
+          };
+          window.addEventListener('mousemove', move);
+          window.addEventListener('mouseup', up);
+        });
+      };
+      bindDrag(document.getElementById('resizerLeft'), (ev) => {
+        const w = Math.max(170, Math.min(420, ev.clientX));
+        root.style.setProperty('--left-w', w + 'px');
+      });
+      bindDrag(document.getElementById('resizerRight'), (ev) => {
+        const w = Math.max(300, Math.min(680, window.innerWidth - ev.clientX));
+        root.style.setProperty('--right-w', w + 'px');
+      });
+      bindDrag(document.getElementById('resizerConsole'), (ev) => {
+        const h = Math.max(120, Math.min(window.innerHeight - 260, window.innerHeight - 24 - ev.clientY));
+        root.style.setProperty('--console-h', h + 'px');
+      });
+    }
+
+    // ---- COMMAND PALETTE (Cmd+K) ----
+    const COMMANDS = [
+      { label: 'Run Active File in Sandbox', kbd: 'Cmd+Enter', run: () => runInInterpreter() },
+      { label: 'Run Workspace Unit Tests', kbd: '', run: () => runInInterpreter(null, null, true) },
+      { label: 'Run Neural-Symbolic Formal Verifier (SMT + CWE)', kbd: '', run: () => runFormalVerify() },
+      { label: 'Ask CONCODE to Audit Active File', kbd: '', run: () => sendToConcodeApex(`Audit ${activeFile} for bugs and CWE vulnerabilities and provide the hardened replacement.`) },
+      { label: 'Attach Frontier 1T+ Sparse MoE Node', kbd: '', run: () => openModal('modalMesh') },
+      { label: 'Register New Future Project Manifest', kbd: '', run: () => openModal('modalProject') },
+      { label: 'Create New Workspace File', kbd: '', run: () => { document.getElementById('inlineNewFile').classList.add('open'); document.getElementById('newFileNameInput').focus(); } },
+      { label: 'Browse CONCODE Repository Source Files', kbd: '', run: () => { sidebarMode = 'repo'; document.querySelectorAll('.sidebar-tab').forEach((b) => b.classList.toggle('active', b.dataset.side === 'repo')); renderFileList(); } },
+      { label: 'Open Verification Artifact View', kbd: '', run: () => setCenterStage('artifact') },
+      { label: 'Open 3D Neural Brain Visualizer', kbd: '', run: () => window.open('/3d', '_blank') },
+    ];
+
+    function renderPalette(query = '') {
+      const q = query.trim().toLowerCase();
+      const list = document.getElementById('paletteList');
+      list.innerHTML = '';
+      COMMANDS.filter((c) => !q || c.label.toLowerCase().includes(q)).forEach((c) => {
+        const div = document.createElement('div');
+        div.className = 'palette-item';
+        div.innerHTML = `<span>${escapeHtml(c.label)}</span>${c.kbd ? `<span class="kbd">${c.kbd}</span>` : ''}`;
+        div.onclick = () => { closeModals(); c.run(); };
+        list.appendChild(div);
+      });
+    }
+
+    // ---- MODALS & PRESETS ----
+    function openModal(id) {
+      closeModals();
+      document.getElementById(id).classList.add('open');
+      if (id === 'modalApiKey') document.getElementById('apiKeyInput').value = getApiKey();
+      if (id === 'modalPalette') {
+        const pi = document.getElementById('paletteInput');
+        pi.value = '';
+        renderPalette('');
+        setTimeout(() => pi.focus(), 10);
+      }
+    }
+    function closeModals() {
+      document.querySelectorAll('.modal-backdrop').forEach((m) => m.classList.remove('open'));
+    }
+    window.closeModals = closeModals;
+    document.querySelectorAll('.modal-backdrop').forEach((bd) => {
+      bd.addEventListener('click', (e) => { if (e.target === bd) closeModals(); });
+    });
+
+    window.fillMeshPreset = function(preset) {
+      const presets = {
+        kimi: { id: 'kimi_k2_1t', model: 'moonshotai/Kimi-K2-Instruct', total: 1000, active: 32, url: 'https://api.together.xyz/v1' },
+        deepseek: { id: 'deepseek_r1_671b', model: 'deepseek-ai/DeepSeek-R1', total: 671, active: 37, url: 'https://api.deepseek.com/v1' },
+        qwen: { id: 'qwen3_coder_480b', model: 'Qwen/Qwen3-Coder-480B-A35B-Instruct', total: 480, active: 35, url: 'https://api.together.xyz/v1' },
+        local_vllm: { id: 'local_ollama', model: 'qwen2.5-coder:32b', total: 32, active: 32, url: 'http://127.0.0.1:11434/v1' },
+      };
+      const p = presets[preset];
+      if (!p) return;
+      document.getElementById('mnId').value = p.id;
+      document.getElementById('mnModel').value = p.model;
+      document.getElementById('mnTotalB').value = p.total;
+      document.getElementById('mnActiveB').value = p.active;
+      document.getElementById('mnUrl').value = p.url;
+    };
+
+    // ---- EVENT WIRING ----
+    const codeEditor = document.getElementById('codeEditor');
+    codeEditor.addEventListener('input', () => {
+      workspaceFiles[activeFile] = codeEditor.value;
+      syncEditorVisuals();
+    });
+    codeEditor.addEventListener('scroll', () => {
+      document.getElementById('editorHighlight').scrollTop = codeEditor.scrollTop;
+      document.getElementById('editorHighlight').scrollLeft = codeEditor.scrollLeft;
+      document.getElementById('lineGutter').scrollTop = codeEditor.scrollTop;
+    });
+    codeEditor.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        const s = codeEditor.selectionStart, end = codeEditor.selectionEnd;
+        codeEditor.value = codeEditor.value.substring(0, s) + '    ' + codeEditor.value.substring(end);
+        codeEditor.selectionStart = codeEditor.selectionEnd = s + 4;
+        workspaceFiles[activeFile] = codeEditor.value;
+        syncEditorVisuals();
+      } else if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+        e.preventDefault();
+        runInInterpreter();
+      }
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openModal('modalPalette');
+      } else if (e.key === 'Escape') {
+        closeModals();
+      }
+    });
+
+    document.getElementById('paletteInput').addEventListener('input', (e) => renderPalette(e.target.value));
+    document.getElementById('btnCmdPalette').onclick = () => openModal('modalPalette');
+
+    document.querySelectorAll('.sidebar-tab').forEach((btn) => {
+      btn.onclick = () => {
+        sidebarMode = btn.dataset.side;
+        document.querySelectorAll('.sidebar-tab').forEach((b) => b.classList.toggle('active', b === btn));
+        renderFileList();
+      };
+    });
+    document.getElementById('fileFilterInput').addEventListener('input', renderFileList);
+
+    document.getElementById('btnNewFile').onclick = () => {
+      const box = document.getElementById('inlineNewFile');
+      box.classList.toggle('open');
+      if (box.classList.contains('open')) document.getElementById('newFileNameInput').focus();
+    };
+    const commitNewFile = () => {
+      const inp = document.getElementById('newFileNameInput');
+      const name = inp.value.trim();
+      if (!name) return;
+      if (!workspaceFiles[name]) workspaceFiles[name] = '';
+      activeFile = name;
+      inp.value = '';
+      document.getElementById('inlineNewFile').classList.remove('open');
+      sidebarMode = 'workspace';
+      setCenterStage('editor');
+      renderWorkspace();
+      toast('Created ' + name);
+    };
+    document.getElementById('btnConfirmNewFile').onclick = commitNewFile;
+    document.getElementById('newFileNameInput').addEventListener('keydown', (e) => { if (e.key === 'Enter') commitNewFile(); });
+
+    document.getElementById('btnAcceptDiff').onclick = () => {
+      if (!pendingDiff) return;
+      workspaceFiles[pendingDiff.targetFile] = pendingDiff.proposedCode;
+      activeFile = pendingDiff.targetFile;
+      pendingDiff = null;
+      setCenterStage('editor');
+      renderWorkspace();
+      toast('Patch accepted');
+    };
+    document.getElementById('btnRejectDiff').onclick = () => {
+      pendingDiff = null;
+      setCenterStage('editor');
+      toast('Patch rejected');
+    };
+
+    document.getElementById('promptInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendToConcodeApex(); }
+    });
+    document.getElementById('btnSend').onclick = () => sendToConcodeApex();
+    document.getElementById('btnRunTop').onclick = () => runInInterpreter();
+    document.getElementById('btnRunTests').onclick = () => runInInterpreter(null, null, true);
+    document.getElementById('btnVerifyCode').onclick = () => runFormalVerify();
+    document.getElementById('btnAskFix').onclick = () => {
+      sendToConcodeApex(`Audit and harden ${activeFile} for bugs, security CWEs, and edge cases. Provide the corrected full code.`);
+    };
+    document.getElementById('btnOpenArtifact').onclick = () => setCenterStage('artifact');
+
+    document.getElementById('replInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && e.target.value.trim()) {
+        const expr = e.target.value.trim();
+        e.target.value = '';
+        runInInterpreter(`print(repr(${expr}))`, 'python', false);
+      }
+    });
+    document.getElementById('btnClearConsole').onclick = () => { document.getElementById('termOutput').textContent = ''; };
+    document.querySelectorAll('.console-tab').forEach((b) => { b.onclick = () => switchConsoleTab(b.dataset.tab); });
+    document.querySelectorAll('.starter-btn').forEach((b) => { b.onclick = () => sendToConcodeApex(b.dataset.prompt); });
+
+    document.getElementById('projectSelect').onchange = (e) => { activeProjectId = e.target.value; renderInvariants(); };
+    document.getElementById('btnToggleCtx').onclick = (e) => { includeWorkspace = !includeWorkspace; e.target.classList.toggle('active', includeWorkspace); };
+    document.getElementById('btnToggleFormal').onclick = (e) => {
+      includeFormal = !includeFormal;
+      e.target.classList.toggle('active', includeFormal);
+      document.getElementById('formalDrawer').classList.toggle('open', includeFormal);
+    };
+    document.getElementById('btnResetChat').onclick = () => {
+      sessionId = (crypto.randomUUID ? crypto.randomUUID() : 'sess-' + Date.now());
+      document.getElementById('agentStream').innerHTML = '';
+      toast('Session reset');
+    };
+
+    document.getElementById('btnNewProject').onclick = () => openModal('modalProject');
+    document.getElementById('btnAttachMoE').onclick = () => openModal('modalMesh');
+    document.getElementById('btnApiKey').onclick = () => openModal('modalApiKey');
+
+    document.getElementById('btnSaveApiKey').onclick = () => {
+      localStorage.setItem('concode_studio_api_key', document.getElementById('apiKeyInput').value.trim());
+      closeModals();
+      refreshSystemState();
+      toast('API Key saved');
+    };
+    document.getElementById('btnSaveProject').onclick = async () => {
+      const payload = {
+        project_id: document.getElementById('pmId').value.trim(),
+        project_name: document.getElementById('pmName').value.trim(),
+        domain_type: document.getElementById('pmDomain').value.trim() || 'universal-systems',
+        tech_stack: document.getElementById('pmStack').value.split(',').map((s) => s.trim()).filter(Boolean),
+        critical_invariants: document.getElementById('pmInvariants').value.split('\n').map((s) => s.trim()).filter(Boolean),
+      };
+      if (!payload.project_id || !payload.project_name) { toast('Project ID and Name required'); return; }
+      const res = await fetch(`${API_BASE}/api/v1/projects/register`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(payload) });
+      if (res.ok) {
+        activeProjectId = payload.project_id.toLowerCase().replace(/\s+/g, '_');
+        closeModals();
+        await refreshSystemState();
+        toast('Bound project: ' + payload.project_name);
+      } else { toast('Register failed: ' + res.status); }
+    };
+    document.getElementById('btnSaveMesh').onclick = async () => {
+      const payload = {
+        node_id: document.getElementById('mnId').value.trim(),
+        base_url: document.getElementById('mnUrl').value.trim(),
+        model: document.getElementById('mnModel').value.trim(),
+        api_key: document.getElementById('mnKey').value.trim(),
+        total_params_b: Number(document.getElementById('mnTotalB').value) || 671,
+        active_params_b: Number(document.getElementById('mnActiveB').value) || 37,
+      };
+      const res = await fetch(`${API_BASE}/api/v1/mesh/register`, { method: 'POST', headers: authHeaders(), body: JSON.stringify(payload) });
+      if (res.ok) {
+        closeModals();
+        await refreshSystemState();
+        toast('Connected MoE node: ' + payload.node_id);
+      } else {
+        const d = await res.json().catch(() => ({}));
+        toast(d.detail || ('Node error: ' + res.status));
+      }
+    };
+
+    initResizers();
+    renderWorkspace();
+    refreshSystemState();
+  </script>
+</body>
+</html>

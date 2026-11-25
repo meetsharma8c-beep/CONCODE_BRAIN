@@ -246,9 +246,10 @@ async def travel_pipeline(request: TravelRequest):
         payload = {
             "model": model,
             "messages": messages,
-            "max_tokens": 2048,
+            "max_tokens": 4096 if request.mode == "itinerary" else 2048,
             "temperature": 0.3,
             "top_p": 0.9,
+            **({"reasoning_effort": "low"} if "gpt-oss" in model else {}),
         }
         try:
             async with httpx.AsyncClient(timeout=REMOTE_TIMEOUT_SECONDS) as client:
@@ -287,3 +288,26 @@ async def travel_pipeline(request: TravelRequest):
         is_estimate=True,
         latency_ms=round((time.perf_counter() - started_at) * 1000, 2),
     )
+
+
+class CloudVerifyRequest(BaseModel):
+    response_text: str = Field(default="", max_length=50_000)
+    formal_constraints: Optional[dict[str, Any]] = None
+    require_reasoning_contract: bool = False
+
+
+@app.post("/api/v1/verify", dependencies=[Depends(_require_api_key)])
+def verify_formal_cloud(request: CloudVerifyRequest) -> dict[str, Any]:
+    """Always-on cloud Z3 SMT / exact formal verifier endpoint for TripVerse budget & deadlock proofs."""
+    try:
+        from formal_verifier import FormalVerifier  # type: ignore
+    except ImportError:
+        from src.brain.formal_verifier import FormalVerifier  # type: ignore
+
+    verifier = FormalVerifier()
+    report = verifier.verify_response(
+        response_text=request.response_text,
+        formal_constraints=request.formal_constraints,
+        require_reasoning_contract=request.require_reasoning_contract,
+    )
+    return report.to_dict()

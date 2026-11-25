@@ -1,0 +1,124 @@
+{
+  "universal": {
+    "project_id": "universal",
+    "project_name": "Universal Software Architecture",
+    "assistant_persona": "CONCODE_BRAIN v4.0 APEX",
+    "domain_type": "universal-systems",
+    "tech_stack": [
+      "Python",
+      "TypeScript",
+      "Go",
+      "Rust",
+      "SQL",
+      "Kubernetes"
+    ],
+    "critical_invariants": [
+      "Analyze first-principles failure modes before emitting code.",
+      "Audit all boundaries for OWASP Top 10, CWE vulnerabilities, and concurrency races.",
+      "Structure architectural decisions using Option A vs. Option B trade-offs."
+    ],
+    "supported_ui_actions": [
+      "none",
+      "code_diff",
+      "security_alert",
+      "arch_preview"
+    ],
+    "preferred_compute_tier": "auto",
+    "metadata": {}
+  },
+  "tripverse": {
+    "project_id": "tripverse",
+    "project_name": "TripVerse — Global AI Travel Planner (trip-verse.com)",
+    "assistant_persona": "CONCODE_ARGON_COPILOT",
+    "domain_type": "real-time-travel-intelligence",
+    "tech_stack": [
+      "React 19",
+      "TypeScript",
+      "Vite",
+      "Capacitor 8 (Android/iOS)",
+      "Vercel Serverless",
+      "Firebase Auth & Firestore",
+      "SerpApi Google Flights & Hotels",
+      "Indian Rail Live Schedules",
+      "Open-Meteo Weather",
+      "OpenStreetMap Overpass"
+    ],
+    "critical_invariants": [
+      "REAL-TIME MARKET DATA: TripVerse uses live SerpApi Google Flights fares, live Google Hotels nightly rates, live Indian Rail schedules, live Open-Meteo weather, and live OpenStreetMap POIs.",
+      "DESTINATION != STATION: Never hallucinate direct airports or train stations where none exist; resolve nearest hub + transfer distance.",
+      "EXACT BUDGET ARITHMETIC: transport + accommodation + food + activities + buffer must never silently exceed totalBudget.",
+      "HONEST BOOKING HANDOFF: TripVerse plans and prices in real time; final payment/booking completes on external partner portals.",
+      "AVATAR STATE CONTRACT: Begin every chat reply with [STATE:idle], [STATE:excited], or [STATE:warning].",
+      "ZERO FABRICATED DATA: Never invent flight numbers, train numbers, PNRs, or unverified prices."
+    ],
+    "supported_ui_actions": [
+      "CHECK_BUDGET",
+      "VIEW_ITINERARY",
+      "EXPLORE_FOOD",
+      "START_NAV",
+      "PRINT_GUIDE",
+      "OPEN_SHARE",
+      "OPEN_MODAL",
+      "MAKE_CHEAPER"
+    ],
+    "preferred_compute_tier": "auto",
+    "metadata": {}
+  },
+  "nexus_fintech": {
+    "project_id": "nexus_fintech",
+    "project_name": "NexusPay Multi-Tenant Ledger Engine",
+    "assistant_persona": "CONCODE Sentinel",
+    "domain_type": "fintech-saas",
+    "tech_stack": [
+      "Go 1.24",
+      "PostgreSQL 17",
+      "Redis 7",
+      "Next.js 15",
+      "Kafka",
+      "Docker"
+    ],
+    "critical_invariants": [
+      "Never use IEEE-754 floats for monetary math; enforce 64-bit integer minor units.",
+      "All SQL mutations must bind tenant_id via composite WHERE or transaction-local RLS.",
+      "All payment webhooks require atomic ON CONFLICT idempotency keys and constant-time HMAC.",
+      "Outbound webhook requests must enforce DNS-resolved SSRF egress guards (CWE-918)."
+    ],
+    "supported_ui_actions": [
+      "none",
+      "audit_lock",
+      "tenant_isolation",
+      "db_triage",
+      "security_block"
+    ],
+    "preferred_compute_tier": "auto",
+    "metadata": {}
+  },
+  "devtools_ide": {
+    "project_id": "devtools_ide",
+    "project_name": "Autonomous AI Coding and Agent IDE",
+    "assistant_persona": "CONCODE Architect",
+    "domain_type": "devtools-ide",
+    "tech_stack": [
+      "Rust",
+      "Tauri",
+      "TypeScript",
+      "WebAssembly",
+      "pgvector",
+      "vLLM"
+    ],
+    "critical_invariants": [
+      "Never execute raw shell commands outside isolated sandbox capability boundaries.",
+      "All automated code edits must pass AST syntax and unit test verification before commit.",
+      "In-memory vector indices must enforce bounded capacity and TTL eviction."
+    ],
+    "supported_ui_actions": [
+      "none",
+      "ast_diff",
+      "compile_check",
+      "sandbox_exec",
+      "pr_review"
+    ],
+    "preferred_compute_tier": "auto",
+    "metadata": {}
+  }
+}

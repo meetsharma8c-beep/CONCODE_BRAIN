@@ -16,6 +16,10 @@ const ConcodeBrain = (() => {
   const COGNITIVE_ENDPOINT = `${API_BASE}/api/v1/cognitive`;
   const AGENT_ENDPOINT = `${API_BASE}/api/v1/agent`;
   const UNIVERSAL_ENDPOINT = `${API_BASE}/api/v1/universal`;
+  const APEX_ENDPOINT = `${API_BASE}/api/v1/apex`;
+  const PROJECTS_ENDPOINT = `${API_BASE}/api/v1/projects`;
+  const VERIFY_ENDPOINT = `${API_BASE}/api/v1/verify`;
+  const MESH_ENDPOINT = `${API_BASE}/api/v1/mesh`;
   const TOOLS_ENDPOINT = `${API_BASE}/api/v1/tools`;
   const GUILDS_ENDPOINT = `${API_BASE}/api/v1/guilds`;
   const STATUS_ENDPOINT = `${API_BASE}/api/v1/status`;
@@ -266,6 +270,75 @@ const ConcodeBrain = (() => {
     return response.json();
   }
 
+  // ── CONCODE v4.0 APEX Frontier Engine ──────────────────────
+  async function solveApex(goal, options = {}) {
+    const {
+      projectId = 'universal',
+      projectManifest = null,
+      workspaceFiles = collectWorkspaceFiles(),
+      computeMode = 'auto',
+      formalConstraints = null,
+      maxMctsRollouts = 3,
+      syncVault = false,
+      apiKey = null,
+    } = options;
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (apiKey) headers['X-API-Key'] = apiKey;
+
+    const response = await fetch(APEX_ENDPOINT, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        goal,
+        project_id: projectId,
+        project_manifest: projectManifest,
+        workspace_files: workspaceFiles,
+        session_id: sessionId,
+        compute_mode: computeMode,
+        formal_constraints: formalConstraints,
+        max_mcts_rollouts: maxMctsRollouts,
+        sync_vault: syncVault,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Brain APEX API error: ${response.status} ${response.statusText}`);
+    }
+    return response.json();
+  }
+
+  async function registerProject(manifest, apiKey = null) {
+    const headers = { 'Content-Type': 'application/json' };
+    if (apiKey) headers['X-API-Key'] = apiKey;
+    const response = await fetch(`${PROJECTS_ENDPOINT}/register`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(manifest),
+    });
+    return response.json();
+  }
+
+  async function verifyFormal(responseText, formalConstraints = null, apiKey = null) {
+    const headers = { 'Content-Type': 'application/json' };
+    if (apiKey) headers['X-API-Key'] = apiKey;
+    const response = await fetch(VERIFY_ENDPOINT, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        response_text: responseText,
+        formal_constraints: formalConstraints,
+      }),
+    });
+    return response.json();
+  }
+
+  async function getMeshStatus(apiKey = null) {
+    const headers = apiKey ? { 'X-API-Key': apiKey } : {};
+    const response = await fetch(MESH_ENDPOINT, { headers });
+    return response.json();
+  }
+
   // ── Status & Health ────────────────────────────────────────
   async function getStatus() {
     const response = await fetch(STATUS_ENDPOINT);
@@ -298,6 +371,10 @@ const ConcodeBrain = (() => {
     query,
     agent,
     solveUniversal,
+    solveApex,
+    registerProject,
+    verifyFormal,
+    getMeshStatus,
     getTools,
     insertCode,
     queryAndInsert,

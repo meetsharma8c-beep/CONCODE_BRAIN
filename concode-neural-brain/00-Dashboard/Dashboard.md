@@ -5,12 +5,12 @@ tags:
   - system/brain
   - type/dashboard
   - status/online
-version: 1.0.0
-total_parameters: 7,000,000,000+
-subsystems_count: 6
-guilds_count: 13
-last_updated: 2026-08-16
-status: training-and-deployment-complete
+version: 4.0.0-apex
+total_parameters: Hybrid 7B Local Eco -> 1T+ Frontier Sparse MoE Mesh
+subsystems_count: 19
+guilds_count: 18
+last_updated: 2026-11-23
+status: apex-v4-operational
 ---
 
 # CONCODE Neural Brain — Master Dashboard
@@ -68,6 +68,12 @@ graph TD
 | **12** | **Cognitive Memory Manager** | Episodic Store + SHA-256 Cache | -- | Long-term experience replay and live Obsidian vault sync | [[01-Brain-Architecture/15-Cognitive-Memory-Manager|15-Cognitive-Memory-Manager]] |
 | **13** | **Hybrid Compute Router** | 3-Tier Complexity Router | -- | Routes between fast reflex, deep local Metal, and frontier | [[01-Brain-Architecture/16-Hybrid-Compute-Router|16-Hybrid-Compute-Router]] |
 | **14** | **Continual Learning Harvester** | Trajectory + DPO Collector | -- | Harvests verified outputs and repair pairs for QLoRA/DPO | [[01-Brain-Architecture/17-Evolution-Harvester|17-Evolution-Harvester]] |
+| **15** | **APEX v4.0 Frontier Blueprint** | Hybrid 1T+ MoE + System-3 | 480B-1T+ | Master architecture to compete with frontier reasoning models | [[01-Brain-Architecture/18-APEX-Frontier-Architecture|18-APEX-Frontier-Architecture]] |
+| **16** | **Project Manifest Registry** | Dynamic XML Context Injector | -- | Zero-shot cross-project binding for unlimited future apps | [[01-Brain-Architecture/19-Project-Manifest-Registry|19-Project-Manifest-Registry]] |
+| **17** | **Lifelong Temporal GraphRAG** | Directed Temporal Multigraph | -- | Pinned invariants + k-hop subgraph retrieval with decay | [[01-Brain-Architecture/20-Lifelong-Temporal-GraphRAG|20-Lifelong-Temporal-GraphRAG]] |
+| **18** | **Neural-Symbolic Formal Verifier** | Z3 SMT + AST CWE + GRPO Judge | -- | Deductive proofs, deadlock detection, and CWE taint audit | [[01-Brain-Architecture/21-Neural-Symbolic-Formal-Verifier|21-Neural-Symbolic-Formal-Verifier]] |
+| **19** | **Frontier Sparse MoE Mesh** | MoD Router + Parallel MoA | 480B-1T+ | Multi-node 1T MoE inference fabric with local Eco fallback | [[01-Brain-Architecture/22-Frontier-Sparse-MoE-Mesh|22-Frontier-Sparse-MoE-Mesh]] |
+| **20** | **APEX Live MCTS & System-3** | UCT Search + Lyapunov Monitor | -- | Live generative MCTS with cycle detection and self-repair | [[01-Brain-Architecture/23-APEX-Live-MCTS-and-System3|23-APEX-Live-MCTS-and-System3]] |
 
 ---
 

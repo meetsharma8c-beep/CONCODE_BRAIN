@@ -21,7 +21,9 @@ Exposes POST /api/v1/cognitive -- the single endpoint for the website.
 
 import json
 import logging
+import platform
 import re
+import shutil
 import time
 import uuid
 from collections import defaultdict
@@ -29,8 +31,8 @@ from contextlib import asynccontextmanager
 from typing import Any, Dict, List, Literal, Optional
 
 import yaml
-from fastapi import Depends, FastAPI, HTTPException, Response
-from fastapi.responses import HTMLResponse
+from fastapi import Depends, FastAPI, HTTPException, Request, Response
+from fastapi.responses import HTMLResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, field_validator, model_validator
 
@@ -84,6 +86,9 @@ from src.config import (
     SANDBOX_TIMEOUT_SECONDS,
     SANDBOX_MAX_OUTPUT_BYTES,
     MAX_UNIVERSAL_ITERATIONS,
+    PROJECT_MANIFESTS_PATH,
+    KNOWLEDGE_GRAPH_PATH,
+    APEX_MAX_MCTS_ROLLOUTS,
 )
 from src.brain.intent import IntentClassifier
 from src.brain.retriever import WorkspaceRetriever
@@ -97,6 +102,11 @@ from src.brain.swarm import MultiGuildSwarm
 from src.brain.memory import CognitiveMemoryManager
 from src.brain.router import HybridComputeRouter
 from src.brain.evolution import EvolutionHarvester
+from src.brain.project_manifest import ProjectManifest, ProjectManifestRegistry
+from src.brain.graph_rag import LifelongGraphRAG
+from src.brain.formal_verifier import FormalVerifier
+from src.brain.frontier_mesh import FrontierMoEMesh, FrontierNodeConfig
+from src.brain.apex_reasoner import ApexCognitiveEngine
 from src.brain.travel_intel import (
     build_structured_itinerary,
     exact_budget_breakdown,
@@ -159,6 +169,13 @@ compute_router: Optional[HybridComputeRouter] = None
 evolution_harvester: Optional[EvolutionHarvester] = None
 multi_guild_swarm: Optional[MultiGuildSwarm] = None
 
+# CONCODE v4.0 APEX Frontier subsystems
+manifest_registry: Optional[ProjectManifestRegistry] = None
+graph_rag: Optional[LifelongGraphRAG] = None
+formal_verifier: Optional[FormalVerifier] = None
+frontier_mesh: Optional[FrontierMoEMesh] = None
+apex_engine: Optional[ApexCognitiveEngine] = None
+
 
 # -- Session TTL Eviction ------------------------------------------
 def _evict_stale_sessions() -> int:
@@ -192,6 +209,7 @@ async def lifespan(app: FastAPI):
     global ambiguity_detector, empathetic_responder, coding_agent
     global executive_planner, sandbox_executor, tool_bus
     global cognitive_memory, compute_router, evolution_harvester, multi_guild_swarm
+    global manifest_registry, graph_rag, formal_verifier, frontier_mesh, apex_engine
 
     logger.info("=" * 60)
     logger.info("  CONCODE Neural Brain -- Starting Cognitive Engine")
@@ -339,6 +357,41 @@ async def lifespan(app: FastAPI):
         len(tool_bus.list_tools()),
         cognitive_memory.episode_count,
         evolution_harvester.trajectory_count,
+    )
+
+    # 7. CONCODE v4.0 APEX Frontier Subsystems
+    logger.info("Loading CONCODE v4.0 APEX Frontier Subsystems...")
+    manifest_registry = ProjectManifestRegistry(storage_path=PROJECT_MANIFESTS_PATH)
+    graph_rag = LifelongGraphRAG(graph_path=KNOWLEDGE_GRAPH_PATH)
+    for m_dict in manifest_registry.list_all():
+        if f"proj_{m_dict['project_id']}" not in graph_rag.nodes:
+            graph_rag.ingest_project_manifest(m_dict)
+    formal_verifier = FormalVerifier()
+    frontier_mesh = FrontierMoEMesh.from_environment(
+        local_generator=generator,
+        verifier=formal_verifier,
+    )
+    if frontier_mesh.has_frontier_nodes and compute_router is not None:
+        compute_router.secondary_generator = frontier_mesh
+    apex_engine = ApexCognitiveEngine(
+        manifest_registry=manifest_registry,
+        graph_rag=graph_rag,
+        frontier_mesh=frontier_mesh,
+        formal_verifier=formal_verifier,
+        intent_classifier=intent_classifier,
+        guilds_data=guilds_data,
+        evolution_harvester=evolution_harvester,
+        cognitive_memory=cognitive_memory,
+    )
+    total_params_b, max_active_b = frontier_mesh.total_mesh_capacity()
+    logger.info(
+        "  APEX v4.0 ready (projects=%d, graph_nodes=%d, frontier_nodes=%d, capacity=%dB/%dB active, z3=%s)",
+        manifest_registry.count,
+        len(graph_rag.nodes),
+        len(frontier_mesh.nodes),
+        total_params_b,
+        max_active_b,
+        formal_verifier.has_z3,
     )
 
     # Security status
@@ -1398,7 +1451,379 @@ def get_registered_tools():
     return {"tools": tools, "count": len(tools)}
 
 
+# -- CONCODE v4.0 APEX Frontier Endpoints --------------------------
+
+class ProjectManifestPayload(BaseModel):
+    project_id: str = Field(..., min_length=1, max_length=80)
+    project_name: str = Field(..., min_length=1, max_length=160)
+    assistant_persona: str = Field(default="CONCODE_BRAIN", max_length=120)
+    domain_type: str = Field(default="universal-systems", max_length=80)
+    tech_stack: List[str] = Field(default_factory=list, max_length=32)
+    critical_invariants: List[str] = Field(default_factory=list, max_length=32)
+    supported_ui_actions: List[str] = Field(default_factory=lambda: ["none"], max_length=32)
+    preferred_compute_tier: Literal["auto", "reflex", "deep", "mcts", "apex", "apex_moa"] = "auto"
+
+
+class ApexRequest(BaseModel):
+    """Unified CONCODE v4.0 APEX frontier reasoning request."""
+
+    goal: str = Field(..., min_length=1, max_length=MAX_QUERY_LENGTH)
+    project_id: str = Field(default="universal", max_length=80)
+    project_manifest: Optional[ProjectManifestPayload] = None
+    workspace_files: Dict[str, str] = Field(default_factory=dict)
+    session_id: str = Field(default_factory=lambda: str(uuid.uuid4()), max_length=128)
+    compute_mode: Literal["auto", "reflex", "deep", "mcts", "apex", "apex_moa"] = "auto"
+    formal_constraints: Optional[Dict[str, Any]] = None
+    max_mcts_rollouts: int = Field(default=3, ge=1, le=APEX_MAX_MCTS_ROLLOUTS)
+    sync_vault: bool = False
+
+    @field_validator("goal")
+    @classmethod
+    def apex_goal_not_empty(cls, value: str) -> str:
+        cleaned = sanitize_input(value)
+        if not cleaned:
+            raise ValueError("Goal must not be empty.")
+        return cleaned
+
+
+class FormalVerifyRequest(BaseModel):
+    """Direct neural-symbolic verification request (SMT allocations, deadlocks, code, security)."""
+
+    response_text: str = Field(default="", max_length=50_000)
+    formal_constraints: Optional[Dict[str, Any]] = None
+    require_reasoning_contract: bool = False
+
+
+class FrontierNodeRegisterPayload(BaseModel):
+    """Register an OpenAI-compatible Sparse MoE frontier node at runtime."""
+
+    node_id: str = Field(..., min_length=1, max_length=64)
+    base_url: str = Field(..., min_length=8, max_length=500)
+    model: str = Field(..., min_length=1, max_length=200)
+    api_key: str = Field(default="", max_length=512)
+    role: str = Field(default="architect", max_length=40)
+    total_params_b: int = Field(default=671, ge=1, le=100_000)
+    active_params_b: int = Field(default=37, ge=1, le=100_000)
+    max_tokens: int = Field(default=4096, ge=256, le=65_536)
+    priority: int = Field(default=1, ge=1, le=100)
+
+
+@app.post("/api/v1/apex", dependencies=[Depends(verify_api_key)])
+async def apex_pipeline(request: ApexRequest):
+    """
+    Execute the unified CONCODE v4.0 APEX Frontier Cognitive Engine:
+      1. Dynamic cross-project <project_manifest> binding
+      2. Lifelong Temporal GraphRAG k-hop invariant injection
+      3. 18-Guild neural routing
+      4. Mixture-of-Depths (MoD) adaptive compute routing (Reflex -> Deep -> Live MCTS -> MoA Swarm)
+      5. System-3 Metacognitive cycle/stall monitoring and epistemic uncertainty estimation
+      6. Real Neural-Symbolic Formal Verification (Z3/Exact SMT, Deadlock, Multi-Language Compile, CWE Taint)
+      7. Continual RLVR / GRPO Flywheel Harvesting
+    """
+    _evict_stale_sessions()
+    if apex_engine is None or frontier_mesh is None or not frontier_mesh.is_loaded:
+        raise HTTPException(
+            status_code=503,
+            detail="CONCODE v4.0 APEX engine requires at least one operational Frontier MoE or local inference node.",
+        )
+
+    workspace = validate_workspace_files(
+        request.workspace_files,
+        max_files=MAX_WORKSPACE_FILES,
+        max_file_size=MAX_FILE_SIZE,
+        max_total_size=MAX_TOTAL_WORKSPACE_SIZE,
+    )
+    _touch_session(request.session_id)
+    history = session_store.get(request.session_id, [])[-(SESSION_MAX_HISTORY * 2):]
+
+    try:
+        outcome = apex_engine.solve(
+            goal=request.goal,
+            project_id=request.project_id,
+            inline_manifest=request.project_manifest.model_dump() if request.project_manifest else None,
+            workspace_files=workspace,
+            history=history,
+            compute_mode=request.compute_mode,
+            formal_constraints=request.formal_constraints,
+            max_mcts_rollouts=request.max_mcts_rollouts,
+            sync_vault=request.sync_vault,
+        )
+    except ModelGenerationError as error:
+        raise HTTPException(status_code=502, detail=str(error)) from error
+
+    session_store[request.session_id].extend([
+        {"role": "user", "content": request.goal},
+        {"role": "assistant", "content": outcome.response[:4000]},
+    ])
+    if len(session_store[request.session_id]) > SESSION_MAX_HISTORY * 2:
+        session_store[request.session_id] = session_store[request.session_id][-(SESSION_MAX_HISTORY * 2):]
+
+    result = outcome.to_dict()
+    result["session_id"] = request.session_id
+    return result
+
+
+@app.post("/api/v1/apex/stream", dependencies=[Depends(verify_api_key)])
+async def apex_pipeline_stream(request: ApexRequest):
+    """
+    Server-Sent Events (SSE) streaming endpoint for CONCODE Studio IDE.
+    Emits live Antigravity-style agent progress steps before returning the
+    final verified ApexOutcome payload.
+    """
+    _evict_stale_sessions()
+    if apex_engine is None or frontier_mesh is None or not frontier_mesh.is_loaded:
+        raise HTTPException(
+            status_code=503,
+            detail="CONCODE v4.0 APEX engine requires an operational Frontier MoE or local Metal inference node.",
+        )
+
+    workspace = validate_workspace_files(
+        request.workspace_files,
+        max_files=MAX_WORKSPACE_FILES,
+        max_file_size=MAX_FILE_SIZE,
+        max_total_size=MAX_TOTAL_WORKSPACE_SIZE,
+    )
+    _touch_session(request.session_id)
+    history = session_store.get(request.session_id, [])[-(SESSION_MAX_HISTORY * 2):]
+
+    def _sse(event_name: str, payload: Dict[str, Any]) -> str:
+        return f"event: {event_name}\ndata: {json.dumps(payload, ensure_ascii=False)}\n\n"
+
+    def _event_stream():
+        manifest = (
+            ProjectManifest.from_dict(request.project_manifest.model_dump())
+            if request.project_manifest
+            else manifest_registry.get(request.project_id)
+        )
+        yield _sse("step", {
+            "phase": "manifest",
+            "status": "done",
+            "label": f"Bound Project Manifest: {manifest.project_name}",
+            "detail": f"{len(manifest.critical_invariants)} pinned invariants active",
+        })
+
+        preds = (
+            intent_classifier.predict_multi(request.goal, top_k=3)
+            if intent_classifier is not None and hasattr(intent_classifier, "predict_multi")
+            else [("system_architect", 1.0)]
+        )
+        guild_list = [g for g, _ in preds]
+        mod_preview = frontier_mesh.route_mod(
+            goal=request.goal,
+            workspace_files=workspace,
+            active_guilds=guild_list,
+            requested_mode=request.compute_mode,
+            has_formal_constraints=bool(request.formal_constraints),
+        )
+        yield _sse("step", {
+            "phase": "routing",
+            "status": "done",
+            "label": f"MoD Router selected {mod_preview.compute_mode} ({mod_preview.effective_total_params_b}B)",
+            "detail": f"Guilds: {', '.join(guild_list)}",
+        })
+
+        yield _sse("step", {
+            "phase": "inference",
+            "status": "running",
+            "label": "Running CONCODE v4.0 APEX Inference & Verification",
+            "detail": f"Nodes: {', '.join(mod_preview.selected_nodes)}",
+        })
+
+        try:
+            outcome = apex_engine.solve(
+                goal=request.goal,
+                project_id=request.project_id,
+                inline_manifest=request.project_manifest.model_dump() if request.project_manifest else None,
+                workspace_files=workspace,
+                history=history,
+                compute_mode=request.compute_mode,
+                formal_constraints=request.formal_constraints,
+                max_mcts_rollouts=request.max_mcts_rollouts,
+                sync_vault=request.sync_vault,
+            )
+        except ModelGenerationError as err:
+            yield _sse("error", {"detail": str(err)})
+            return
+
+        session_store[request.session_id].extend([
+            {"role": "user", "content": request.goal},
+            {"role": "assistant", "content": outcome.response[:4000]},
+        ])
+        if len(session_store[request.session_id]) > SESSION_MAX_HISTORY * 2:
+            session_store[request.session_id] = session_store[request.session_id][-(SESSION_MAX_HISTORY * 2):]
+
+        ver = outcome.verification
+        yield _sse("step", {
+            "phase": "verify",
+            "status": "done",
+            "label": f"Neural-Symbolic Formal Verifier: R={ver.get('r_total')} ({'PASS' if ver.get('passed') else 'AUDIT'})",
+            "detail": f"GraphRAG: {outcome.graph_rag_nodes_used} nodes | MCTS: {outcome.mcts_rollouts} rollouts",
+        })
+
+        payload = outcome.to_dict()
+        payload["session_id"] = request.session_id
+        yield _sse("complete", payload)
+
+    return StreamingResponse(_event_stream(), media_type="text/event-stream")
+
+
+@app.get("/api/v1/projects", dependencies=[Depends(verify_api_key)])
+def list_projects():
+    """List all registered cross-project manifests."""
+    if manifest_registry is None:
+        return {"projects": [], "count": 0}
+    projects = manifest_registry.list_all()
+    return {"projects": projects, "count": len(projects)}
+
+
+@app.post("/api/v1/projects/register", dependencies=[Depends(verify_api_key)])
+def register_project(payload: ProjectManifestPayload):
+    """Dynamically register a new future project manifest and bind its invariants into LifelongGraphRAG."""
+    if manifest_registry is None or graph_rag is None:
+        raise HTTPException(status_code=503, detail="APEX manifest subsystem is not initialized.")
+    manifest = ProjectManifest.from_dict(payload.model_dump())
+    saved = manifest_registry.register(manifest)
+    nodes_ingested = graph_rag.ingest_project_manifest(saved.to_dict())
+    return {
+        "ok": True,
+        "project": saved.to_dict(),
+        "graph_nodes_ingested": nodes_ingested,
+    }
+
+
+@app.post("/api/v1/verify", dependencies=[Depends(verify_api_key)])
+def verify_formal(request: FormalVerifyRequest):
+    """Run deterministic neural-symbolic verification (SMT, deadlock, compiler, CWE taint) directly."""
+    verifier = formal_verifier or FormalVerifier()
+    report = verifier.verify_response(
+        response_text=request.response_text,
+        formal_constraints=request.formal_constraints,
+        require_reasoning_contract=request.require_reasoning_contract,
+    )
+    return report.to_dict()
+
+
+@app.get("/api/v1/mesh", dependencies=[Depends(verify_api_key)])
+def get_frontier_mesh():
+    """Inspect connected Frontier Sparse MoE nodes, parameter capacity, and supported catalog."""
+    if frontier_mesh is None:
+        raise HTTPException(status_code=503, detail="Frontier MoE Mesh is not initialized.")
+    return frontier_mesh.status()
+
+
+@app.post("/api/v1/mesh/register", dependencies=[Depends(verify_api_key)])
+def register_frontier_node(payload: FrontierNodeRegisterPayload):
+    """Dynamically attach a 235B-1T+ OpenAI-compatible Frontier Sparse MoE node at runtime."""
+    if frontier_mesh is None:
+        raise HTTPException(status_code=503, detail="Frontier MoE Mesh is not initialized.")
+    cfg = FrontierNodeConfig(**payload.model_dump())
+    if not frontier_mesh.register_node(cfg):
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid Frontier node configuration. HTTPS URL + model + api_key required (HTTP permitted only on localhost/127.0.0.1).",
+        )
+    if compute_router is not None:
+        compute_router.secondary_generator = frontier_mesh
+    return {
+        "ok": True,
+        "node": cfg.to_public_dict(),
+        "mesh": frontier_mesh.status(),
+    }
+
+
+class InterpreterExecRequest(BaseModel):
+    """Sandboxed interpreter execution request from CONCODE Studio IDE."""
+
+    code: str = Field(..., min_length=1, max_length=100_000)
+    language: Literal["python", "javascript", "py", "js"] = "python"
+    workspace_files: Dict[str, str] = Field(default_factory=dict)
+    run_tests: bool = False
+
+
+@app.post("/api/v1/interpreter/exec", dependencies=[Depends(verify_api_key)])
+def interpreter_exec(request: InterpreterExecRequest):
+    """
+    Execute user or CONCODE-generated code inside an isolated temporary sandbox
+    with strict timeout enforcement, stripped environment variables, and CWE audit.
+    """
+    workspace = validate_workspace_files(
+        request.workspace_files,
+        max_files=MAX_WORKSPACE_FILES,
+        max_file_size=MAX_FILE_SIZE,
+        max_total_size=MAX_TOTAL_WORKSPACE_SIZE,
+    )
+    runner = SandboxedExecutor(
+        SandboxPolicy(
+            allow_execution=True,
+            timeout_seconds=SANDBOX_TIMEOUT_SECONDS,
+            max_output_bytes=SANDBOX_MAX_OUTPUT_BYTES,
+        )
+    )
+    exec_result = runner.run_snippet(
+        code=request.code,
+        language=request.language,
+        workspace_files=workspace,
+    )
+    test_results = runner.verify_workspace_tests(workspace) if request.run_tests else []
+    verifier = formal_verifier or FormalVerifier()
+    lang_tag = "python" if request.language in ("python", "py") else "typescript"
+    sec_findings = verifier.audit_security(f"```{lang_tag}\n{request.code}\n```")
+
+    return {
+        "ok": exec_result.passed,
+        "execution": exec_result.to_dict(),
+        "test_results": [t.to_dict() for t in test_results],
+        "security_findings": [f.to_dict() for f in sec_findings],
+    }
+
+
+@app.get("/api/v1/interpreter/workspace", dependencies=[Depends(verify_api_key)])
+def interpreter_list_workspace(file: Optional[str] = None):
+    """Read-only browser of CONCODE_BRAIN source files for inspection in CONCODE Studio."""
+    allowed_roots = (PROJECT_ROOT / "src", PROJECT_ROOT / "integration")
+    if file:
+        candidate = (PROJECT_ROOT / file).resolve()
+        if not any(str(candidate).startswith(str(root.resolve())) for root in allowed_roots):
+            raise HTTPException(status_code=403, detail="Access outside src/ and integration/ is forbidden.")
+        if not candidate.is_file():
+            raise HTTPException(status_code=404, detail="File not found.")
+        content = candidate.read_text(encoding="utf-8", errors="replace")[:MAX_FILE_SIZE]
+        return {"path": str(candidate.relative_to(PROJECT_ROOT)), "content": content}
+
+    discovered: List[str] = []
+    for root in allowed_roots:
+        if not root.exists():
+            continue
+        for item in sorted(root.rglob("*")):
+            if item.is_file() and item.suffix in (".py", ".js", ".ts", ".yaml", ".json", ".md"):
+                if "__pycache__" not in item.parts:
+                    discovered.append(str(item.relative_to(PROJECT_ROOT)))
+    return {"files": discovered[:120], "count": len(discovered)}
+
+
 # -- Health & Web UI Endpoints ------------------------------------
+@app.get("/studio", response_class=HTMLResponse)
+@app.get("/ide", response_class=HTMLResponse)
+def render_studio(request: Request):
+    """Serve the Antigravity-style CONCODE Studio Interpreter GUI."""
+    html_path = PROJECT_ROOT / "concode-studio.html"
+    try:
+        if html_path.exists():
+            html = html_path.read_text(encoding="utf-8")
+            client_host = request.client.host if request.client else ""
+            is_loopback = client_host in ("127.0.0.1", "::1", "localhost", "testclient")
+            bootstrap_key = SECURITY_API_KEY if (is_loopback and SECURITY_API_KEY) else ""
+            bootstrap_tag = (
+                f'<script>window.__CONCODE_LOCAL_KEY__ = {json.dumps(bootstrap_key)};</script>'
+            )
+            if "</head>" in html:
+                html = html.replace("</head>", f"  {bootstrap_tag}\n</head>", 1)
+            return HTMLResponse(html)
+    except Exception as e:
+        logger.error(f"Failed to read CONCODE Studio HTML: {e}")
+    return HTMLResponse("<h1>CONCODE Studio file not found</h1>", status_code=404)
+
+
 @app.get("/", response_class=HTMLResponse)
 def root():
     """Serve the CONCODE Neural Brain 3D Interactive Simulation Dashboard."""
@@ -1439,6 +1864,11 @@ def favicon():
 def health():
     """Health check endpoint with dynamic hardware detection."""
     gpu_desc = "CPU (Eco Governor)"
+    if platform.system() == "Darwin" and platform.machine() == "arm64":
+        if shutil.which("llama-server"):
+            gpu_desc = "Apple Silicon Metal (llama.cpp Eco)"
+        else:
+            gpu_desc = "Apple Silicon (Eco Governor)"
     try:
         import torch
         if torch.cuda.is_available():
@@ -1448,12 +1878,19 @@ def health():
     except Exception:
         pass
 
+    total_params_b, max_active_b = (
+        frontier_mesh.total_mesh_capacity() if frontier_mesh is not None else (7, 7)
+    )
     return {
         "ok": True,
         "status": "healthy",
         "version": API_VERSION,
         "gpu": gpu_desc,
         "universal_v3": True,
+        "apex_v4": True,
+        "frontier_nodes": len(frontier_mesh.nodes) if frontier_mesh is not None else 0,
+        "mesh_total_params_b": total_params_b,
+        "mesh_active_params_b": max_active_b,
         "timestamp": time.time(),
     }
 
@@ -1556,6 +1993,24 @@ def system_status():
                 },
                 "evolution_harvester": (
                     evolution_harvester.stats() if evolution_harvester else {"loaded": False}
+                ),
+            },
+            "apex_v4": {
+                "loaded": apex_engine is not None,
+                "project_manifests": manifest_registry.count if manifest_registry else 0,
+                "lifelong_graph_rag": graph_rag.stats() if graph_rag else {"loaded": False},
+                "formal_verifier": {
+                    "loaded": formal_verifier is not None,
+                    "z3_smt_native": formal_verifier.has_z3 if formal_verifier else False,
+                },
+                "frontier_moe_mesh": (
+                    {
+                        "frontier_nodes_connected": len(frontier_mesh.nodes),
+                        "aggregate_total_params_b": frontier_mesh.total_mesh_capacity()[0],
+                        "max_active_params_b": frontier_mesh.total_mesh_capacity()[1],
+                    }
+                    if frontier_mesh is not None
+                    else {"loaded": False}
                 ),
             },
         },
